@@ -19,9 +19,7 @@
       --shadow: 0 12px 36px rgba(29, 37, 40, 0.08);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -30,11 +28,7 @@
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
+    button, input, textarea { font: inherit; }
 
     .app {
       min-height: 100vh;
@@ -57,17 +51,6 @@
       gap: 12px;
     }
 
-    .brand-icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 8px;
-      background: #f0b35a;
-      color: #1c2829;
-      font-weight: 700;
-    }
-
     .school-logo {
       width: 58px;
       height: 58px;
@@ -84,7 +67,6 @@
       margin: 0;
       font-size: 1.35rem;
       font-weight: 650;
-      letter-spacing: 0;
     }
 
     .subtitle {
@@ -93,10 +75,7 @@
       font-size: 0.92rem;
     }
 
-    .class-tabs {
-      display: grid;
-      gap: 10px;
-    }
+    .class-tabs { display: grid; gap: 10px; }
 
     .nav-divider {
       grid-column: 1 / -1;
@@ -129,13 +108,10 @@
     }
 
     .class-tab strong,
-    .class-tab span {
-      display: block;
-    }
+    .class-tab span { display: block; }
 
     .class-tab span {
       margin-top: 2px;
-      color: currentColor;
       opacity: 0.68;
       font-size: 0.86rem;
     }
@@ -166,7 +142,6 @@
       margin: 0;
       font-size: 1.85rem;
       font-weight: 700;
-      letter-spacing: 0;
     }
 
     .meta {
@@ -225,9 +200,7 @@
       color: #ffffff;
     }
 
-    .btn.danger {
-      color: var(--danger);
-    }
+    .btn.danger { color: var(--danger); }
 
     .stats {
       display: grid;
@@ -235,18 +208,14 @@
       gap: 12px;
     }
 
-    .stat,
-    .register,
-    .editor {
+    .stat, .register, .editor {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 8px;
       box-shadow: var(--shadow);
     }
 
-    .stat {
-      padding: 14px;
-    }
+    .stat { padding: 14px; }
 
     .stat-label {
       color: var(--muted);
@@ -275,9 +244,7 @@
       font-weight: 650;
     }
 
-    .student-list {
-      display: grid;
-    }
+    .student-list { display: grid; }
 
     .student-row {
       min-height: 62px;
@@ -285,9 +252,7 @@
       border-bottom: 1px solid var(--line);
     }
 
-    .student-row:last-child {
-      border-bottom: 0;
-    }
+    .student-row:last-child { border-bottom: 0; }
 
     .student-index {
       color: var(--muted);
@@ -304,9 +269,7 @@
       cursor: context-menu;
     }
 
-    .student-name.detention {
-      color: var(--danger);
-    }
+    .student-name.detention { color: var(--danger); }
 
     .status-group {
       display: flex;
@@ -344,9 +307,7 @@
       gap: 12px;
     }
 
-    .editor.open {
-      display: grid;
-    }
+    .editor.open { display: grid; }
 
     .editor label {
       display: grid;
@@ -396,9 +357,7 @@
       color: var(--primary);
     }
 
-    .staff-name {
-      font-weight: 700;
-    }
+    .staff-name { font-weight: 700; }
 
     .staff-role {
       margin-top: 2px;
@@ -414,13 +373,8 @@
       overflow: hidden;
     }
 
-    .task-panel {
-      display: none;
-    }
-
-    .task-panel.open {
-      display: block;
-    }
+    .task-panel { display: none; }
+    .task-panel.open { display: block; }
 
     .panel-heading {
       padding: 16px;
@@ -430,7 +384,6 @@
     .panel-heading h2 {
       margin: 0;
       font-size: 1.05rem;
-      letter-spacing: 0;
     }
 
     .panel-heading p {
@@ -540,9 +493,7 @@
       background: #fff;
     }
 
-    .email-form textarea {
-      min-height: 104px;
-    }
+    .email-form textarea { min-height: 104px; }
 
     .mail-status {
       display: none;
@@ -551,14 +502,154 @@
       font-size: 0.9rem;
     }
 
-    .mail-status.show {
-      display: block;
-    }
+    .mail-status.show { display: block; }
 
     .policy-list {
       margin: 0;
       padding: 16px 16px 16px 34px;
       line-height: 1.7;
+    }
+
+    .homework-form,
+    .timetable-body {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .homework-form label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 650;
+    }
+
+    .homework-form input,
+    .homework-form textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 9px 10px;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .homework-form textarea { min-height: 84px; }
+
+    .homework-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .homework-list,
+    .timetable-list { display: grid; gap: 10px; }
+
+    .homework-item,
+    .timetable-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .homework-item strong,
+    .timetable-item strong { display: block; }
+
+    .homework-item span,
+    .timetable-item span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .homework-item .hw-actions {
+      margin-top: 8px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .homework-item .hw-actions .btn {
+      min-height: 32px;
+      padding: 4px 10px;
+      font-size: 0.85rem;
+    }
+
+    .calendar-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    .calendar-day {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      background: var(--primary-soft);
+    }
+
+    .calendar-day.empty-day {
+      background: #f4f4f2;
+      opacity: 0.85;
+    }
+
+    .calendar-day strong { display: block; }
+
+    .calendar-day span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .calendar-day ul {
+      margin: 6px 0 0;
+      padding-left: 16px;
+      font-size: 0.84rem;
+      color: var(--ink);
+    }
+
+    .timetable-day {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .timetable-day-header {
+      padding: 10px 12px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .timetable-slot {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .timetable-slot:last-child { border-bottom: 0; }
+
+    .timetable-slot .time {
+      font-variant-numeric: tabular-nums;
+      font-weight: 650;
+      color: var(--ink);
+    }
+
+    .timetable-slot .class-label {
+      font-weight: 600;
+    }
+
+    .timetable-slot .class-meta {
+      color: var(--muted);
+      font-size: 0.88rem;
     }
 
     .behaviour-menu {
@@ -588,9 +679,7 @@
       cursor: pointer;
     }
 
-    .behaviour-menu button:hover {
-      background: var(--primary-soft);
-    }
+    .behaviour-menu button:hover { background: var(--primary-soft); }
 
     .behaviour-note {
       color: var(--muted);
@@ -599,38 +688,14 @@
     }
 
     @media (max-width: 820px) {
-      .app {
-        grid-template-columns: 1fr;
-      }
-
-      aside {
-        padding: 18px;
-      }
-
-      .class-tabs {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .sidebar-note {
-        display: none;
-      }
-
-      main {
-        padding: 18px;
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .register-header {
-        display: none;
-      }
-
-      .student-row {
-        grid-template-columns: 44px minmax(0, 1fr);
-      }
-
+      .app { grid-template-columns: 1fr; }
+      aside { padding: 18px; }
+      .class-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .sidebar-note { display: none; }
+      main { padding: 18px; }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .register-header { display: none; }
+      .student-row { grid-template-columns: 44px minmax(0, 1fr); }
       .status-group {
         grid-column: 1 / -1;
         justify-content: flex-start;
@@ -638,27 +703,13 @@
     }
 
     @media (max-width: 520px) {
-      .class-tabs,
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .toolbar {
-        align-items: stretch;
-      }
-
-      .actions,
-      .btn {
-        width: 100%;
-      }
-
-      .btn {
-        justify-content: center;
-      }
-
-      .status {
-        flex: 1 1 130px;
-      }
+      .class-tabs, .stats { grid-template-columns: 1fr; }
+      .toolbar { align-items: stretch; }
+      .actions, .btn { width: 100%; }
+      .btn { justify-content: center; }
+      .status { flex: 1 1 130px; }
+      .homework-grid { grid-template-columns: 1fr; }
+      .timetable-slot { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -679,7 +730,7 @@
         </div>
       </div>
       <nav class="class-tabs" aria-label="Classes" id="classTabs"></nav>
-      <p class="sidebar-note">Head of TW Science view. Select a class, take the register, and open data or email tools from the taskbar.</p>
+      <p class="sidebar-note">Head of TW Science view. Select a class, take the register, and open data, homework or timetable tools from the taskbar.</p>
     </aside>
 
     <main>
@@ -700,6 +751,8 @@
             <button class="btn" type="button" id="openDataPanel">Class data</button>
             <button class="btn" type="button" id="openEmailPanel">Email teachers</button>
             <button class="btn" type="button" id="openBehaviourPanel">Behaviour policy</button>
+            <button class="btn" type="button" id="openHomeworkPanel">Homework</button>
+            <button class="btn" type="button" id="openTimetablePanel">Timetable</button>
           </div>
         </div>
       </section>
@@ -772,6 +825,44 @@
         <p class="behaviour-note">Students with detentions appear in red on the register.</p>
       </section>
 
+      <section class="panel-card task-panel" id="homeworkPanel" aria-labelledby="homeworkTitle">
+        <div class="panel-heading">
+          <h2 id="homeworkTitle">Homework</h2>
+          <p>Set homework for the selected class and see due dates on the calendar.</p>
+        </div>
+        <form class="homework-form" id="homeworkForm">
+          <div class="homework-grid">
+            <label for="homeworkTitleInput">
+              Homework title
+              <input id="homeworkTitleInput" type="text" value="Revision questions" required>
+            </label>
+            <label for="homeworkDueInput">
+              Due date
+              <input id="homeworkDueInput" type="date" required>
+            </label>
+          </div>
+          <label for="homeworkDetailsInput">
+            Details
+            <textarea id="homeworkDetailsInput">Complete the assigned questions and bring answers to the next lesson.</textarea>
+          </label>
+          <button class="btn primary" type="submit">Set homework</button>
+        </form>
+        <div class="homework-form">
+          <div class="calendar-strip" id="homeworkCalendar" aria-label="Homework due calendar"></div>
+          <div class="homework-list" id="homeworkList" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="panel-card task-panel" id="timetablePanel" aria-labelledby="timetableTitle">
+        <div class="panel-heading">
+          <h2 id="timetableTitle">My timetable</h2>
+          <p>Wednesday and Friday science teaching timetable.</p>
+        </div>
+        <div class="timetable-body">
+          <div class="timetable-list" id="timetableList"></div>
+        </div>
+      </section>
+
       <section class="panel-card task-panel" id="emailPanel" aria-labelledby="emailTitle">
         <div class="panel-heading">
           <h2 id="emailTitle">Teacher email</h2>
@@ -842,23 +933,10 @@
         mine: true,
         note: "17 generated names",
         students: [
-          "Yasmin Ahmed",
-          "Daniel Afolayan",
-          "Leah Brown",
-          "Samira El-Sayed",
-          "Marcus Grant",
-          "Ayaan Hussain",
-          "Priya Iyer",
-          "Keira Johnson",
-          "Omar Khan",
-          "Amara Mensah",
-          "Jamal Okafor",
-          "Hannah Osei",
-          "Maya Patel",
-          "Isaac Robinson",
-          "Fatima Sheikh",
-          "Tariq Williams",
-          "Nia Wilson"
+          "Yasmin Ahmed", "Daniel Afolayan", "Leah Brown", "Samira El-Sayed", "Marcus Grant",
+          "Ayaan Hussain", "Priya Iyer", "Keira Johnson", "Omar Khan", "Amara Mensah",
+          "Jamal Okafor", "Hannah Osei", "Maya Patel", "Isaac Robinson", "Fatima Sheikh",
+          "Tariq Williams", "Nia Wilson"
         ]
       },
       {
@@ -870,30 +948,11 @@
         mine: true,
         note: "24 generated names",
         students: [
-          "Maryam Abdi",
-          "Theo Anderson",
-          "Imani Boateng",
-          "Finley Brooks",
-          "Huda Chowdhury",
-          "Grace Davies",
-          "Zainab Farooq",
-          "Ethan Fletcher",
-          "Malik Johnson",
-          "Amina Khan",
-          "Lucas Kowalski",
-          "Sofia Martins",
-          "Chinedu Nwosu",
-          "Mia O'Connor",
-          "Rayan Patel",
-          "Ella Peters",
-          "Muhammad Rahman",
-          "Kofi Sarfo",
-          "Isabella Singh",
-          "Noah Smith",
-          "Layla Thompson",
-          "Joshua Walker",
-          "Fatoumata Yeboah",
-          "Elena Zaman"
+          "Maryam Abdi", "Theo Anderson", "Imani Boateng", "Finley Brooks", "Huda Chowdhury",
+          "Grace Davies", "Zainab Farooq", "Ethan Fletcher", "Malik Johnson", "Amina Khan",
+          "Lucas Kowalski", "Sofia Martins", "Chinedu Nwosu", "Mia O'Connor", "Rayan Patel",
+          "Ella Peters", "Muhammad Rahman", "Kofi Sarfo", "Isabella Singh", "Noah Smith",
+          "Layla Thompson", "Joshua Walker", "Fatoumata Yeboah", "Elena Zaman"
         ]
       },
       {
@@ -905,36 +964,12 @@
         mine: true,
         note: "30 generated names",
         students: [
-          "Mohammed Ali",
-          "Ruby Anderson",
-          "Joshua Bailey",
-          "Toby Barnes",
-          "Mia Chapman",
-          "Yusuf Diallo",
-          "Thomas Dixon",
-          "Ella Fraser",
-          "Adam Griffin",
-          "Niamh Hamilton",
-          "Sana Iqbal",
-          "Charlie Jenkins",
-          "Sienna Kelly",
-          "Aaliyah Mohamed",
-          "Jacob Mitchell",
-          "Archie Morris",
-          "Henry Nelson",
-          "Aisha Oladipo",
-          "Phoebe Owens",
-          "Dylan Parker",
-          "Mei-Ling Pham",
-          "Erin Phillips",
-          "Aarav Reddy",
-          "Theo Roberts",
-          "Evie Russell",
-          "Maisie Scott",
-          "Ryan Spencer",
-          "Callum Ward",
-          "Elena Wright",
-          "Layla Young"
+          "Mohammed Ali", "Ruby Anderson", "Joshua Bailey", "Toby Barnes", "Mia Chapman",
+          "Yusuf Diallo", "Thomas Dixon", "Ella Fraser", "Adam Griffin", "Niamh Hamilton",
+          "Sana Iqbal", "Charlie Jenkins", "Sienna Kelly", "Aaliyah Mohamed", "Jacob Mitchell",
+          "Archie Morris", "Henry Nelson", "Aisha Oladipo", "Phoebe Owens", "Dylan Parker",
+          "Mei-Ling Pham", "Erin Phillips", "Aarav Reddy", "Theo Roberts", "Evie Russell",
+          "Maisie Scott", "Ryan Spencer", "Callum Ward", "Elena Wright", "Layla Young"
         ]
       },
       {
@@ -945,30 +980,11 @@
         teacher: "Ms H. Clarke",
         note: "24 generated names",
         students: [
-          "Hassan Abbas",
-          "Molly Baker",
-          "Kwame Boateng",
-          "Luca Costa",
-          "Sadia Farooq",
-          "Jayden Foster",
-          "Amelie Grant",
-          "Bilal Hussain",
-          "Anaya Khan",
-          "Talia Levy",
-          "Ibrahim Mahmood",
-          "Zoe Martins",
-          "Ayo Mensah",
-          "Sophie Murphy",
-          "Chiamaka Nwankwo",
-          "Dylan O'Brien",
-          "Riya Patel",
-          "Adam Rahman",
-          "Eleanor Scott",
-          "Harpreet Singh",
-          "Noor Syed",
-          "Kai Thompson",
-          "Mariam Yusuf",
-          "Nikolai Zielinski"
+          "Hassan Abbas", "Molly Baker", "Kwame Boateng", "Luca Costa", "Sadia Farooq",
+          "Jayden Foster", "Amelie Grant", "Bilal Hussain", "Anaya Khan", "Talia Levy",
+          "Ibrahim Mahmood", "Zoe Martins", "Ayo Mensah", "Sophie Murphy", "Chiamaka Nwankwo",
+          "Dylan O'Brien", "Riya Patel", "Adam Rahman", "Eleanor Scott", "Harpreet Singh",
+          "Noor Syed", "Kai Thompson", "Mariam Yusuf", "Nikolai Zielinski"
         ]
       },
       {
@@ -979,34 +995,12 @@
         teacher: "Dr A. Carter",
         note: "28 generated names",
         students: [
-          "Zara Ahmed",
-          "Ryan Allen",
-          "Temi Adebayo",
-          "Freddie Brown",
-          "Nadia Chowdhury",
-          "Andre Clarke",
-          "Maya Davies",
-          "Aisha Diallo",
-          "Ethan Evans",
-          "Hana Fujimoto",
-          "Samira Hassan",
-          "Jacob Hill",
-          "Yusuf Jama",
-          "Isobel King",
-          "Omar Malik",
-          "Nia Morrison",
-          "Daniel Novak",
-          "Amara Okoro",
-          "Oscar Phillips",
-          "Priya Reddy",
-          "Khadija Saeed",
-          "Elijah Smith",
-          "Grace Taylor",
-          "Mei Tan",
-          "Callum Walsh",
-          "Fatima Warsame",
-          "Lily White",
-          "Ifeoma Williams"
+          "Zara Ahmed", "Ryan Allen", "Temi Adebayo", "Freddie Brown", "Nadia Chowdhury",
+          "Andre Clarke", "Maya Davies", "Aisha Diallo", "Ethan Evans", "Hana Fujimoto",
+          "Samira Hassan", "Jacob Hill", "Yusuf Jama", "Isobel King", "Omar Malik",
+          "Nia Morrison", "Daniel Novak", "Amara Okoro", "Oscar Phillips", "Priya Reddy",
+          "Khadija Saeed", "Elijah Smith", "Grace Taylor", "Mei Tan", "Callum Walsh",
+          "Fatima Warsame", "Lily White", "Ifeoma Williams"
         ]
       },
       {
@@ -1017,28 +1011,11 @@
         teacher: "Mr J. Mensah",
         note: "22 generated names",
         students: [
-          "Abdi Ali",
-          "Naomi Bennett",
-          "Jasmine Campbell",
-          "Elias Cohen",
-          "Yara Elamin",
-          "Tomos Griffiths",
-          "Safiya Hussain",
-          "Rohan Iqbal",
-          "Aaliyah Johnson",
-          "Mateusz Kowalczyk",
-          "Leila Mahmoud",
-          "Tunde Okafor",
-          "Anika Patel",
-          "Musa Rahman",
-          "Ciara Reid",
-          "Sienna Roberts",
-          "Arjun Shah",
-          "Hawa Traore",
-          "Ben Turner",
-          "Mina Wang",
-          "Jude Williams",
-          "Sara Yusuf"
+          "Abdi Ali", "Naomi Bennett", "Jasmine Campbell", "Elias Cohen", "Yara Elamin",
+          "Tomos Griffiths", "Safiya Hussain", "Rohan Iqbal", "Aaliyah Johnson", "Mateusz Kowalczyk",
+          "Leila Mahmoud", "Tunde Okafor", "Anika Patel", "Musa Rahman", "Ciara Reid",
+          "Sienna Roberts", "Arjun Shah", "Hawa Traore", "Ben Turner", "Mina Wang",
+          "Jude Williams", "Sara Yusuf"
         ]
       }
     ];
@@ -1065,9 +1042,7 @@
         const first = firstNames[(offset + index * 5) % firstNames.length];
         const last = lastNames[(offset + index * 7) % lastNames.length];
         const fullName = `${first} ${last}`;
-        if (!names.includes(fullName)) {
-          names.push(fullName);
-        }
+        if (!names.includes(fullName)) names.push(fullName);
       }
       return names;
     }
@@ -1084,14 +1059,37 @@
       });
     });
 
+    // Your fixed timetable
+    const myTimetable = [
+      {
+        day: "Wednesday",
+        slots: [
+          { classLabel: "12A/B2", start: "15:45", end: "16:30" },
+          { classLabel: "11X/S1", start: "16:50", end: "17:30" }
+        ]
+      },
+      {
+        day: "Friday",
+        slots: [
+          { classLabel: "13E/B1", start: "15:05", end: "15:35" },
+          { classLabel: "11X/S1", start: "15:50", end: "16:20" },
+          { classLabel: "12A/B2", start: "16:40", end: "17:25" }
+        ]
+      }
+    ];
+
     const attendance = {};
     const testData = {};
     const behaviourRecords = {};
+    // homeworkRecords[classId] = [{ id, title, due, details }]
+    const homeworkRecords = {};
+
     const testColumns = [
       { id: "test1", label: "Test 1", max: 100 },
       { id: "test2", label: "Test 2", max: 100 },
       { id: "recent", label: "Recent %", max: 100 }
     ];
+
     let activeClassId = classes[0].id;
     let registerDate = new Date().toISOString().slice(0, 10);
     let behaviourTarget = null;
@@ -1107,6 +1105,10 @@
     const dataSheet = document.getElementById("dataSheet");
     const sheetMeta = document.getElementById("sheetMeta");
     const behaviourMenu = document.getElementById("behaviourMenu");
+    const homeworkCalendar = document.getElementById("homeworkCalendar");
+    const homeworkList = document.getElementById("homeworkList");
+    const timetableList = document.getElementById("timetableList");
+    const homeworkDueInput = document.getElementById("homeworkDueInput");
 
     const totalCount = document.getElementById("totalCount");
     const presentCount = document.getElementById("presentCount");
@@ -1141,13 +1143,9 @@
     function ensureTestData(classItem) {
       classItem.students.forEach((name) => {
         const key = `${classItem.id}:${name}`;
-        if (!testData[key]) {
-          testData[key] = {};
-        }
+        if (!testData[key]) testData[key] = {};
         testColumns.forEach((column) => {
-          if (testData[key][column.id] === undefined) {
-            testData[key][column.id] = 0;
-          }
+          if (testData[key][column.id] === undefined) testData[key][column.id] = 0;
         });
       });
     }
@@ -1168,6 +1166,27 @@
       return classItem.subject || fallback[code] || "Science";
     }
 
+    function getClassTeacherLine(classItem) {
+      if (classItem.mine) return "Teacher: Mr R. Mohammed";
+      return `Teacher: ${classItem.teacher}`;
+    }
+
+    function closeBehaviourMenu() {
+      behaviourMenu.classList.remove("open");
+      behaviourTarget = null;
+    }
+
+    function formatDisplayDate(iso) {
+      if (!iso) return "";
+      const d = new Date(iso + "T12:00:00");
+      return d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+    }
+
+    function getHomeworksForClass(classId) {
+      if (!homeworkRecords[classId]) homeworkRecords[classId] = [];
+      return homeworkRecords[classId];
+    }
+
     function renderDataHead() {
       dataHead.innerHTML = "";
       const row = document.createElement("tr");
@@ -1181,18 +1200,6 @@
         `;
       });
       dataHead.appendChild(row);
-    }
-
-    function getClassTeacherLine(classItem) {
-      if (classItem.mine) {
-        return "Teacher: Mr R. Mohammed";
-      }
-      return `Teacher: ${classItem.teacher}`;
-    }
-
-    function closeBehaviourMenu() {
-      behaviourMenu.classList.remove("open");
-      behaviourTarget = null;
     }
 
     function renderTabs() {
@@ -1214,8 +1221,9 @@
         button.addEventListener("click", () => {
           activeClassId = classItem.id;
           editor.classList.remove("open");
-          document.getElementById("dataPanel").classList.remove("open");
-          document.getElementById("emailPanel").classList.remove("open");
+          ["dataPanel", "emailPanel", "behaviourPanel", "homeworkPanel", "timetablePanel"].forEach((id) => {
+            document.getElementById(id).classList.remove("open");
+          });
           render();
         });
         tabs.appendChild(button);
@@ -1225,14 +1233,13 @@
     function renderStats(classItem) {
       const statuses = classItem.students.map((name) => getStatus(classItem.id, name));
       totalCount.textContent = classItem.students.length;
-      presentCount.textContent = statuses.filter((status) => status === "present").length;
-      absentCount.textContent = statuses.filter((status) => status === "absent").length;
-      lateCount.textContent = statuses.filter((status) => status === "late").length;
+      presentCount.textContent = statuses.filter((s) => s === "present").length;
+      absentCount.textContent = statuses.filter((s) => s === "absent").length;
+      lateCount.textContent = statuses.filter((s) => s === "late").length;
     }
 
     function renderStudentList(classItem) {
       studentList.innerHTML = "";
-
       if (classItem.students.length === 0) {
         const empty = document.createElement("div");
         empty.className = "empty";
@@ -1290,13 +1297,108 @@
       classItem.students.forEach((name) => {
         const key = `${classItem.id}:${name}`;
         const row = document.createElement("tr");
-        row.innerHTML = `
-          <td class="name-cell">${name}</td>
-        `;
+        row.innerHTML = `<td class="name-cell">${name}</td>`;
         testColumns.forEach((column) => {
           row.innerHTML += `<td><input type="number" min="0" max="${column.max}" value="${testData[key][column.id]}" aria-label="${column.label} score for ${name}" data-key="${key}" data-field="${column.id}"></td>`;
         });
         dataSheet.appendChild(row);
+      });
+    }
+
+    function renderHomework(classItem) {
+      const list = getHomeworksForClass(classItem.id)
+        .slice()
+        .sort((a, b) => a.due.localeCompare(b.due));
+
+      // Calendar: group by due date (next 14 days + any set due dates)
+      const byDate = {};
+      list.forEach((hw) => {
+        if (!byDate[hw.due]) byDate[hw.due] = [];
+        byDate[hw.due].push(hw);
+      });
+
+      const today = new Date();
+      today.setHours(12, 0, 0, 0);
+      const dayKeys = [];
+      for (let i = 0; i < 14; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() + i);
+        dayKeys.push(d.toISOString().slice(0, 10));
+      }
+      // also include any past/future due dates outside the 14-day window
+      Object.keys(byDate).forEach((k) => {
+        if (!dayKeys.includes(k)) dayKeys.push(k);
+      });
+      dayKeys.sort();
+
+      homeworkCalendar.innerHTML = "";
+      if (dayKeys.length === 0) {
+        homeworkCalendar.innerHTML = `<div class="calendar-day empty-day"><strong>No homework set</strong><span>Set a due date above</span></div>`;
+      } else {
+        dayKeys.forEach((dateKey) => {
+          const items = byDate[dateKey] || [];
+          const card = document.createElement("div");
+          card.className = "calendar-day" + (items.length ? "" : " empty-day");
+          const title = formatDisplayDate(dateKey);
+          let body = "";
+          if (items.length) {
+            body = "<ul>" + items.map((h) => `<li>${h.title}</li>`).join("") + "</ul>";
+          } else {
+            body = "<span>No homework due</span>";
+          }
+          card.innerHTML = `<strong>${title}</strong>${body}`;
+          homeworkCalendar.appendChild(card);
+        });
+      }
+
+      // List view
+      homeworkList.innerHTML = "";
+      if (list.length === 0) {
+        homeworkList.innerHTML = `<div class="empty">No homework set for ${classItem.label} yet.</div>`;
+        return;
+      }
+
+      list.forEach((hw) => {
+        const item = document.createElement("div");
+        item.className = "homework-item";
+        item.innerHTML = `
+          <strong>${hw.title}</strong>
+          <span>Due: ${formatDisplayDate(hw.due)}</span>
+          <span>${hw.details || ""}</span>
+          <div class="hw-actions">
+            <button type="button" class="btn danger" data-delete-hw="${hw.id}">Remove</button>
+          </div>
+        `;
+        item.querySelector("[data-delete-hw]").addEventListener("click", () => {
+          homeworkRecords[classItem.id] = getHomeworksForClass(classItem.id).filter((h) => h.id !== hw.id);
+          renderHomework(classItem);
+        });
+        homeworkList.appendChild(item);
+      });
+    }
+
+    function renderTimetable() {
+      timetableList.innerHTML = "";
+      myTimetable.forEach((dayBlock) => {
+        const wrap = document.createElement("div");
+        wrap.className = "timetable-day";
+        wrap.innerHTML = `<div class="timetable-day-header">${dayBlock.day}</div>`;
+        dayBlock.slots.forEach((slot) => {
+          const classItem = classes.find((c) => c.label === slot.classLabel);
+          const subject = classItem ? getSubjectTitle(classItem) : "Science";
+          const students = classItem ? classItem.students.length : "—";
+          const row = document.createElement("div");
+          row.className = "timetable-slot";
+          row.innerHTML = `
+            <div class="time">${slot.start} – ${slot.end}</div>
+            <div>
+              <div class="class-label">${slot.classLabel}</div>
+              <div class="class-meta">${subject} · ${students} students</div>
+            </div>
+          `;
+          wrap.appendChild(row);
+        });
+        timetableList.appendChild(wrap);
       });
     }
 
@@ -1309,15 +1411,17 @@
       renderStats(classItem);
       renderStudentList(classItem);
       renderDataSheet(classItem);
+      renderHomework(classItem);
+      renderTimetable();
     }
+
+    // ---- Event listeners ----
 
     document.getElementById("editButton").addEventListener("click", () => {
       const classItem = getActiveClass();
       nameInput.value = sortByLastName(classItem.students).join("\n");
       editor.classList.toggle("open");
-      if (editor.classList.contains("open")) {
-        nameInput.focus();
-      }
+      if (editor.classList.contains("open")) nameInput.focus();
     });
 
     document.getElementById("cancelEdit").addEventListener("click", () => {
@@ -1339,73 +1443,62 @@
 
     dataSheet.addEventListener("input", (event) => {
       const input = event.target;
-      if (!input.matches("input[data-key][data-field]")) {
-        return;
-      }
+      if (!input.matches("input[data-key][data-field]")) return;
       testData[input.dataset.key][input.dataset.field] = input.value;
     });
 
     dataHead.addEventListener("input", (event) => {
       const input = event.target;
-      if (!input.matches("input[data-column][data-column-field]")) {
-        return;
-      }
+      if (!input.matches("input[data-column][data-column-field]")) return;
       const column = testColumns.find((item) => item.id === input.dataset.column);
       column[input.dataset.columnField] = input.dataset.columnField === "max" ? Number(input.value || 1) : input.value;
-      if (input.dataset.columnField === "max") {
-        renderDataSheet(getActiveClass());
-      }
+      if (input.dataset.columnField === "max") renderDataSheet(getActiveClass());
     });
 
     document.getElementById("addTestColumn").addEventListener("click", () => {
-      const nameInput = document.getElementById("newTestName");
-      const maxInput = document.getElementById("newTestMax");
+      const nameEl = document.getElementById("newTestName");
+      const maxEl = document.getElementById("newTestMax");
       const id = `test${Date.now()}`;
       testColumns.push({
         id,
-        label: nameInput.value.trim() || "New test",
-        max: Number(maxInput.value || 100)
+        label: nameEl.value.trim() || "New test",
+        max: Number(maxEl.value || 100)
       });
       classes.forEach(ensureTestData);
-      nameInput.value = "New test";
-      maxInput.value = "100";
+      nameEl.value = "New test";
+      maxEl.value = "100";
       renderDataSheet(getActiveClass());
     });
 
     function toggleTaskPanel(panelId) {
       const panel = document.getElementById(panelId);
-      ["dataPanel", "emailPanel", "behaviourPanel"].forEach((id) => {
-        if (id !== panelId) {
-          document.getElementById(id).classList.remove("open");
-        }
+      ["dataPanel", "emailPanel", "behaviourPanel", "homeworkPanel", "timetablePanel"].forEach((id) => {
+        if (id !== panelId) document.getElementById(id).classList.remove("open");
       });
       panel.classList.toggle("open");
     }
 
-    document.getElementById("openDataPanel").addEventListener("click", () => {
-      toggleTaskPanel("dataPanel");
+    document.getElementById("openDataPanel").addEventListener("click", () => toggleTaskPanel("dataPanel"));
+    document.getElementById("openEmailPanel").addEventListener("click", () => toggleTaskPanel("emailPanel"));
+    document.getElementById("openBehaviourPanel").addEventListener("click", () => toggleTaskPanel("behaviourPanel"));
+    document.getElementById("openHomeworkPanel").addEventListener("click", () => {
+      toggleTaskPanel("homeworkPanel");
+      if (!homeworkDueInput.value) {
+        const d = new Date();
+        d.setDate(d.getDate() + 7);
+        homeworkDueInput.value = d.toISOString().slice(0, 10);
+      }
     });
-
-    document.getElementById("openEmailPanel").addEventListener("click", () => {
-      toggleTaskPanel("emailPanel");
-    });
-
-    document.getElementById("openBehaviourPanel").addEventListener("click", () => {
-      toggleTaskPanel("behaviourPanel");
-    });
+    document.getElementById("openTimetablePanel").addEventListener("click", () => toggleTaskPanel("timetablePanel"));
 
     behaviourMenu.addEventListener("click", (event) => {
       const button = event.target.closest("button[data-behaviour]");
-      if (!button || !behaviourTarget) {
-        return;
-      }
+      if (!button || !behaviourTarget) return;
       setBehaviour(behaviourTarget.classId, behaviourTarget.name, button.dataset.behaviour);
     });
 
     document.addEventListener("click", (event) => {
-      if (!behaviourMenu.contains(event.target)) {
-        closeBehaviourMenu();
-      }
+      if (!behaviourMenu.contains(event.target)) closeBehaviourMenu();
     });
 
     document.getElementById("emailForm").addEventListener("submit", (event) => {
@@ -1414,6 +1507,31 @@
       const recipient = document.getElementById("emailTo").value.split(" - ")[0];
       status.textContent = `Email sent to ${recipient} for ${getActiveClass().label}.`;
       status.classList.add("show");
+    });
+
+    document.getElementById("homeworkForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const classItem = getActiveClass();
+      const titleVal = document.getElementById("homeworkTitleInput").value.trim();
+      const dueVal = document.getElementById("homeworkDueInput").value;
+      const detailsVal = document.getElementById("homeworkDetailsInput").value.trim();
+      if (!titleVal || !dueVal) return;
+
+      const list = getHomeworksForClass(classItem.id);
+      list.push({
+        id: `hw-${Date.now()}`,
+        title: titleVal,
+        due: dueVal,
+        details: detailsVal
+      });
+      renderHomework(classItem);
+
+      // reset form defaults for next entry
+      document.getElementById("homeworkTitleInput").value = "Revision questions";
+      const next = new Date(dueVal + "T12:00:00");
+      next.setDate(next.getDate() + 7);
+      homeworkDueInput.value = next.toISOString().slice(0, 10);
+      document.getElementById("homeworkDetailsInput").value = "Complete the assigned questions and bring answers to the next lesson.";
     });
 
     registerDateInput.addEventListener("change", () => {
@@ -1437,10 +1555,16 @@
       render();
     });
 
+    // Init
     classes.forEach((classItem) => {
       classItem.students = sortByLastName(classItem.students);
       ensureTestData(classItem);
     });
+    homeworkDueInput.value = (() => {
+      const d = new Date();
+      d.setDate(d.getDate() + 7);
+      return d.toISOString().slice(0, 10);
+    })();
     render();
   </script>
 </body>
