@@ -39,7 +39,6 @@
       grid-template-columns: 268px minmax(0, 1fr);
     }
 
-    /* Sidebar */
     aside {
       background: var(--sidebar);
       color: #f5f8f7;
@@ -58,11 +57,7 @@
       background: linear-gradient(160deg, #1a3234 0%, #142426 100%);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .brand { display: flex; align-items: center; gap: 12px; }
 
     .school-logo {
       width: 46px;
@@ -127,11 +122,9 @@
       padding: 9px 11px;
       text-align: left;
       cursor: pointer;
-      transition: background 0.12s;
     }
 
     .class-tab:hover { background: rgba(255,255,255,0.06); }
-
     .class-tab[aria-selected="true"] {
       background: #f5f8f7;
       color: var(--ink);
@@ -152,7 +145,6 @@
       color: rgba(245,248,247,0.5);
     }
 
-    /* Main */
     main {
       padding: 0;
       min-width: 0;
@@ -201,6 +193,7 @@
       border-radius: 7px;
       font-weight: 600;
       color: var(--muted);
+      position: relative;
     }
 
     .taskbar .btn:hover {
@@ -213,6 +206,25 @@
       background: var(--primary);
       color: #fff;
     }
+
+    .badge {
+      display: none;
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 4px;
+      border-radius: 8px;
+      background: var(--danger);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      line-height: 16px;
+      text-align: center;
+    }
+
+    .badge.show { display: inline-block; }
 
     .content {
       padding: 20px 24px 36px;
@@ -294,11 +306,6 @@
     }
     .btn.primary:hover { filter: brightness(1.05); }
     .btn.danger { color: var(--danger); }
-    .btn.ghost {
-      background: transparent;
-      border-color: transparent;
-      color: var(--muted);
-    }
 
     .mark-legend {
       display: flex;
@@ -327,7 +334,7 @@
       gap: 10px;
     }
 
-    .stat, .register, .editor, .panel-card, .staff-card, .card {
+    .stat, .register, .editor, .panel-card, .staff-card {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -351,7 +358,6 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* Register with mark input */
     .register-header,
     .student-row {
       display: grid;
@@ -585,39 +591,6 @@
       padding: 5px 8px;
     }
 
-    .email-form {
-      padding: 14px;
-      display: grid;
-      gap: 10px;
-      max-width: 520px;
-    }
-
-    .email-form label {
-      display: grid;
-      gap: 4px;
-      color: var(--muted);
-      font-size: 0.82rem;
-      font-weight: 650;
-    }
-
-    .email-form input,
-    .email-form select,
-    .email-form textarea {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 8px 10px;
-    }
-
-    .mail-status {
-      display: none;
-      color: var(--primary);
-      font-weight: 650;
-      font-size: 0.85rem;
-    }
-
-    .mail-status.show { display: block; }
-
     .policy-list {
       margin: 0;
       padding: 14px 14px 6px 32px;
@@ -669,6 +642,50 @@
 
     .save-toast.show { opacity: 1; }
 
+    /* Email notification toast */
+    .mail-notify {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 60;
+      width: min(360px, calc(100vw - 32px));
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--primary);
+      border-radius: 10px;
+      box-shadow: 0 12px 40px rgba(20, 36, 38, 0.18);
+      padding: 12px 14px;
+      display: none;
+      gap: 8px;
+      cursor: pointer;
+      animation: slideIn 0.25s ease;
+    }
+
+    .mail-notify.show { display: grid; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mail-notify-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+    }
+
+    .mail-notify-from { font-weight: 700; font-size: 0.92rem; }
+    .mail-notify-subject { font-size: 0.86rem; color: var(--ink); }
+    .mail-notify-preview {
+      font-size: 0.8rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .behaviour-menu {
       position: fixed;
       z-index: 40;
@@ -694,7 +711,6 @@
 
     .behaviour-menu button:hover { background: var(--primary-soft); }
 
-    /* Homework / Timetable pages */
     .page-header {
       display: flex;
       justify-content: space-between;
@@ -831,10 +847,7 @@
       margin-bottom: 8px;
     }
 
-    .hw-preview-title {
-      font-weight: 700;
-      font-size: 1.05rem;
-    }
+    .hw-preview-title { font-weight: 700; font-size: 1.05rem; }
 
     .hw-preview-meta {
       color: var(--primary);
@@ -1030,14 +1043,280 @@
     .tt-class { font-weight: 700; }
     .tt-meta { color: var(--muted); font-size: 0.82rem; margin-top: 1px; }
 
+    /* Email */
+    .mail-layout {
+      display: grid;
+      grid-template-columns: 200px minmax(240px, 300px) minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      min-height: 520px;
+    }
+
+    .mail-nav, .mail-list, .mail-compose, .mail-read {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .mail-nav {
+      padding: 10px;
+      display: grid;
+      gap: 4px;
+      align-content: start;
+    }
+
+    .mail-nav button {
+      width: 100%;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      padding: 10px 12px;
+      text-align: left;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mail-nav button:hover { background: var(--bg); color: var(--ink); }
+
+    .mail-nav button[aria-selected="true"] {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .mail-nav .count {
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--bg);
+      padding: 2px 7px;
+      border-radius: 10px;
+      color: var(--muted);
+    }
+
+    .mail-nav button[aria-selected="true"] .count {
+      background: #fff;
+      color: var(--primary);
+    }
+
+    .mail-list-head {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mail-items {
+      max-height: 560px;
+      overflow-y: auto;
+    }
+
+    .mail-item {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+      padding: 11px 14px;
+      text-align: left;
+      cursor: pointer;
+      display: grid;
+      gap: 3px;
+    }
+
+    .mail-item:hover { background: #fafaf8; }
+
+    .mail-item.active {
+      background: var(--primary-soft);
+      border-left: 3px solid var(--primary);
+    }
+
+    .mail-item.unread .mail-item-from,
+    .mail-item.unread .mail-item-subject { font-weight: 750; }
+
+    .mail-item-from { font-size: 0.88rem; font-weight: 650; }
+
+    .mail-item-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .mail-item-tag.student {
+      background: #eef2ff;
+      color: #3b4fb8;
+    }
+
+    .mail-item-tag.staff {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .mail-item-subject {
+      font-size: 0.84rem;
+      color: var(--ink);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mail-item-preview {
+      font-size: 0.78rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mail-item-time {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .mail-read, .mail-compose {
+      padding: 16px;
+      min-height: 420px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .mail-read-empty {
+      color: var(--muted);
+      text-align: center;
+      padding: 48px 16px;
+    }
+
+    .mail-read-meta {
+      display: grid;
+      gap: 4px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .mail-read-subject {
+      font-size: 1.15rem;
+      font-weight: 750;
+    }
+
+    .mail-read-line {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .mail-read-line strong { color: var(--ink); }
+
+    .mail-read-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mail-read-body {
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.55;
+      font-size: 0.92rem;
+    }
+
+    /* Font variants for message bodies */
+    .mail-read-body.font-default { font-family: "Segoe UI", system-ui, sans-serif; }
+    .mail-read-body.font-serif { font-family: Georgia, "Times New Roman", serif; font-size: 0.95rem; }
+    .mail-read-body.font-mono { font-family: "Cascadia Code", Consolas, ui-monospace, monospace; font-size: 0.86rem; }
+    .mail-read-body.font-rounded { font-family: "Trebuchet MS", "Segoe UI", sans-serif; font-size: 0.94rem; }
+    .mail-read-body.font-hand {
+      font-family: "Comic Sans MS", "Segoe Print", cursive;
+      font-size: 0.95rem;
+    }
+
+    .mail-staff-footer {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mail-staff-footer .logo {
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      box-shadow: inset 0 0 0 2px var(--gold);
+    }
+
+    .mail-staff-footer .school-name {
+      font-weight: 750;
+      font-size: 0.92rem;
+      color: var(--primary);
+    }
+
+    .mail-staff-footer .school-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .mail-compose label {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 650;
+    }
+
+    .mail-compose input,
+    .mail-compose select,
+    .mail-compose textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .mail-compose textarea { min-height: 160px; }
+
+    .mail-status-line {
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 650;
+      display: none;
+    }
+
+    .mail-status-line.show { display: block; }
+
+    @media (max-width: 1100px) {
+      .mail-layout { grid-template-columns: 1fr; }
+      .mail-nav { grid-template-columns: repeat(3, 1fr); display: grid; }
+    }
+
     @media (max-width: 900px) {
       .app { grid-template-columns: 1fr; }
       aside { position: relative; height: auto; max-height: 40vh; }
       .hw-layout { grid-template-columns: 1fr; }
       .register-header { display: none; }
-      .student-row {
-        grid-template-columns: 36px minmax(0, 1fr) 56px;
-      }
+      .student-row { grid-template-columns: 36px minmax(0, 1fr) 56px; }
       .status-group {
         grid-column: 1 / -1;
         justify-content: flex-start;
@@ -1069,7 +1348,7 @@
             <p class="subtitle">Management Information System</p>
           </div>
         </div>
-        <div class="school-tag">A-Level Science · Staff portal<br>Registers are saved automatically</div>
+        <div class="school-tag">A-Level Science · Staff portal<br>Registers and mail are saved on this device</div>
       </div>
       <nav class="class-tabs" id="classTabs" aria-label="Classes"></nav>
       <div class="sidebar-foot">Westbridge London School · Confidential staff use</div>
@@ -1079,17 +1358,19 @@
       <div class="topbar">
         <div class="topbar-brand"><strong>WLS</strong> · Staff portal</div>
         <nav class="taskbar" aria-label="Main tools">
-          <button class="btn active" type="button" data-nav="register" id="navRegister">Register</button>
-          <button class="btn" type="button" data-nav="homework" id="navHomework">Homework</button>
-          <button class="btn" type="button" data-nav="timetable" id="navTimetable">Timetable</button>
+          <button class="btn active" type="button" data-nav="register">Register</button>
+          <button class="btn" type="button" data-nav="homework">Homework</button>
+          <button class="btn" type="button" data-nav="timetable">Timetable</button>
+          <button class="btn" type="button" data-nav="email" id="navEmail">
+            Email
+            <span class="badge" id="mailBadge">0</span>
+          </button>
           <button class="btn" type="button" id="openDataPanel">Data</button>
-          <button class="btn" type="button" id="openEmailPanel">Email</button>
           <button class="btn" type="button" id="openBehaviourPanel">Behaviour</button>
         </nav>
       </div>
 
       <div class="content">
-        <!-- REGISTER -->
         <div class="view active" id="viewRegister" data-view="register">
           <section class="toolbar">
             <div>
@@ -1115,22 +1396,10 @@
           </div>
 
           <section class="stats">
-            <div class="stat">
-              <div class="stat-label">Students</div>
-              <div class="stat-value" id="totalCount">0</div>
-            </div>
-            <div class="stat">
-              <div class="stat-label">Present (/)</div>
-              <div class="stat-value" id="presentCount">0</div>
-            </div>
-            <div class="stat">
-              <div class="stat-label">Absent (.)</div>
-              <div class="stat-value" id="absentCount">0</div>
-            </div>
-            <div class="stat">
-              <div class="stat-label">Late (L)</div>
-              <div class="stat-value" id="lateCount">0</div>
-            </div>
+            <div class="stat"><div class="stat-label">Students</div><div class="stat-value" id="totalCount">0</div></div>
+            <div class="stat"><div class="stat-label">Present (/)</div><div class="stat-value" id="presentCount">0</div></div>
+            <div class="stat"><div class="stat-label">Absent (.)</div><div class="stat-value" id="absentCount">0</div></div>
+            <div class="stat"><div class="stat-label">Late (L)</div><div class="stat-value" id="lateCount">0</div></div>
           </section>
 
           <section class="editor" id="editor">
@@ -1175,20 +1444,6 @@
             <p class="behaviour-note">Detentions show in red on the register. Records are saved.</p>
           </section>
 
-          <section class="panel-card task-panel" id="emailPanel">
-            <div class="panel-heading">
-              <h2>Staff email</h2>
-              <p>Internal messaging</p>
-            </div>
-            <form class="email-form" id="emailForm">
-              <label>To <select id="emailTo"></select></label>
-              <label>Subject <input id="emailSubject" type="text" value="Register update"></label>
-              <label>Message <textarea id="emailMessage">Please see the latest register for my selected class.</textarea></label>
-              <button class="btn primary" type="submit">Send</button>
-              <div class="mail-status" id="mailStatus"></div>
-            </form>
-          </section>
-
           <section class="register">
             <div class="register-header">
               <span>No.</span>
@@ -1213,7 +1468,6 @@
           </footer>
         </div>
 
-        <!-- HOMEWORK -->
         <div class="view" id="viewHomework" data-view="homework">
           <div class="page-header">
             <div>
@@ -1221,33 +1475,26 @@
               <p>Set work · estimate time · preview · all due dates in one timetable</p>
             </div>
           </div>
-
           <div class="hw-layout">
             <form class="hw-form-card" id="homeworkForm">
               <h3>Set homework</h3>
               <p class="hint">Formatting and spacing are kept. Preview before you submit.</p>
-              <label>Class
-                <select id="hwClassSelect"></select>
-              </label>
+              <label>Class <select id="hwClassSelect"></select></label>
               <div class="field-row">
-                <label>Title
-                  <input id="homeworkTitleInput" type="text" value="Revision questions" required>
-                </label>
-                <label>Due date
-                  <input id="homeworkDueInput" type="date" required>
-                </label>
+                <label>Title <input id="homeworkTitleInput" type="text" value="Revision questions" required></label>
+                <label>Due date <input id="homeworkDueInput" type="date" required></label>
               </div>
               <label>Estimated time (minutes)
-                <input id="homeworkTimeInput" type="number" min="5" step="5" value="30" placeholder="e.g. 30">
+                <input id="homeworkTimeInput" type="number" min="5" step="5" value="30">
               </label>
               <label>Details
                 <div class="fmt-toolbar">
-                  <button type="button" data-cmd="bold" title="Bold"><b>B</b></button>
-                  <button type="button" data-cmd="italic" title="Italic"><i>I</i></button>
-                  <button type="button" data-cmd="underline" title="Underline"><u>U</u></button>
-                  <button type="button" data-cmd="insertUnorderedList" title="Bullet list">• List</button>
+                  <button type="button" data-cmd="bold"><b>B</b></button>
+                  <button type="button" data-cmd="italic"><i>I</i></button>
+                  <button type="button" data-cmd="underline"><u>U</u></button>
+                  <button type="button" data-cmd="insertUnorderedList">• List</button>
                 </div>
-                <div id="homeworkDetailsEditor" class="rich-editor" contenteditable="true" data-placeholder="Instructions for students…" role="textbox"></div>
+                <div id="homeworkDetailsEditor" class="rich-editor" contenteditable="true" data-placeholder="Instructions…"></div>
               </label>
               <div class="hw-preview" id="hwPreview">
                 <div class="hw-preview-label">Preview</div>
@@ -1260,7 +1507,6 @@
                 <button class="btn primary" type="submit">Set homework</button>
               </div>
             </form>
-
             <div style="display:grid;gap:14px;min-width:0;">
               <div class="hw-schedule-card">
                 <div class="card-head">
@@ -1277,12 +1523,7 @@
                   <table class="hw-timetable">
                     <thead>
                       <tr>
-                        <th>Due</th>
-                        <th>Class</th>
-                        <th>Title</th>
-                        <th>Time</th>
-                        <th>Details</th>
-                        <th></th>
+                        <th>Due</th><th>Class</th><th>Title</th><th>Time</th><th>Details</th><th></th>
                       </tr>
                     </thead>
                     <tbody id="hwTimetableBody"></tbody>
@@ -1302,7 +1543,6 @@
           </div>
         </div>
 
-        <!-- TIMETABLE -->
         <div class="view" id="viewTimetable" data-view="timetable">
           <div class="page-header">
             <div>
@@ -1311,6 +1551,84 @@
             </div>
           </div>
           <div class="tt-grid" id="timetableGrid"></div>
+        </div>
+
+        <div class="view" id="viewEmail" data-view="email">
+          <div class="page-header">
+            <div>
+              <h2>Staff email</h2>
+              <p>Inbox · Sent · Compose · student &amp; staff messages</p>
+            </div>
+          </div>
+
+          <div class="mail-layout">
+            <nav class="mail-nav" aria-label="Mailbox folders">
+              <button type="button" data-folder="inbox" aria-selected="true">
+                Inbox <span class="count" id="inboxCount">0</span>
+              </button>
+              <button type="button" data-folder="sent" aria-selected="false">
+                Sent <span class="count" id="sentCount">0</span>
+              </button>
+              <button type="button" data-folder="compose" aria-selected="false">Compose</button>
+            </nav>
+
+            <div class="mail-list">
+              <div class="mail-list-head">
+                <span id="mailListHead">Inbox</span>
+              </div>
+              <div class="mail-items" id="mailItems"></div>
+            </div>
+
+            <div class="mail-read" id="mailReadPane">
+              <div class="mail-read-empty" id="mailReadEmpty">Select a message to read it here.</div>
+              <div id="mailReadContent" style="display:none;">
+                <div class="mail-read-meta">
+                  <div class="mail-read-subject" id="mailReadSubject"></div>
+                  <div class="mail-read-line">From: <strong id="mailReadFrom"></strong></div>
+                  <div class="mail-read-line">To: <strong id="mailReadTo"></strong></div>
+                  <div class="mail-read-line" id="mailReadWhen"></div>
+                </div>
+                <div class="mail-read-actions">
+                  <button class="btn primary" type="button" id="mailReplyBtn">Reply</button>
+                  <button class="btn" type="button" id="mailReplyAllBtn">Reply all</button>
+                </div>
+                <div class="mail-read-body font-default" id="mailReadBody"></div>
+                <div class="mail-staff-footer" id="mailStaffFooter" style="display:none;">
+                  <div class="logo" aria-hidden="true">
+                    <svg width="26" height="26" viewBox="0 0 48 48" fill="none">
+                      <path d="M24 4l17 8v12c0 10-6.8 17.3-17 20-10.2-2.7-17-10-17-20V12l17-8z" fill="currentColor"/>
+                      <path d="M15 17h18M18 23h12M21 29h6" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+                      <path d="M24 10v28" stroke="#c9a227" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="school-name">Westbridge London School</div>
+                    <div class="school-sub">Science · Excellence · Integrity</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <form class="mail-compose" id="mailComposePane" style="display:none; grid-column: 2 / -1;">
+              <h3 style="margin:0;font-size:1rem;">New message</h3>
+              <label>To <select id="emailTo"></select></label>
+              <label>Subject <input id="emailSubject" type="text" value="Register update" required></label>
+              <label>Message
+                <textarea id="emailMessage" required>Dear colleague,
+
+Please see the latest register and notes for my selected class.
+
+Kind regards,
+Mr R. Mohammed
+Head of A-Level Science</textarea>
+              </label>
+              <div class="form-actions">
+                <button class="btn primary" type="submit">Send</button>
+                <button class="btn" type="button" id="mailCancelCompose">Cancel</button>
+              </div>
+              <div class="mail-status-line" id="mailStatus"></div>
+            </form>
+          </div>
         </div>
       </div>
     </main>
@@ -1323,9 +1641,16 @@
     <button type="button" data-behaviour="Merit">Merit</button>
   </div>
   <div class="save-toast" id="saveToast">Saved</div>
+  <div class="mail-notify" id="mailNotify" role="status">
+    <div class="mail-notify-label">New email</div>
+    <div class="mail-notify-from" id="mailNotifyFrom"></div>
+    <div class="mail-notify-subject" id="mailNotifySubject"></div>
+    <div class="mail-notify-preview" id="mailNotifyPreview"></div>
+  </div>
 
   <script>
-    const STORAGE_KEY = "wls-science-mis-v2";
+    const STORAGE_KEY = "wls-science-mis-v4";
+    const ME = "Mr R. Mohammed — Head of A-Level Science";
 
     const firstNames = ["Aisha","Amelia","Anaya","Arjun","Bilal","Callum","Daniel","Eleanor","Elijah","Fatima","Freddie","Grace","Hassan","Imani","Jacob","Jasmine","Kai","Layla","Leila","Lucas","Mariam","Maya","Mohammed","Naomi","Noah","Noor","Omar","Priya","Rayan","Riya","Ryan","Safiya","Samira","Sienna","Theo","Tunde","Yara","Yusuf","Zara","Zoe","Adam","Bella","Caleb","Diana","Ethan","Freya","George","Hana","Ian","Jade"];
     const lastNames = ["Abdi","Ahmed","Baker","Boateng","Brown","Campbell","Chowdhury","Clarke","Davies","Diallo","Evans","Farooq","Foster","Grant","Hussain","Iqbal","Johnson","Khan","Mahmood","Mensah","Murphy","Okafor","Patel","Rahman","Roberts","Scott","Shah","Singh","Smith","Taylor","Thompson","Walker","Williams","Yusuf","Blake","Chen","Dunn","Eze","Frost","Green","Hall","Ito","James","Kerr","Lee","Moon"];
@@ -1359,8 +1684,7 @@
         { id: "11XS1", label: "11X/S1", group: "My classes", subject: "Science", teacher: "Mr R. Mohammed", mine: true, students: [
           "Mohammed Ali","Ruby Anderson","Joshua Bailey","Toby Barnes","Mia Chapman","Yusuf Diallo","Thomas Dixon","Ella Fraser","Adam Griffin","Niamh Hamilton","Sana Iqbal","Charlie Jenkins","Sienna Kelly","Aaliyah Mohamed","Jacob Mitchell","Archie Morris","Henry Nelson","Aisha Oladipo","Phoebe Owens","Dylan Parker","Mei-Ling Pham","Erin Phillips","Aarav Reddy","Theo Roberts","Evie Russell","Maisie Scott","Ryan Spencer","Callum Ward","Elena Wright","Layla Young"
         ]},
-        { id: "13PC1", label: "13P/C1", group: "My classes", subject: "Chemistry", teacher: "Mr R. Mohammed", mine: true, students: generateNames("13PC1", 15) },
-        { id: "12XB1", label: "12X/B1", group: "My classes", subject: "Biology", teacher: "Mr R. Mohammed", mine: true, students: generateNames("12XB1", 20) }
+        { id: "13PC1", label: "13P/C1", group: "My classes", subject: "Chemistry", teacher: "Mr R. Mohammed", mine: true, students: generateNames("13PC1", 15) }
       ];
 
       const tw = [
@@ -1433,6 +1757,62 @@
       "Mr L. Brooks — Examinations Officer"
     ];
 
+    const FONT_CLASSES = ["font-default", "font-serif", "font-mono", "font-rounded", "font-hand"];
+
+    const staffReplyTemplates = [
+      (name, subject, cls) => ({
+        subject: `Re: ${subject}`,
+        body: `Dear Mr Mohammed,\n\nThank you for your message regarding ${cls || "your class"}. I have noted the details and will follow this up.\n\nPlease let me know if anything further is needed.\n\nKind regards,\n${name}`
+      }),
+      (name, subject, cls) => ({
+        subject: `Re: ${subject}`,
+        body: `Hi Reza,\n\nThanks for the update. I've seen the notes for ${cls || "the group"} and will keep an eye on this.\n\nBest wishes,\n${name}`
+      }),
+      (name, subject) => ({
+        subject: `Re: ${subject}`,
+        body: `Dear Mr Mohammed,\n\nReceived with thanks. I will review this and get back to you if I need any further information.\n\nRegards,\n${name}`
+      }),
+      (name, subject, cls) => ({
+        subject: `Re: ${subject}`,
+        body: `Hello,\n\nAppreciate you flagging this. Is pastoral support required for any students in ${cls || "the class"}, or is this for information only?\n\nMany thanks,\n${name}`
+      })
+    ];
+
+    const studentMailTemplates = [
+      (student, cls) => ({
+        subject: `Homework for ${cls}`,
+        body: `Hi Sir,\n\nI was away last lesson and wasn't sure what the homework was for ${cls}. Could you please send me the details or put it on the shared drive?\n\nThank you,\n${student}`
+      }),
+      (student, cls) => ({
+        subject: `Cover work / missed lesson – ${cls}`,
+        body: `Dear Mr Mohammed,\n\nI had a medical appointment and missed ${cls}. Is there any cover work or catch-up notes I should complete before next lesson?\n\nKind regards,\n${student}`
+      }),
+      (student, cls) => ({
+        subject: `Catch-up help please`,
+        body: `Sir,\n\nI'm finding the last topic in ${cls} quite hard. Could I come for a catch-up at lunch or after school this week?\n\nThanks,\n${student}`
+      }),
+      (student, cls) => ({
+        subject: `Extension on homework?`,
+        body: `Hello Sir,\n\nCould I please have a short extension on the ${cls} homework? I've been unwell and haven't finished it yet.\n\nThank you,\n${student}`
+      }),
+      (student, cls) => ({
+        subject: `Test revision resources – ${cls}`,
+        body: `Hi Mr Mohammed,\n\nDo you have any extra revision questions or past paper links for the upcoming ${cls} assessment?\n\nCheers,\n${student}`
+      }),
+      (student, cls) => ({
+        subject: `Absent yesterday – what did we do?`,
+        body: `Dear Sir,\n\nI was absent from ${cls} yesterday. Could you outline what we covered and any homework set?\n\nBest wishes,\n${student}`
+      }),
+      (student, cls) => ({
+        subject: `Practical write-up`,
+        body: `Hi Sir,\n\nI lost my ${cls} practical sheet. Is there a digital copy or can I collect another one from the lab?\n\nThanks so much,\n${student}`
+      }),
+      (student, cls) => ({
+        subject: `Clarification on last lesson`,
+        body: `Mr Mohammed,\n\nIn ${cls} you mentioned something about the required practical. Could you clarify the variables we need to control for the write-up?\n\nThank you,\n${student}`
+      })
+    ];
+
     const myTimetable = [
       { day: "Wednesday", slots: [
         { classLabel: "12A/B2", start: "15:25", end: "16:10" },
@@ -1446,12 +1826,13 @@
       ]}
     ];
 
-    /* State */
     let classes = baseClasses();
-    let attendance = {};      // key: date:classId:name -> "/" | "." | "L"
+    let attendance = {};
     let testData = {};
     let behaviourRecords = {};
     let homeworkRecords = {};
+    let mailInbox = [];
+    let mailSent = [];
     let testColumns = [
       { id: "test1", label: "Test 1", max: 100 },
       { id: "test2", label: "Test 2", max: 100 },
@@ -1461,18 +1842,12 @@
     let registerDate = new Date().toISOString().slice(0, 10);
     let behaviourTarget = null;
     let hwFilterMode = "all";
+    let mailFolder = "inbox";
+    let selectedMailId = null;
     let saveTimer = null;
+    let notifyTimer = null;
 
-    const MARK_MAP = {
-      "/": "present",
-      ".": "absent",
-      "L": "late",
-      "l": "late"
-    };
-
-    const STATUS_TO_MARK = { present: "/", absent: ".", late: "L" };
-
-    /* DOM */
+    const MARK_MAP = { "/": "present", ".": "absent", "L": "late", "l": "late" };
     const $ = (id) => document.getElementById(id);
 
     function escapeHtml(str) {
@@ -1483,7 +1858,10 @@
         .replace(/"/g, "&quot;");
     }
 
-    /* Persistence */
+    function pick(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
     function loadState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -1496,39 +1874,30 @@
         if (data.testColumns) testColumns = data.testColumns;
         if (data.activeClassId) activeClassId = data.activeClassId;
         if (data.registerDate) registerDate = data.registerDate;
+        if (data.mailInbox) mailInbox = data.mailInbox;
+        if (data.mailSent) mailSent = data.mailSent;
         if (data.classStudents) {
           classes.forEach((c) => {
             if (data.classStudents[c.id]) {
               c.students = sortByLastName(data.classStudents[c.id]);
-              c.note = c.students.length ? `${c.students.length} students` : "No students";
+              c.note = `${c.students.length} students`;
             }
           });
         }
-      } catch (e) {
-        console.warn("Could not load saved data", e);
-      }
+      } catch (e) { console.warn(e); }
     }
 
     function persist() {
       const classStudents = {};
       classes.forEach((c) => { classStudents[c.id] = c.students; });
-      const payload = {
-        attendance,
-        testData,
-        behaviourRecords,
-        homeworkRecords,
-        testColumns,
-        activeClassId,
-        registerDate,
-        classStudents,
-        savedAt: new Date().toISOString()
-      };
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          attendance, testData, behaviourRecords, homeworkRecords, testColumns,
+          activeClassId, registerDate, classStudents, mailInbox, mailSent,
+          savedAt: new Date().toISOString()
+        }));
         showToast("Saved");
-      } catch (e) {
-        showToast("Save failed");
-      }
+      } catch (e) { showToast("Save failed"); }
     }
 
     function scheduleSave() {
@@ -1543,7 +1912,6 @@
       setTimeout(() => t.classList.remove("show"), 1200);
     }
 
-    /* Helpers */
     function getActiveClass() {
       return classes.find((c) => c.id === activeClassId) || classes[0];
     }
@@ -1558,9 +1926,8 @@
 
     function setMark(classId, name, mark) {
       const m = String(mark || "").trim();
-      if (!m) {
-        delete attendance[attKey(classId, name)];
-      } else {
+      if (!m) delete attendance[attKey(classId, name)];
+      else {
         const normalized = m === "l" || m === "L" ? "L" : m;
         if (!MARK_MAP[normalized]) return false;
         attendance[attKey(classId, name)] = normalized;
@@ -1569,14 +1936,7 @@
       return true;
     }
 
-    function markToStatus(mark) {
-      return MARK_MAP[mark] || "";
-    }
-
-    function getSubjectTitle(c) {
-      return c.subject || "Science";
-    }
-
+    function getSubjectTitle(c) { return c.subject || "Science"; }
     function getClassTeacherLine(c) {
       return c.mine ? "Teacher: Mr R. Mohammed" : `Teacher: ${c.teacher}`;
     }
@@ -1585,6 +1945,13 @@
       if (!iso) return "";
       return new Date(iso + "T12:00:00").toLocaleDateString("en-GB", {
         weekday: "short", day: "numeric", month: "short", year: "numeric"
+      });
+    }
+
+    function formatDateTime(ts) {
+      return new Date(ts).toLocaleString("en-GB", {
+        weekday: "short", day: "numeric", month: "short",
+        hour: "2-digit", minute: "2-digit"
       });
     }
 
@@ -1607,7 +1974,6 @@
       return behaviourRecords[`${classId}:${name}`] || "";
     }
 
-    /* Views */
     function showView(name) {
       document.querySelectorAll(".view").forEach((v) => {
         v.classList.toggle("active", v.dataset.view === name);
@@ -1618,23 +1984,256 @@
       });
       if (name === "homework") renderHomeworkPage();
       if (name === "timetable") renderTimetablePage();
+      if (name === "email") renderEmailPage();
       if (name === "register") closeTaskPanels();
     }
 
     function closeTaskPanels() {
-      ["dataPanel", "emailPanel", "behaviourPanel"].forEach((id) => $(id).classList.remove("open"));
+      ["dataPanel", "behaviourPanel"].forEach((id) => $(id).classList.remove("open"));
     }
 
     function toggleTaskPanel(id) {
       showView("register");
-      const panel = $(id);
-      ["dataPanel", "emailPanel", "behaviourPanel"].forEach((o) => {
+      ["dataPanel", "behaviourPanel"].forEach((o) => {
         if (o !== id) $(o).classList.remove("open");
       });
-      panel.classList.toggle("open");
+      $(id).classList.toggle("open");
     }
 
-    /* Register UI */
+    /* ——— Mail core ——— */
+    function unreadCount() {
+      return mailInbox.filter((m) => !m.read).length;
+    }
+
+    function updateMailBadge() {
+      const n = unreadCount();
+      const badge = $("mailBadge");
+      badge.textContent = String(n);
+      badge.classList.toggle("show", n > 0);
+      $("inboxCount").textContent = String(mailInbox.length);
+      $("sentCount").textContent = String(mailSent.length);
+    }
+
+    function showMailNotification(msg) {
+      const box = $("mailNotify");
+      $("mailNotifyFrom").textContent = (msg.from || "").split(" — ")[0];
+      $("mailNotifySubject").textContent = msg.subject;
+      $("mailNotifyPreview").textContent = (msg.body || "").replace(/\s+/g, " ").slice(0, 90);
+      box.classList.add("show");
+      clearTimeout(notifyTimer);
+      notifyTimer = setTimeout(() => box.classList.remove("show"), 6000);
+
+      if ("Notification" in window && Notification.permission === "granted") {
+        try {
+          new Notification("WLS · New email", {
+            body: `${(msg.from || "").split(" — ")[0]}: ${msg.subject}`,
+            silent: false
+          });
+        } catch (_) {}
+      }
+    }
+
+    function deliverInbox(msg, notify = true) {
+      mailInbox.unshift(msg);
+      scheduleSave();
+      updateMailBadge();
+      if (notify) showMailNotification(msg);
+      if ($("viewEmail").classList.contains("active") && mailFolder === "inbox") {
+        renderMailList();
+      }
+    }
+
+    function scheduleStaffReply(toFull, subject, classLabel) {
+      const delay = 4000 + Math.floor(Math.random() * 10000);
+      setTimeout(() => {
+        const shortName = toFull.split(" — ")[0];
+        const tpl = pick(staffReplyTemplates);
+        const reply = tpl(shortName, subject, classLabel);
+        deliverInbox({
+          id: `in-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+          from: toFull,
+          to: ME,
+          subject: reply.subject,
+          body: reply.body,
+          at: Date.now(),
+          read: false,
+          kind: "staff",
+          font: pick(FONT_CLASSES)
+        });
+      }, delay);
+    }
+
+    function randomStudentEmail() {
+      const myClasses = classes.filter((c) => c.mine && c.students.length);
+      if (!myClasses.length) return;
+      const cls = pick(myClasses);
+      const student = pick(cls.students);
+      const tpl = pick(studentMailTemplates);
+      const content = tpl(student, cls.label);
+      deliverInbox({
+        id: `stu-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        from: `${student} — Student (${cls.label})`,
+        to: ME,
+        subject: content.subject,
+        body: content.body,
+        at: Date.now(),
+        read: false,
+        kind: "student",
+        font: pick(["font-default", "font-rounded", "font-hand", "font-serif"])
+      });
+    }
+
+    function scheduleNextStudentEmail() {
+      const delay = 25000 + Math.floor(Math.random() * 50000);
+      setTimeout(() => {
+        if (Math.random() < 0.75) randomStudentEmail();
+        scheduleNextStudentEmail();
+      }, delay);
+    }
+
+    function sendMail({ to, subject, body }) {
+      const msg = {
+        id: `out-${Date.now()}`,
+        from: ME,
+        to,
+        subject,
+        body,
+        at: Date.now(),
+        read: true,
+        kind: "staff",
+        font: "font-default"
+      };
+      mailSent.unshift(msg);
+      scheduleSave();
+      updateMailBadge();
+      if (!String(to).includes("Student")) {
+        scheduleStaffReply(to, subject, getActiveClass().label);
+      }
+      return msg;
+    }
+
+    function setMailFolder(folder) {
+      mailFolder = folder;
+      selectedMailId = null;
+      document.querySelectorAll(".mail-nav button").forEach((b) => {
+        b.setAttribute("aria-selected", String(b.dataset.folder === folder));
+      });
+
+      const compose = $("mailComposePane");
+      const read = $("mailReadPane");
+      const list = document.querySelector(".mail-list");
+
+      if (folder === "compose") {
+        compose.style.display = "grid";
+        read.style.display = "none";
+        list.style.display = "none";
+        $("mailStatus").classList.remove("show");
+      } else {
+        compose.style.display = "none";
+        read.style.display = "grid";
+        list.style.display = "block";
+        $("mailListHead").textContent = folder === "inbox" ? "Inbox" : "Sent";
+        renderMailList();
+        showMailRead(null);
+      }
+    }
+
+    function currentMailList() {
+      return mailFolder === "sent" ? mailSent : mailInbox;
+    }
+
+    function renderMailList() {
+      const items = $("mailItems");
+      const list = currentMailList();
+      items.innerHTML = "";
+      if (!list.length) {
+        items.innerHTML = `<div class="empty">${mailFolder === "sent" ? "No sent messages yet." : "Inbox is empty."}</div>`;
+        return;
+      }
+      list.forEach((msg) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "mail-item" +
+          (msg.id === selectedMailId ? " active" : "") +
+          (!msg.read && mailFolder === "inbox" ? " unread" : "");
+        const peer = mailFolder === "sent" ? msg.to : msg.from;
+        const tag = msg.kind === "student"
+          ? `<span class="mail-item-tag student">Student</span>`
+          : `<span class="mail-item-tag staff">Staff</span>`;
+        btn.innerHTML = `
+          <div class="mail-item-from">${escapeHtml(peer.split(" — ")[0])}${tag}</div>
+          <div class="mail-item-subject">${escapeHtml(msg.subject)}</div>
+          <div class="mail-item-preview">${escapeHtml((msg.body || "").replace(/\s+/g, " ").slice(0, 80))}</div>
+          <div class="mail-item-time">${escapeHtml(formatDateTime(msg.at))}</div>
+        `;
+        btn.addEventListener("click", () => {
+          selectedMailId = msg.id;
+          if (mailFolder === "inbox" && !msg.read) {
+            msg.read = true;
+            scheduleSave();
+            updateMailBadge();
+          }
+          renderMailList();
+          showMailRead(msg);
+        });
+        items.appendChild(btn);
+      });
+    }
+
+    function showMailRead(msg) {
+      if (!msg) {
+        $("mailReadEmpty").style.display = "block";
+        $("mailReadContent").style.display = "none";
+        return;
+      }
+      $("mailReadEmpty").style.display = "none";
+      $("mailReadContent").style.display = "grid";
+      $("mailReadSubject").textContent = msg.subject;
+      $("mailReadFrom").textContent = msg.from;
+      $("mailReadTo").textContent = msg.to;
+      $("mailReadWhen").textContent = formatDateTime(msg.at);
+
+      const body = $("mailReadBody");
+      body.className = "mail-read-body " + (msg.font || "font-default");
+      body.textContent = msg.body;
+
+      const footer = $("mailStaffFooter");
+      const showFooter = msg.kind !== "student";
+      footer.style.display = showFooter ? "flex" : "none";
+
+      $("mailReplyBtn").onclick = () => startReply(msg, false);
+      $("mailReplyAllBtn").onclick = () => startReply(msg, true);
+    }
+
+    function startReply(msg, replyAll) {
+      const to = mailFolder === "sent" ? msg.to : msg.from;
+      const subject = msg.subject.startsWith("Re:") ? msg.subject : `Re: ${msg.subject}`;
+      const quoted = `\n\n———— Original message ————\nFrom: ${msg.from}\nDate: ${formatDateTime(msg.at)}\n\n${msg.body}`;
+
+      // Ensure recipient is in the select (students may not be)
+      const select = $("emailTo");
+      let found = [...select.options].some((o) => o.value === to);
+      if (!found) {
+        const opt = document.createElement("option");
+        opt.value = to;
+        opt.textContent = to;
+        select.prepend(opt);
+      }
+      select.value = to;
+      $("emailSubject").value = subject;
+      $("emailMessage").value =
+        `Dear ${(to.split(" — ")[0].split(" ")[0] === "Mr" || to.split(" — ")[0].split(" ")[0] === "Ms" || to.split(" — ")[0].split(" ")[0] === "Dr" || to.split(" — ")[0].split(" ")[0] === "Mrs" || to.split(" — ")[0].split(" ")[0] === "Miss") ? to.split(" — ")[0] : to.split(" — ")[0]},\n\n\nKind regards,\nMr R. Mohammed\nHead of A-Level Science` + quoted;
+
+      setMailFolder("compose");
+    }
+
+    function renderEmailPage() {
+      updateMailBadge();
+      if (mailFolder === "compose") setMailFolder("compose");
+      else setMailFolder(mailFolder === "sent" ? "sent" : "inbox");
+    }
+
+    /* Register UI (same patterns as before) */
     function renderTabs() {
       const tabs = $("classTabs");
       tabs.innerHTML = "";
@@ -1689,10 +2288,8 @@
         list.innerHTML = `<div class="empty">No names yet. Use Edit names.</div>`;
         return;
       }
-
       c.students.forEach((name, i) => {
         const mark = getMark(c.id, name);
-        const status = markToStatus(mark);
         const behaviour = getBehaviour(c.id, name);
         const nameClass = behaviour === "Detention" ? "student-name detention" : "student-name";
         const row = document.createElement("article");
@@ -1700,50 +2297,35 @@
         row.innerHTML = `
           <span class="student-index">${String(i + 1).padStart(2, "0")}</span>
           <button class="${nameClass}" type="button">${escapeHtml(name)}${behaviour ? ` — ${escapeHtml(behaviour)}` : ""}</button>
-          <input class="mark-input ${markClassForInput(mark)}" type="text" maxlength="1" value="${escapeHtml(mark)}"
-            aria-label="Mark for ${escapeHtml(name)}" data-name="${escapeHtml(name)}" autocomplete="off" spellcheck="false">
+          <input class="mark-input ${markClassForInput(mark)}" type="text" maxlength="1" value="${escapeHtml(mark)}" autocomplete="off" spellcheck="false">
           <span class="status-group">
             <button class="status" type="button" data-mark="/" aria-pressed="${mark === "/"}">/</button>
             <button class="status" type="button" data-mark="." aria-pressed="${mark === "."}">.</button>
             <button class="status" type="button" data-mark="L" aria-pressed="${mark === "L"}">L</button>
           </span>
         `;
-
         const input = row.querySelector(".mark-input");
         input.addEventListener("input", () => {
           let v = input.value;
           if (v.length > 1) v = v.slice(-1);
-          if (v && !MARK_MAP[v] && v !== "l") {
-            input.value = mark;
-            return;
-          }
-          const ok = setMark(c.id, name, v);
-          if (!ok && v) {
-            input.value = mark;
-            return;
-          }
+          if (v && !MARK_MAP[v] && v !== "l") { input.value = mark; return; }
+          if (!setMark(c.id, name, v) && v) { input.value = mark; return; }
           const newMark = getMark(c.id, name);
           input.value = newMark;
           input.className = `mark-input ${markClassForInput(newMark)}`;
-          row.querySelectorAll(".status").forEach((b) => {
-            b.setAttribute("aria-pressed", String(b.dataset.mark === newMark));
-          });
+          row.querySelectorAll(".status").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mark === newMark)));
           renderStats(c);
         });
-
         input.addEventListener("keydown", (e) => {
           if (e.key === "Enter" || e.key === "ArrowDown") {
             e.preventDefault();
-            const next = row.nextElementSibling?.querySelector(".mark-input");
-            if (next) next.focus();
+            row.nextElementSibling?.querySelector(".mark-input")?.focus();
           }
           if (e.key === "ArrowUp") {
             e.preventDefault();
-            const prev = row.previousElementSibling?.querySelector(".mark-input");
-            if (prev) prev.focus();
+            row.previousElementSibling?.querySelector(".mark-input")?.focus();
           }
         });
-
         row.querySelectorAll(".status").forEach((btn) => {
           btn.addEventListener("click", () => {
             const current = getMark(c.id, name);
@@ -1751,13 +2333,10 @@
             const newMark = getMark(c.id, name);
             input.value = newMark;
             input.className = `mark-input ${markClassForInput(newMark)}`;
-            row.querySelectorAll(".status").forEach((b) => {
-              b.setAttribute("aria-pressed", String(b.dataset.mark === newMark));
-            });
+            row.querySelectorAll(".status").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mark === newMark)));
             renderStats(c);
           });
         });
-
         row.querySelector(".student-name").addEventListener("contextmenu", (e) => {
           e.preventDefault();
           behaviourTarget = { classId: c.id, name };
@@ -1766,7 +2345,6 @@
           menu.style.top = `${Math.min(e.clientY, innerHeight - 170)}px`;
           menu.classList.add("open");
         });
-
         list.appendChild(row);
       });
     }
@@ -1819,7 +2397,6 @@
       renderDataSheet(c);
     }
 
-    /* Homework */
     function populateHwClassSelect() {
       $("hwClassSelect").innerHTML = classes
         .map((c) => `<option value="${c.id}" ${c.id === activeClassId ? "selected" : ""}>${escapeHtml(c.label)} — ${escapeHtml(getSubjectTitle(c))}</option>`)
@@ -1830,9 +2407,7 @@
       const rows = [];
       classes.forEach((c) => {
         if (filterClassId && c.id !== filterClassId) return;
-        getHomeworks(c.id).forEach((hw) => {
-          rows.push({ ...hw, classId: c.id, classLabel: c.label });
-        });
+        getHomeworks(c.id).forEach((hw) => rows.push({ ...hw, classId: c.id, classLabel: c.label }));
       });
       rows.sort((a, b) => a.due.localeCompare(b.due) || a.classLabel.localeCompare(b.classLabel));
       return rows;
@@ -1905,17 +2480,15 @@
     }
 
     function updateHwPreview() {
-      const title = $("homeworkTitleInput").value.trim() || "Untitled";
+      $("hwPreviewTitle").textContent = $("homeworkTitleInput").value.trim() || "Untitled";
       const due = $("homeworkDueInput").value;
       const mins = $("homeworkTimeInput").value;
-      const html = $("homeworkDetailsEditor").innerHTML;
-      $("hwPreviewTitle").textContent = title;
       $("hwPreviewMeta").textContent = [
         due ? `Due ${formatDisplayDate(due)}` : "No due date",
         mins ? `~${mins} minutes` : null,
         classes.find((c) => c.id === $("hwClassSelect").value)?.label
       ].filter(Boolean).join(" · ");
-      $("hwPreviewBody").innerHTML = html || "<em>No details</em>";
+      $("hwPreviewBody").innerHTML = $("homeworkDetailsEditor").innerHTML || "<em>No details</em>";
     }
 
     function renderHomeworkPage() {
@@ -1956,32 +2529,25 @@
     });
 
     $("editButton").addEventListener("click", () => {
-      const c = getActiveClass();
-      $("nameInput").value = c.students.join("\n");
+      $("nameInput").value = getActiveClass().students.join("\n");
       $("editor").classList.toggle("open");
     });
-
     $("cancelEdit").addEventListener("click", () => $("editor").classList.remove("open"));
-
     $("saveNames").addEventListener("click", () => {
       const c = getActiveClass();
-      c.students = sortByLastName(
-        $("nameInput").value.split("\n").map((n) => n.trim()).filter(Boolean)
-      );
+      c.students = sortByLastName($("nameInput").value.split("\n").map((n) => n.trim()).filter(Boolean));
       c.note = `${c.students.length} students`;
       ensureTestData(c);
       $("editor").classList.remove("open");
       scheduleSave();
       renderRegister();
     });
-
     $("markAllPresent").addEventListener("click", () => {
       const c = getActiveClass();
       c.students.forEach((n) => { attendance[attKey(c.id, n)] = "/"; });
       scheduleSave();
       renderRegister();
     });
-
     $("clearRegister").addEventListener("click", () => {
       const c = getActiveClass();
       c.students.forEach((n) => { delete attendance[attKey(c.id, n)]; });
@@ -1995,23 +2561,16 @@
       testData[input.dataset.key][input.dataset.field] = input.value;
       scheduleSave();
     });
-
     $("dataHead").addEventListener("input", (e) => {
       const input = e.target;
       if (!input.matches("input[data-column][data-column-field]")) return;
       const col = testColumns.find((x) => x.id === input.dataset.column);
-      col[input.dataset.columnField] =
-        input.dataset.columnField === "max" ? Number(input.value || 1) : input.value;
+      col[input.dataset.columnField] = input.dataset.columnField === "max" ? Number(input.value || 1) : input.value;
       scheduleSave();
       if (input.dataset.columnField === "max") renderDataSheet(getActiveClass());
     });
-
     $("addTestColumn").addEventListener("click", () => {
-      testColumns.push({
-        id: `test${Date.now()}`,
-        label: $("newTestName").value.trim() || "New test",
-        max: Number($("newTestMax").value || 100)
-      });
+      testColumns.push({ id: `test${Date.now()}`, label: $("newTestName").value.trim() || "New test", max: Number($("newTestMax").value || 100) });
       classes.forEach(ensureTestData);
       $("newTestName").value = "New test";
       $("newTestMax").value = "100";
@@ -2022,9 +2581,7 @@
     document.querySelectorAll("[data-nav]").forEach((btn) => {
       btn.addEventListener("click", () => showView(btn.dataset.nav));
     });
-
     $("openDataPanel").addEventListener("click", () => toggleTaskPanel("dataPanel"));
-    $("openEmailPanel").addEventListener("click", () => toggleTaskPanel("emailPanel"));
     $("openBehaviourPanel").addEventListener("click", () => toggleTaskPanel("behaviourPanel"));
 
     $("behaviourMenu").addEventListener("click", (e) => {
@@ -2035,7 +2592,6 @@
       scheduleSave();
       renderRegister();
     });
-
     document.addEventListener("click", (e) => {
       if (!$("behaviourMenu").contains(e.target)) {
         $("behaviourMenu").classList.remove("open");
@@ -2045,11 +2601,43 @@
 
     $("emailTo").innerHTML = emailRecipients.map((r) => `<option>${escapeHtml(r)}</option>`).join("");
 
-    $("emailForm").addEventListener("submit", (e) => {
+    document.querySelectorAll(".mail-nav button").forEach((btn) => {
+      btn.addEventListener("click", () => setMailFolder(btn.dataset.folder));
+    });
+    $("mailCancelCompose").addEventListener("click", () => setMailFolder("inbox"));
+
+    $("mailComposePane").addEventListener("submit", (e) => {
       e.preventDefault();
+      const to = $("emailTo").value;
+      const subject = $("emailSubject").value.trim();
+      const body = $("emailMessage").value.trim();
+      if (!to || !subject || !body) return;
+      sendMail({ to, subject, body });
       const status = $("mailStatus");
-      status.textContent = `Message recorded for ${$("emailTo").value.split(" — ")[0]} (${getActiveClass().label}).`;
+      status.textContent = `Message sent to ${to.split(" — ")[0]}.`;
       status.classList.add("show");
+      $("emailSubject").value = "Register update";
+      $("emailMessage").value = `Dear colleague,\n\nPlease see the latest register and notes for ${getActiveClass().label}.\n\nKind regards,\nMr R. Mohammed\nHead of A-Level Science`;
+      setTimeout(() => {
+        setMailFolder("sent");
+        selectedMailId = mailSent[0]?.id || null;
+        renderMailList();
+        if (mailSent[0]) showMailRead(mailSent[0]);
+      }, 500);
+    });
+
+    $("mailNotify").addEventListener("click", () => {
+      $("mailNotify").classList.remove("show");
+      showView("email");
+      setMailFolder("inbox");
+      if (mailInbox[0]) {
+        selectedMailId = mailInbox[0].id;
+        mailInbox[0].read = true;
+        scheduleSave();
+        updateMailBadge();
+        renderMailList();
+        showMailRead(mailInbox[0]);
+      }
     });
 
     document.querySelectorAll(".fmt-toolbar button").forEach((btn) => {
@@ -2059,42 +2647,24 @@
         $("homeworkDetailsEditor").focus();
       });
     });
-
     $("hwPreviewBtn").addEventListener("click", () => {
       updateHwPreview();
       $("hwPreview").classList.add("show");
     });
-
-    ["homeworkTitleInput", "homeworkDueInput", "homeworkTimeInput"].forEach((id) => {
-      $(id).addEventListener("input", () => {
-        if ($("hwPreview").classList.contains("show")) updateHwPreview();
-      });
-    });
-
-    $("homeworkDetailsEditor").addEventListener("input", () => {
-      if ($("hwPreview").classList.contains("show")) updateHwPreview();
-    });
-
     $("homeworkForm").addEventListener("submit", (e) => {
       e.preventDefault();
       const classId = $("hwClassSelect").value;
       const title = $("homeworkTitleInput").value.trim();
       const due = $("homeworkDueInput").value;
       const minutes = Number($("homeworkTimeInput").value) || null;
-      const detailsHtml = $("homeworkDetailsEditor").innerHTML.trim();
-      const detailsText = $("homeworkDetailsEditor").innerText.trim();
       if (!title || !due) return;
-
       getHomeworks(classId).push({
         id: `hw-${Date.now()}`,
-        title,
-        due,
-        minutes,
-        details: detailsText,
-        detailsHtml
+        title, due, minutes,
+        details: $("homeworkDetailsEditor").innerText.trim(),
+        detailsHtml: $("homeworkDetailsEditor").innerHTML.trim()
       });
       scheduleSave();
-
       $("homeworkTitleInput").value = "Revision questions";
       const next = new Date(due + "T12:00:00");
       next.setDate(next.getDate() + 7);
@@ -2104,19 +2674,16 @@
       $("hwPreview").classList.remove("show");
       renderHomeworkPage();
     });
-
     $("hwClassSelect").addEventListener("change", () => {
       if (hwFilterMode === "class") renderHwTimetable();
       renderHwClassList();
     });
-
     $("hwTabAll").addEventListener("click", () => {
       hwFilterMode = "all";
       $("hwTabAll").setAttribute("aria-selected", "true");
       $("hwTabClass").setAttribute("aria-selected", "false");
       renderHwTimetable();
     });
-
     $("hwTabClass").addEventListener("click", () => {
       hwFilterMode = "class";
       $("hwTabAll").setAttribute("aria-selected", "false");
@@ -2130,14 +2697,22 @@
 
     const weekAhead = new Date();
     weekAhead.setDate(weekAhead.getDate() + 7);
-    if (!$("homeworkDueInput").value) {
-      $("homeworkDueInput").value = weekAhead.toISOString().slice(0, 10);
-    }
-
+    $("homeworkDueInput").value = weekAhead.toISOString().slice(0, 10);
     $("homeworkDetailsEditor").innerHTML = "Complete the assigned questions.<br><br>Bring answers to the next lesson.";
 
     classes.forEach(ensureTestData);
+    updateMailBadge();
     renderRegister();
+
+    if ("Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission().catch(() => {});
+    }
+
+    // First student email after a short delay, then ongoing
+    setTimeout(() => {
+      if (mailInbox.length < 2) randomStudentEmail();
+      scheduleNextStudentEmail();
+    }, 8000);
   </script>
 </body>
 </html>
