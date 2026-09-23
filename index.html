@@ -3,20 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Teacher Register</title>
+  <title>Westbridge London School · Science Register</title>
   <style>
     :root {
       color-scheme: light;
-      --bg: #f7f6f2;
+      --bg: #f0efea;
       --panel: #ffffff;
-      --ink: #1f2528;
-      --muted: #657076;
-      --line: #d8ddd8;
-      --primary: #176c63;
-      --primary-soft: #dff1ed;
-      --accent: #d9852b;
-      --danger: #ba3f3f;
-      --shadow: 0 12px 36px rgba(29, 37, 40, 0.08);
+      --ink: #152022;
+      --muted: #5a666b;
+      --line: #dce0db;
+      --primary: #0d5c54;
+      --primary-soft: #e2f2ee;
+      --gold: #c9a227;
+      --danger: #a83232;
+      --sidebar: #142426;
+      --shadow: 0 8px 24px rgba(20, 36, 38, 0.08);
+      --radius: 10px;
     }
 
     * { box-sizing: border-box; }
@@ -25,24 +27,35 @@
       margin: 0;
       background: var(--bg);
       color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Segoe UI", Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+      line-height: 1.45;
     }
 
-    button, input, textarea { font: inherit; }
+    button, input, textarea, select { font: inherit; }
 
     .app {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 280px minmax(0, 1fr);
+      grid-template-columns: 268px minmax(0, 1fr);
     }
 
+    /* Sidebar */
     aside {
-      background: #233234;
-      color: #f9fbfa;
-      padding: 24px;
+      background: var(--sidebar);
+      color: #f5f8f7;
+      padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .brand-block {
+      padding: 20px 16px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      background: linear-gradient(160deg, #1a3234 0%, #142426 100%);
     }
 
     .brand {
@@ -52,211 +65,327 @@
     }
 
     .school-logo {
-      width: 58px;
-      height: 58px;
-      flex: 0 0 auto;
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
       display: grid;
       place-items: center;
-      border-radius: 8px;
-      background: #f9fbfa;
-      color: #176c63;
-      box-shadow: inset 0 0 0 3px #f0b35a;
+      border-radius: 10px;
+      background: #f5f8f7;
+      color: var(--primary);
+      box-shadow: inset 0 0 0 2.5px var(--gold);
     }
 
     h1 {
       margin: 0;
-      font-size: 1.35rem;
-      font-weight: 650;
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
     }
 
     .subtitle {
-      margin: 4px 0 0;
-      color: rgba(249, 251, 250, 0.72);
-      font-size: 0.92rem;
+      margin: 2px 0 0;
+      color: rgba(245, 248, 247, 0.6);
+      font-size: 0.75rem;
     }
 
-    .class-tabs { display: grid; gap: 10px; }
+    .school-tag {
+      margin-top: 12px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      font-size: 0.72rem;
+      color: rgba(245,248,247,0.7);
+      line-height: 1.35;
+    }
+
+    .class-tabs {
+      display: grid;
+      gap: 4px;
+      padding: 12px 10px;
+      overflow-y: auto;
+      flex: 1;
+    }
 
     .nav-divider {
-      grid-column: 1 / -1;
-      margin: 10px 0 2px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(255, 255, 255, 0.18);
-      color: rgba(249, 251, 250, 0.7);
-      font-size: 0.76rem;
+      margin: 10px 6px 4px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(245,248,247,0.45);
+      font-size: 0.65rem;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
     .class-tab {
       width: 100%;
-      min-height: 56px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid transparent;
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.06);
+      background: transparent;
       color: inherit;
-      padding: 10px 12px;
+      padding: 9px 11px;
       text-align: left;
       cursor: pointer;
+      transition: background 0.12s;
     }
+
+    .class-tab:hover { background: rgba(255,255,255,0.06); }
 
     .class-tab[aria-selected="true"] {
-      background: #f9fbfa;
-      color: #1f2528;
-      border-color: #f9fbfa;
+      background: #f5f8f7;
+      color: var(--ink);
     }
 
-    .class-tab strong,
-    .class-tab span { display: block; }
-
+    .class-tab strong, .class-tab span { display: block; }
+    .class-tab strong { font-size: 0.88rem; }
     .class-tab span {
-      margin-top: 2px;
-      opacity: 0.68;
-      font-size: 0.86rem;
+      margin-top: 1px;
+      opacity: 0.62;
+      font-size: 0.74rem;
     }
 
-    .sidebar-note {
-      margin-top: auto;
-      color: rgba(249, 251, 250, 0.72);
-      font-size: 0.9rem;
-      line-height: 1.45;
+    .sidebar-foot {
+      padding: 12px 14px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.72rem;
+      color: rgba(245,248,247,0.5);
     }
 
+    /* Main */
     main {
-      padding: 28px;
-      display: grid;
-      gap: 18px;
-      align-content: start;
+      padding: 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
     }
+
+    .topbar {
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .topbar-brand {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .topbar-brand strong { color: var(--primary); }
+
+    .taskbar {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      background: var(--bg);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+    }
+
+    .taskbar .btn {
+      min-height: 34px;
+      padding: 5px 12px;
+      font-size: 0.82rem;
+      border: 0;
+      background: transparent;
+      border-radius: 7px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .taskbar .btn:hover {
+      background: var(--panel);
+      color: var(--ink);
+    }
+
+    .taskbar .btn.active,
+    .taskbar .btn.primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .content {
+      padding: 20px 24px 36px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+      flex: 1;
+    }
+
+    .view { display: none; }
+    .view.active { display: grid; gap: 14px; align-content: start; }
 
     .toolbar {
       display: flex;
       justify-content: space-between;
-      align-items: end;
-      gap: 16px;
+      align-items: flex-end;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
     .class-title {
       margin: 0;
-      font-size: 1.85rem;
-      font-weight: 700;
+      font-size: 1.5rem;
+      font-weight: 750;
+      letter-spacing: -0.02em;
     }
 
     .meta {
-      margin: 6px 0 0;
+      margin: 3px 0 0;
       color: var(--muted);
+      font-size: 0.86rem;
     }
 
     .actions {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .taskbar {
-      flex-basis: 100%;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      align-items: flex-end;
     }
 
     .date-control {
       display: grid;
-      gap: 6px;
+      gap: 3px;
       color: var(--muted);
-      font-size: 0.88rem;
-      font-weight: 650;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .date-control input {
-      min-height: 40px;
+      min-height: 36px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--panel);
+      padding: 5px 10px;
       color: var(--ink);
-      padding: 8px 10px;
     }
 
     .btn {
-      min-height: 40px;
+      min-height: 36px;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--panel);
       color: var(--ink);
-      padding: 8px 12px;
+      padding: 5px 12px;
+      cursor: pointer;
+      font-size: 0.88rem;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      cursor: pointer;
+      gap: 6px;
     }
 
+    .btn:hover { background: #f7f7f5; }
     .btn.primary {
       background: var(--primary);
       border-color: var(--primary);
-      color: #ffffff;
+      color: #fff;
     }
-
+    .btn.primary:hover { filter: brightness(1.05); }
     .btn.danger { color: var(--danger); }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(120px, 1fr));
-      gap: 12px;
+    .btn.ghost {
+      background: transparent;
+      border-color: transparent;
+      color: var(--muted);
     }
 
-    .stat, .register, .editor {
+    .mark-legend {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 8px 12px;
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 8px;
+    }
+
+    .mark-legend code {
+      font-weight: 700;
+      color: var(--ink);
+      background: var(--primary-soft);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: ui-monospace, monospace;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(90px, 1fr));
+      gap: 10px;
+    }
+
+    .stat, .register, .editor, .panel-card, .staff-card, .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
     }
 
-    .stat { padding: 14px; }
+    .stat { padding: 11px 13px; }
 
     .stat-label {
       color: var(--muted);
-      font-size: 0.82rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .stat-value {
-      margin-top: 6px;
-      font-size: 1.7rem;
-      font-weight: 700;
+      margin-top: 2px;
+      font-size: 1.45rem;
+      font-weight: 750;
+      font-variant-numeric: tabular-nums;
     }
 
+    /* Register with mark input */
     .register-header,
     .student-row {
       display: grid;
-      grid-template-columns: 56px minmax(160px, 1fr) minmax(250px, auto);
-      gap: 12px;
+      grid-template-columns: 44px minmax(130px, 1fr) 72px minmax(200px, auto);
+      gap: 10px;
       align-items: center;
     }
 
     .register-header {
-      padding: 14px 16px;
+      padding: 10px 14px;
       border-bottom: 1px solid var(--line);
       color: var(--muted);
-      font-size: 0.84rem;
-      font-weight: 650;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .student-list { display: grid; }
 
     .student-row {
-      min-height: 62px;
-      padding: 10px 16px;
+      min-height: 52px;
+      padding: 6px 14px;
       border-bottom: 1px solid var(--line);
     }
 
     .student-row:last-child { border-bottom: 0; }
+    .student-row:hover { background: #fafaf8; }
+    .student-row:focus-within { background: var(--primary-soft); }
 
     .student-index {
       color: var(--muted);
       font-variant-numeric: tabular-nums;
+      font-size: 0.85rem;
     }
 
     .student-name {
@@ -267,25 +396,64 @@
       padding: 0;
       text-align: left;
       cursor: context-menu;
+      font-size: 0.92rem;
     }
 
     .student-name.detention { color: var(--danger); }
 
+    .mark-input {
+      width: 52px;
+      height: 36px;
+      text-align: center;
+      font-size: 1.15rem;
+      font-weight: 700;
+      font-family: ui-monospace, "Cascadia Code", monospace;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+
+    .mark-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
+    }
+
+    .mark-input.mark-present {
+      background: #e8f6ef;
+      border-color: #2a9d6e;
+      color: #1a6b48;
+    }
+
+    .mark-input.mark-absent {
+      background: #fcebdd;
+      border-color: #d4843a;
+      color: #9a5520;
+    }
+
+    .mark-input.mark-late {
+      background: #e8eefc;
+      border-color: #4a6fd4;
+      color: #2c4a9a;
+    }
+
     .status-group {
       display: flex;
-      gap: 8px;
+      gap: 5px;
       flex-wrap: wrap;
       justify-content: flex-end;
     }
 
     .status {
-      min-height: 34px;
+      min-height: 30px;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 6px;
       background: #fff;
-      color: var(--ink);
-      padding: 6px 10px;
+      padding: 3px 8px;
       cursor: pointer;
+      font-size: 0.78rem;
     }
 
     .status[aria-pressed="true"] {
@@ -296,189 +464,139 @@
     }
 
     .empty {
-      padding: 34px 18px;
+      padding: 28px 16px;
       text-align: center;
       color: var(--muted);
     }
 
     .editor {
-      padding: 16px;
+      padding: 14px;
       display: none;
-      gap: 12px;
+      gap: 10px;
     }
 
     .editor.open { display: grid; }
 
     .editor label {
       display: grid;
-      gap: 8px;
+      gap: 5px;
       color: var(--muted);
       font-weight: 650;
+      font-size: 0.85rem;
     }
 
     textarea {
       width: 100%;
-      min-height: 180px;
+      min-height: 140px;
       resize: vertical;
       border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 12px;
-      color: var(--ink);
-      background: #fff;
-      line-height: 1.45;
+      padding: 10px;
+      line-height: 1.5;
     }
 
     .editor-actions {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       justify-content: flex-end;
-      flex-wrap: wrap;
     }
 
-    .staff-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      padding: 14px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .person-icon {
-      width: 40px;
-      height: 40px;
-      flex: 0 0 auto;
-      display: grid;
-      place-items: center;
-      border-radius: 8px;
-      background: var(--primary-soft);
-      color: var(--primary);
-    }
-
-    .staff-name { font-weight: 700; }
-
-    .staff-role {
-      margin-top: 2px;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .panel-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
+    .panel-card { overflow: hidden; }
     .task-panel { display: none; }
     .task-panel.open { display: block; }
 
     .panel-heading {
-      padding: 16px;
+      padding: 12px 14px;
       border-bottom: 1px solid var(--line);
     }
 
     .panel-heading h2 {
       margin: 0;
-      font-size: 1.05rem;
+      font-size: 0.95rem;
+      font-weight: 700;
     }
 
     .panel-heading p {
-      margin: 4px 0 0;
+      margin: 2px 0 0;
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 0.82rem;
     }
 
-    .sheet-wrap {
-      max-height: 430px;
-      overflow: auto;
-    }
+    .sheet-wrap { max-height: 380px; overflow: auto; }
 
     .data-sheet {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.88rem;
+      font-size: 0.84rem;
     }
 
-    .data-sheet th,
-    .data-sheet td {
+    .data-sheet th, .data-sheet td {
       border-bottom: 1px solid var(--line);
-      padding: 8px;
+      padding: 6px 8px;
       text-align: left;
-      vertical-align: middle;
     }
 
     .data-sheet th {
       position: sticky;
       top: 0;
-      z-index: 1;
       background: var(--panel);
       color: var(--muted);
-      font-size: 0.78rem;
+      font-size: 0.7rem;
       font-weight: 700;
     }
 
     .data-sheet input {
-      width: 64px;
-      min-height: 32px;
+      width: 56px;
+      min-height: 28px;
       border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 5px 7px;
-      color: var(--ink);
-      background: #fff;
+      border-radius: 6px;
+      padding: 3px 5px;
     }
 
     .data-sheet th input {
-      width: 96px;
-      margin-top: 4px;
+      width: 88px;
+      margin-top: 3px;
       display: block;
     }
 
-    .data-sheet .name-cell {
-      min-width: 145px;
-      font-weight: 600;
-    }
+    .data-sheet .name-cell { min-width: 130px; font-weight: 600; }
 
     .sheet-tools {
-      padding: 12px 16px;
+      padding: 10px 14px;
       border-bottom: 1px solid var(--line);
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
-      align-items: end;
+      align-items: flex-end;
     }
 
     .sheet-tools label {
       display: grid;
-      gap: 5px;
+      gap: 3px;
       color: var(--muted);
-      font-size: 0.84rem;
+      font-size: 0.75rem;
       font-weight: 650;
     }
 
     .sheet-tools input {
-      min-height: 38px;
+      min-height: 32px;
       border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 7px 9px;
-      color: var(--ink);
-      background: #fff;
+      border-radius: 7px;
+      padding: 5px 8px;
     }
 
     .email-form {
-      padding: 16px;
+      padding: 14px;
       display: grid;
-      gap: 12px;
+      gap: 10px;
+      max-width: 520px;
     }
 
     .email-form label {
       display: grid;
-      gap: 6px;
+      gap: 4px;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       font-weight: 650;
     }
 
@@ -488,146 +606,404 @@
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 9px 10px;
-      color: var(--ink);
-      background: #fff;
+      padding: 8px 10px;
     }
-
-    .email-form textarea { min-height: 104px; }
 
     .mail-status {
       display: none;
       color: var(--primary);
       font-weight: 650;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     .mail-status.show { display: block; }
 
     .policy-list {
       margin: 0;
-      padding: 16px 16px 16px 34px;
-      line-height: 1.7;
+      padding: 14px 14px 6px 32px;
+      line-height: 1.65;
     }
 
-    .homework-form,
-    .timetable-body {
-      padding: 16px;
-      display: grid;
+    .behaviour-note {
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 0 14px 14px;
+    }
+
+    .staff-card {
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
       gap: 12px;
     }
 
-    .homework-form label {
+    .person-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
       display: grid;
-      gap: 6px;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .staff-name { font-weight: 700; }
+    .staff-role { margin-top: 1px; color: var(--muted); font-size: 0.85rem; }
+
+    .save-toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--sidebar);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 50;
+    }
+
+    .save-toast.show { opacity: 1; }
+
+    .behaviour-menu {
+      position: fixed;
+      z-index: 40;
+      display: none;
+      min-width: 170px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 5px;
+    }
+
+    .behaviour-menu.open { display: grid; gap: 2px; }
+
+    .behaviour-menu button {
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      padding: 8px 10px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .behaviour-menu button:hover { background: var(--primary-soft); }
+
+    /* Homework / Timetable pages */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .page-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 750;
+      letter-spacing: -0.02em;
+    }
+
+    .page-header p {
+      margin: 3px 0 0;
       color: var(--muted);
       font-size: 0.88rem;
-      font-weight: 650;
     }
 
-    .homework-form input,
-    .homework-form textarea {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 9px 10px;
-      color: var(--ink);
-      background: #fff;
-    }
-
-    .homework-form textarea { min-height: 84px; }
-
-    .homework-grid {
+    .hw-layout {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
     }
 
-    .homework-list,
-    .timetable-list { display: grid; gap: 10px; }
-
-    .homework-item,
-    .timetable-item {
+    .hw-form-card, .hw-schedule-card, .hw-class-card {
+      background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px;
-      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
 
-    .homework-item strong,
-    .timetable-item strong { display: block; }
-
-    .homework-item span,
-    .timetable-item span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .homework-item .hw-actions {
-      margin-top: 8px;
-      display: flex;
-      gap: 8px;
-    }
-
-    .homework-item .hw-actions .btn {
-      min-height: 32px;
-      padding: 4px 10px;
-      font-size: 0.85rem;
-    }
-
-    .calendar-strip {
+    .hw-form-card {
+      padding: 14px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 10px;
     }
 
-    .calendar-day {
+    .hw-form-card h3,
+    .hw-schedule-card h3,
+    .hw-class-card h3 {
+      margin: 0;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .hw-form-card .hint {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .hw-form-card label {
+      display: grid;
+      gap: 4px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 650;
+    }
+
+    .hw-form-card input,
+    .hw-form-card select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 9px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .fmt-toolbar {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .fmt-toolbar button {
+      min-width: 32px;
+      min-height: 30px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .fmt-toolbar button:hover { background: var(--primary-soft); }
+
+    .rich-editor {
+      min-height: 100px;
       border: 1px solid var(--line);
       border-radius: 8px;
       padding: 10px;
-      background: var(--primary-soft);
-    }
-
-    .calendar-day.empty-day {
-      background: #f4f4f2;
-      opacity: 0.85;
-    }
-
-    .calendar-day strong { display: block; }
-
-    .calendar-day span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 0.86rem;
-    }
-
-    .calendar-day ul {
-      margin: 6px 0 0;
-      padding-left: 16px;
-      font-size: 0.84rem;
-      color: var(--ink);
-    }
-
-    .timetable-day {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
       background: #fff;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+      outline: none;
     }
 
-    .timetable-day-header {
-      padding: 10px 12px;
-      background: var(--primary-soft);
-      color: var(--primary);
+    .rich-editor:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-soft);
+    }
+
+    .rich-editor:empty:before {
+      content: attr(data-placeholder);
+      color: #99a3a8;
+    }
+
+    .hw-preview {
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fafaf8;
+      display: none;
+    }
+
+    .hw-preview.show { display: block; }
+
+    .hw-preview-label {
+      font-size: 0.72rem;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .hw-preview-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .hw-preview-meta {
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 650;
+      margin: 4px 0 8px;
+    }
+
+    .hw-preview-body {
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .card-head {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .card-head p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .hw-tabs {
+      display: flex;
+      gap: 3px;
+      padding: 3px;
+      background: var(--bg);
+      border-radius: 8px;
+    }
+
+    .hw-tabs button {
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .hw-tabs button[aria-selected="true"] {
+      background: var(--panel);
+      color: var(--primary);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    .hw-timetable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .hw-timetable th, .hw-timetable td {
+      padding: 9px 12px;
+      text-align: left;
+      vertical-align: top;
       border-bottom: 1px solid var(--line);
     }
 
-    .timetable-slot {
-      padding: 10px 12px;
+    .hw-timetable th {
+      background: #f7f8f6;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      position: sticky;
+      top: 0;
+    }
+
+    .hw-timetable .due-cell {
+      white-space: nowrap;
+      font-weight: 650;
+      font-variant-numeric: tabular-nums;
+      width: 120px;
+    }
+
+    .hw-timetable .class-cell {
+      white-space: nowrap;
+      width: 90px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .hw-timetable .title-cell { font-weight: 600; }
+
+    .hw-timetable .details-cell {
+      color: var(--muted);
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-width: 280px;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .hw-timetable .time-cell {
+      white-space: nowrap;
+      font-size: 0.82rem;
+      color: var(--muted);
+      width: 70px;
+    }
+
+    .hw-day-group { background: var(--primary-soft) !important; }
+    .hw-day-group td {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.82rem;
+      padding: 7px 12px;
+    }
+
+    .hw-list { padding: 4px 0; }
+
+    .hw-item {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      gap: 3px;
+    }
+
+    .hw-item:last-child { border-bottom: 0; }
+    .hw-item-title { font-weight: 700; }
+    .hw-item-due { color: var(--primary); font-size: 0.82rem; font-weight: 650; }
+    .hw-item-details {
+      color: var(--muted);
+      font-size: 0.86rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.5;
+    }
+
+    .tt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .tt-day {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .tt-day-header {
+      padding: 11px 14px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .tt-slot {
+      padding: 12px 14px;
       border-bottom: 1px solid var(--line);
       display: grid;
       grid-template-columns: 110px 1fr;
@@ -635,517 +1011,593 @@
       align-items: center;
     }
 
-    .timetable-slot:last-child { border-bottom: 0; }
+    .tt-slot:last-child { border-bottom: 0; }
+    .tt-slot:hover { background: #fafaf8; }
 
-    .timetable-slot .time {
+    .tt-time {
       font-variant-numeric: tabular-nums;
-      font-weight: 650;
-      color: var(--ink);
-    }
-
-    .timetable-slot .class-label {
-      font-weight: 600;
-    }
-
-    .timetable-slot .class-meta {
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-
-    .behaviour-menu {
-      position: fixed;
-      z-index: 20;
-      display: none;
-      min-width: 190px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      padding: 8px;
-    }
-
-    .behaviour-menu.open {
-      display: grid;
-      gap: 6px;
-    }
-
-    .behaviour-menu button {
-      border: 0;
-      border-radius: 8px;
-      background: transparent;
-      color: var(--ink);
-      padding: 9px 10px;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .behaviour-menu button:hover { background: var(--primary-soft); }
-
-    .behaviour-note {
-      color: var(--muted);
+      font-weight: 700;
       font-size: 0.9rem;
-      padding: 0 16px 16px;
     }
 
-    @media (max-width: 820px) {
+    .tt-time span {
+      display: block;
+      font-weight: 500;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .tt-class { font-weight: 700; }
+    .tt-meta { color: var(--muted); font-size: 0.82rem; margin-top: 1px; }
+
+    @media (max-width: 900px) {
       .app { grid-template-columns: 1fr; }
-      aside { padding: 18px; }
-      .class-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .sidebar-note { display: none; }
-      main { padding: 18px; }
-      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      aside { position: relative; height: auto; max-height: 40vh; }
+      .hw-layout { grid-template-columns: 1fr; }
       .register-header { display: none; }
-      .student-row { grid-template-columns: 44px minmax(0, 1fr); }
+      .student-row {
+        grid-template-columns: 36px minmax(0, 1fr) 56px;
+      }
       .status-group {
         grid-column: 1 / -1;
         justify-content: flex-start;
       }
+      .stats { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 520px) {
-      .class-tabs, .stats { grid-template-columns: 1fr; }
-      .toolbar { align-items: stretch; }
-      .actions, .btn { width: 100%; }
-      .btn { justify-content: center; }
-      .status { flex: 1 1 130px; }
-      .homework-grid { grid-template-columns: 1fr; }
-      .timetable-slot { grid-template-columns: 1fr; }
+      .field-row { grid-template-columns: 1fr; }
+      .tt-slot { grid-template-columns: 1fr; }
+      .content { padding: 14px; }
     }
   </style>
 </head>
 <body>
   <div class="app">
     <aside>
-      <div class="brand">
-        <div class="school-logo" aria-label="Westbridge London School logo">
-          <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
-            <path d="M24 4l17 8v12c0 10-6.8 17.3-17 20-10.2-2.7-17-10-17-20V12l17-8z" fill="currentColor"/>
-            <path d="M15 17h18M18 23h12M21 29h6" stroke="#f9fbfa" stroke-width="3" stroke-linecap="round"/>
-            <path d="M24 10v28" stroke="#f0b35a" stroke-width="3" stroke-linecap="round"/>
-          </svg>
+      <div class="brand-block">
+        <div class="brand">
+          <div class="school-logo" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+              <path d="M24 4l17 8v12c0 10-6.8 17.3-17 20-10.2-2.7-17-10-17-20V12l17-8z" fill="currentColor"/>
+              <path d="M15 17h18M18 23h12M21 29h6" stroke="#f5f8f7" stroke-width="3" stroke-linecap="round"/>
+              <path d="M24 10v28" stroke="#c9a227" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Westbridge London School</h1>
+            <p class="subtitle">Management Information System</p>
+          </div>
         </div>
-        <div>
-          <h1>Westbridge London School</h1>
-          <p class="subtitle">Science register</p>
-        </div>
+        <div class="school-tag">A-Level Science · Staff portal<br>Registers are saved automatically</div>
       </div>
-      <nav class="class-tabs" aria-label="Classes" id="classTabs"></nav>
-      <p class="sidebar-note">Head of TW Science view. Select a class, take the register, and open data, homework or timetable tools from the taskbar.</p>
+      <nav class="class-tabs" id="classTabs" aria-label="Classes"></nav>
+      <div class="sidebar-foot">Westbridge London School · Confidential staff use</div>
     </aside>
 
     <main>
-      <section class="toolbar" aria-labelledby="classTitle">
-        <div>
-          <h2 class="class-title" id="classTitle"></h2>
-          <p class="meta" id="classMeta"></p>
+      <div class="topbar">
+        <div class="topbar-brand"><strong>WLS</strong> · Staff portal</div>
+        <nav class="taskbar" aria-label="Main tools">
+          <button class="btn active" type="button" data-nav="register" id="navRegister">Register</button>
+          <button class="btn" type="button" data-nav="homework" id="navHomework">Homework</button>
+          <button class="btn" type="button" data-nav="timetable" id="navTimetable">Timetable</button>
+          <button class="btn" type="button" id="openDataPanel">Data</button>
+          <button class="btn" type="button" id="openEmailPanel">Email</button>
+          <button class="btn" type="button" id="openBehaviourPanel">Behaviour</button>
+        </nav>
+      </div>
+
+      <div class="content">
+        <!-- REGISTER -->
+        <div class="view active" id="viewRegister" data-view="register">
+          <section class="toolbar">
+            <div>
+              <h2 class="class-title" id="classTitle"></h2>
+              <p class="meta" id="classMeta"></p>
+            </div>
+            <div class="actions">
+              <label class="date-control" for="registerDate">
+                Register date
+                <input id="registerDate" type="date">
+              </label>
+              <button class="btn" type="button" id="editButton">Edit names</button>
+              <button class="btn primary" type="button" id="markAllPresent">All /</button>
+              <button class="btn danger" type="button" id="clearRegister">Clear day</button>
+            </div>
+          </section>
+
+          <div class="mark-legend">
+            <span><code>/</code> Present</span>
+            <span><code>.</code> Absent</span>
+            <span><code>L</code> Late</span>
+            <span>Type in the mark box, or use the buttons. Registers for each date are saved.</span>
+          </div>
+
+          <section class="stats">
+            <div class="stat">
+              <div class="stat-label">Students</div>
+              <div class="stat-value" id="totalCount">0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Present (/)</div>
+              <div class="stat-value" id="presentCount">0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Absent (.)</div>
+              <div class="stat-value" id="absentCount">0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">Late (L)</div>
+              <div class="stat-value" id="lateCount">0</div>
+            </div>
+          </section>
+
+          <section class="editor" id="editor">
+            <label for="nameInput">Names (one per line)
+              <textarea id="nameInput" spellcheck="false"></textarea>
+            </label>
+            <div class="editor-actions">
+              <button class="btn" type="button" id="cancelEdit">Cancel</button>
+              <button class="btn primary" type="button" id="saveNames">Save names</button>
+            </div>
+          </section>
+
+          <section class="panel-card task-panel" id="dataPanel">
+            <div class="panel-heading">
+              <h2>Class data</h2>
+              <p id="sheetMeta">Test scores</p>
+            </div>
+            <div class="sheet-tools">
+              <label>Test name <input id="newTestName" type="text" value="New test"></label>
+              <label>Max <input id="newTestMax" type="number" min="1" value="100"></label>
+              <button class="btn primary" type="button" id="addTestColumn">Add test</button>
+            </div>
+            <div class="sheet-wrap">
+              <table class="data-sheet">
+                <thead id="dataHead"></thead>
+                <tbody id="dataSheet"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel-card task-panel" id="behaviourPanel">
+            <div class="panel-heading">
+              <h2>Behaviour policy</h2>
+              <p>Right-click a student name to record behaviour.</p>
+            </div>
+            <ol class="policy-list">
+              <li>1st Warning</li>
+              <li>2nd Warning</li>
+              <li>Detention</li>
+              <li>Merit</li>
+            </ol>
+            <p class="behaviour-note">Detentions show in red on the register. Records are saved.</p>
+          </section>
+
+          <section class="panel-card task-panel" id="emailPanel">
+            <div class="panel-heading">
+              <h2>Staff email</h2>
+              <p>Internal messaging</p>
+            </div>
+            <form class="email-form" id="emailForm">
+              <label>To <select id="emailTo"></select></label>
+              <label>Subject <input id="emailSubject" type="text" value="Register update"></label>
+              <label>Message <textarea id="emailMessage">Please see the latest register for my selected class.</textarea></label>
+              <button class="btn primary" type="submit">Send</button>
+              <div class="mail-status" id="mailStatus"></div>
+            </form>
+          </section>
+
+          <section class="register">
+            <div class="register-header">
+              <span>No.</span>
+              <span>Name</span>
+              <span>Mark</span>
+              <span>Quick mark</span>
+            </div>
+            <div class="student-list" id="studentList"></div>
+          </section>
+
+          <footer class="staff-card">
+            <div class="person-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M20 21a8 8 0 0 0-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <div class="staff-name">Mr R. Mohammed</div>
+              <div class="staff-role">Head of A-Level Science</div>
+            </div>
+          </footer>
         </div>
-        <div class="actions">
-          <label class="date-control" for="registerDate">
-            Register date
-            <input id="registerDate" type="date">
-          </label>
-          <button class="btn" type="button" id="editButton">Edit names</button>
-          <button class="btn primary" type="button" id="markAllPresent">Mark all present</button>
-          <button class="btn danger" type="button" id="clearRegister">Clear register</button>
-          <div class="taskbar" aria-label="Taskbar tools">
-            <button class="btn" type="button" id="openDataPanel">Class data</button>
-            <button class="btn" type="button" id="openEmailPanel">Email teachers</button>
-            <button class="btn" type="button" id="openBehaviourPanel">Behaviour policy</button>
-            <button class="btn" type="button" id="openHomeworkPanel">Homework</button>
-            <button class="btn" type="button" id="openTimetablePanel">Timetable</button>
+
+        <!-- HOMEWORK -->
+        <div class="view" id="viewHomework" data-view="homework">
+          <div class="page-header">
+            <div>
+              <h2>Homework</h2>
+              <p>Set work · estimate time · preview · all due dates in one timetable</p>
+            </div>
+          </div>
+
+          <div class="hw-layout">
+            <form class="hw-form-card" id="homeworkForm">
+              <h3>Set homework</h3>
+              <p class="hint">Formatting and spacing are kept. Preview before you submit.</p>
+              <label>Class
+                <select id="hwClassSelect"></select>
+              </label>
+              <div class="field-row">
+                <label>Title
+                  <input id="homeworkTitleInput" type="text" value="Revision questions" required>
+                </label>
+                <label>Due date
+                  <input id="homeworkDueInput" type="date" required>
+                </label>
+              </div>
+              <label>Estimated time (minutes)
+                <input id="homeworkTimeInput" type="number" min="5" step="5" value="30" placeholder="e.g. 30">
+              </label>
+              <label>Details
+                <div class="fmt-toolbar">
+                  <button type="button" data-cmd="bold" title="Bold"><b>B</b></button>
+                  <button type="button" data-cmd="italic" title="Italic"><i>I</i></button>
+                  <button type="button" data-cmd="underline" title="Underline"><u>U</u></button>
+                  <button type="button" data-cmd="insertUnorderedList" title="Bullet list">• List</button>
+                </div>
+                <div id="homeworkDetailsEditor" class="rich-editor" contenteditable="true" data-placeholder="Instructions for students…" role="textbox"></div>
+              </label>
+              <div class="hw-preview" id="hwPreview">
+                <div class="hw-preview-label">Preview</div>
+                <div class="hw-preview-title" id="hwPreviewTitle"></div>
+                <div class="hw-preview-meta" id="hwPreviewMeta"></div>
+                <div class="hw-preview-body" id="hwPreviewBody"></div>
+              </div>
+              <div class="form-actions">
+                <button class="btn" type="button" id="hwPreviewBtn">Preview</button>
+                <button class="btn primary" type="submit">Set homework</button>
+              </div>
+            </form>
+
+            <div style="display:grid;gap:14px;min-width:0;">
+              <div class="hw-schedule-card">
+                <div class="card-head">
+                  <div>
+                    <h3>All homework timetable</h3>
+                    <p>Sorted by due date · saved on this device</p>
+                  </div>
+                  <div class="hw-tabs">
+                    <button type="button" id="hwTabAll" aria-selected="true">All classes</button>
+                    <button type="button" id="hwTabClass" aria-selected="false">This class</button>
+                  </div>
+                </div>
+                <div class="sheet-wrap" style="max-height:460px;">
+                  <table class="hw-timetable">
+                    <thead>
+                      <tr>
+                        <th>Due</th>
+                        <th>Class</th>
+                        <th>Title</th>
+                        <th>Time</th>
+                        <th>Details</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="hwTimetableBody"></tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="hw-class-card">
+                <div class="card-head">
+                  <div>
+                    <h3 id="hwClassListTitle">Class homework</h3>
+                    <p id="hwClassListMeta"></p>
+                  </div>
+                </div>
+                <div class="hw-list" id="hwClassList"></div>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
 
-      <section class="stats" aria-label="Register totals">
-        <div class="stat">
-          <div class="stat-label">Students</div>
-          <div class="stat-value" id="totalCount">0</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">Present</div>
-          <div class="stat-value" id="presentCount">0</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">Absent</div>
-          <div class="stat-value" id="absentCount">0</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">Late</div>
-          <div class="stat-value" id="lateCount">0</div>
-        </div>
-      </section>
-
-      <section class="editor" id="editor" aria-label="Edit class names">
-        <label for="nameInput">
-          Names
-          <textarea id="nameInput" spellcheck="false" placeholder="Add one full name per line"></textarea>
-        </label>
-        <div class="editor-actions">
-          <button class="btn" type="button" id="cancelEdit">Cancel</button>
-          <button class="btn primary" type="button" id="saveNames">Save names</button>
-        </div>
-      </section>
-
-      <section class="panel-card task-panel" id="dataPanel" aria-labelledby="sheetTitle">
-        <div class="panel-heading">
-          <h2 id="sheetTitle">Class data spreadsheet</h2>
-          <p id="sheetMeta">Recent test data for the selected class</p>
-        </div>
-        <div class="sheet-tools">
-          <label for="newTestName">
-            Test name
-            <input id="newTestName" type="text" value="New test">
-          </label>
-          <label for="newTestMax">
-            Max mark
-            <input id="newTestMax" type="number" min="1" value="100">
-          </label>
-          <button class="btn primary" type="button" id="addTestColumn">Add test</button>
-        </div>
-        <div class="sheet-wrap">
-          <table class="data-sheet">
-            <thead id="dataHead"></thead>
-            <tbody id="dataSheet"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="panel-card task-panel" id="behaviourPanel" aria-labelledby="behaviourTitle">
-        <div class="panel-heading">
-          <h2 id="behaviourTitle">Behaviour policy</h2>
-          <p>Right-click a student name to record behaviour.</p>
-        </div>
-        <ol class="policy-list">
-          <li>1st Warning</li>
-          <li>2nd Warning</li>
-          <li>Detention</li>
-          <li>Merit</li>
-        </ol>
-        <p class="behaviour-note">Students with detentions appear in red on the register.</p>
-      </section>
-
-      <section class="panel-card task-panel" id="homeworkPanel" aria-labelledby="homeworkTitle">
-        <div class="panel-heading">
-          <h2 id="homeworkTitle">Homework</h2>
-          <p>Set homework for the selected class and see due dates on the calendar.</p>
-        </div>
-        <form class="homework-form" id="homeworkForm">
-          <div class="homework-grid">
-            <label for="homeworkTitleInput">
-              Homework title
-              <input id="homeworkTitleInput" type="text" value="Revision questions" required>
-            </label>
-            <label for="homeworkDueInput">
-              Due date
-              <input id="homeworkDueInput" type="date" required>
-            </label>
+        <!-- TIMETABLE -->
+        <div class="view" id="viewTimetable" data-view="timetable">
+          <div class="page-header">
+            <div>
+              <h2>My timetable</h2>
+              <p>Wednesday &amp; Friday · A-Level Science</p>
+            </div>
           </div>
-          <label for="homeworkDetailsInput">
-            Details
-            <textarea id="homeworkDetailsInput">Complete the assigned questions and bring answers to the next lesson.</textarea>
-          </label>
-          <button class="btn primary" type="submit">Set homework</button>
-        </form>
-        <div class="homework-form">
-          <div class="calendar-strip" id="homeworkCalendar" aria-label="Homework due calendar"></div>
-          <div class="homework-list" id="homeworkList" aria-live="polite"></div>
+          <div class="tt-grid" id="timetableGrid"></div>
         </div>
-      </section>
-
-      <section class="panel-card task-panel" id="timetablePanel" aria-labelledby="timetableTitle">
-        <div class="panel-heading">
-          <h2 id="timetableTitle">My timetable</h2>
-          <p>Wednesday and Friday science teaching timetable.</p>
-        </div>
-        <div class="timetable-body">
-          <div class="timetable-list" id="timetableList"></div>
-        </div>
-      </section>
-
-      <section class="panel-card task-panel" id="emailPanel" aria-labelledby="emailTitle">
-        <div class="panel-heading">
-          <h2 id="emailTitle">Teacher email</h2>
-          <p>Internal message service</p>
-        </div>
-        <form class="email-form" id="emailForm">
-          <label for="emailTo">
-            To
-            <select id="emailTo">
-              <option>Dr A. Carter - Head of Year 13</option>
-              <option>Ms N. Ahmed - Safeguarding Lead</option>
-              <option>Mr J. Mensah - Science Teacher</option>
-              <option>Mrs S. Patel - Deputy Head</option>
-            </select>
-          </label>
-          <label for="emailSubject">
-            Subject
-            <input id="emailSubject" type="text" value="Register and test update">
-          </label>
-          <label for="emailMessage">
-            Message
-            <textarea id="emailMessage">Hi, please see the latest register and recent test data for my selected class.</textarea>
-          </label>
-          <button class="btn primary" type="submit">Send email</button>
-          <div class="mail-status" id="mailStatus" role="status">Email sent to selected teacher.</div>
-        </form>
-      </section>
-
-      <section class="register" aria-label="Class register">
-        <div class="register-header">
-          <span>No.</span>
-          <span>Name</span>
-          <span>Attendance</span>
-        </div>
-        <div class="student-list" id="studentList" aria-live="polite"></div>
-      </section>
-
-      <footer class="staff-card" aria-label="Teacher details">
-        <div class="person-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M20 21a8 8 0 0 0-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
-          </svg>
-        </div>
-        <div>
-          <div class="staff-name">Mr R. Mohammed</div>
-          <div class="staff-role">Head of TW Science</div>
-        </div>
-      </footer>
+      </div>
     </main>
   </div>
 
-  <div class="behaviour-menu" id="behaviourMenu" role="menu" aria-label="Behaviour actions">
+  <div class="behaviour-menu" id="behaviourMenu">
     <button type="button" data-behaviour="1st Warning">1st Warning</button>
     <button type="button" data-behaviour="2nd Warning">2nd Warning</button>
     <button type="button" data-behaviour="Detention">Detention</button>
     <button type="button" data-behaviour="Merit">Merit</button>
   </div>
+  <div class="save-toast" id="saveToast">Saved</div>
 
   <script>
-    const classes = [
-      {
-        id: "13EB1",
-        label: "13E/B1",
-        group: "My classes",
-        subject: "Biology",
-        teacher: "Mr R. Mohammed",
-        mine: true,
-        note: "17 generated names",
-        students: [
-          "Yasmin Ahmed", "Daniel Afolayan", "Leah Brown", "Samira El-Sayed", "Marcus Grant",
-          "Ayaan Hussain", "Priya Iyer", "Keira Johnson", "Omar Khan", "Amara Mensah",
-          "Jamal Okafor", "Hannah Osei", "Maya Patel", "Isaac Robinson", "Fatima Sheikh",
-          "Tariq Williams", "Nia Wilson"
-        ]
-      },
-      {
-        id: "12AB2",
-        label: "12A/B2",
-        group: "My classes",
-        subject: "Biology",
-        teacher: "Mr R. Mohammed",
-        mine: true,
-        note: "24 generated names",
-        students: [
-          "Maryam Abdi", "Theo Anderson", "Imani Boateng", "Finley Brooks", "Huda Chowdhury",
-          "Grace Davies", "Zainab Farooq", "Ethan Fletcher", "Malik Johnson", "Amina Khan",
-          "Lucas Kowalski", "Sofia Martins", "Chinedu Nwosu", "Mia O'Connor", "Rayan Patel",
-          "Ella Peters", "Muhammad Rahman", "Kofi Sarfo", "Isabella Singh", "Noah Smith",
-          "Layla Thompson", "Joshua Walker", "Fatoumata Yeboah", "Elena Zaman"
-        ]
-      },
-      {
-        id: "11XS1",
-        label: "11X/S1",
-        group: "My classes",
-        subject: "Science",
-        teacher: "Mr R. Mohammed",
-        mine: true,
-        note: "30 generated names",
-        students: [
-          "Mohammed Ali", "Ruby Anderson", "Joshua Bailey", "Toby Barnes", "Mia Chapman",
-          "Yusuf Diallo", "Thomas Dixon", "Ella Fraser", "Adam Griffin", "Niamh Hamilton",
-          "Sana Iqbal", "Charlie Jenkins", "Sienna Kelly", "Aaliyah Mohamed", "Jacob Mitchell",
-          "Archie Morris", "Henry Nelson", "Aisha Oladipo", "Phoebe Owens", "Dylan Parker",
-          "Mei-Ling Pham", "Erin Phillips", "Aarav Reddy", "Theo Roberts", "Evie Russell",
-          "Maisie Scott", "Ryan Spencer", "Callum Ward", "Elena Wright", "Layla Young"
-        ]
-      },
-      {
-        id: "10XS1",
-        label: "10X/S1",
-        group: "TW Science classes",
-        subject: "Science",
-        teacher: "Ms H. Clarke",
-        note: "24 generated names",
-        students: [
-          "Hassan Abbas", "Molly Baker", "Kwame Boateng", "Luca Costa", "Sadia Farooq",
-          "Jayden Foster", "Amelie Grant", "Bilal Hussain", "Anaya Khan", "Talia Levy",
-          "Ibrahim Mahmood", "Zoe Martins", "Ayo Mensah", "Sophie Murphy", "Chiamaka Nwankwo",
-          "Dylan O'Brien", "Riya Patel", "Adam Rahman", "Eleanor Scott", "Harpreet Singh",
-          "Noor Syed", "Kai Thompson", "Mariam Yusuf", "Nikolai Zielinski"
-        ]
-      },
-      {
-        id: "10XS4",
-        label: "10X/S4",
-        group: "TW Science classes",
-        subject: "Science",
-        teacher: "Dr A. Carter",
-        note: "28 generated names",
-        students: [
-          "Zara Ahmed", "Ryan Allen", "Temi Adebayo", "Freddie Brown", "Nadia Chowdhury",
-          "Andre Clarke", "Maya Davies", "Aisha Diallo", "Ethan Evans", "Hana Fujimoto",
-          "Samira Hassan", "Jacob Hill", "Yusuf Jama", "Isobel King", "Omar Malik",
-          "Nia Morrison", "Daniel Novak", "Amara Okoro", "Oscar Phillips", "Priya Reddy",
-          "Khadija Saeed", "Elijah Smith", "Grace Taylor", "Mei Tan", "Callum Walsh",
-          "Fatima Warsame", "Lily White", "Ifeoma Williams"
-        ]
-      },
-      {
-        id: "12BC2",
-        label: "12B/C2",
-        group: "TW Science classes",
-        subject: "Chemistry",
-        teacher: "Mr J. Mensah",
-        note: "22 generated names",
-        students: [
-          "Abdi Ali", "Naomi Bennett", "Jasmine Campbell", "Elias Cohen", "Yara Elamin",
-          "Tomos Griffiths", "Safiya Hussain", "Rohan Iqbal", "Aaliyah Johnson", "Mateusz Kowalczyk",
-          "Leila Mahmoud", "Tunde Okafor", "Anika Patel", "Musa Rahman", "Ciara Reid",
-          "Sienna Roberts", "Arjun Shah", "Hawa Traore", "Ben Turner", "Mina Wang",
-          "Jude Williams", "Sara Yusuf"
-        ]
-      }
-    ];
+    const STORAGE_KEY = "wls-science-mis-v2";
 
-    const firstNames = ["Aisha", "Amelia", "Anaya", "Arjun", "Bilal", "Callum", "Daniel", "Eleanor", "Elijah", "Fatima", "Freddie", "Grace", "Hassan", "Imani", "Jacob", "Jasmine", "Kai", "Layla", "Leila", "Lucas", "Mariam", "Maya", "Mohammed", "Naomi", "Noah", "Noor", "Omar", "Priya", "Rayan", "Riya", "Ryan", "Safiya", "Samira", "Sienna", "Theo", "Tunde", "Yara", "Yusuf", "Zara", "Zoe"];
-    const lastNames = ["Abdi", "Ahmed", "Baker", "Boateng", "Brown", "Campbell", "Chowdhury", "Clarke", "Davies", "Diallo", "Evans", "Farooq", "Foster", "Grant", "Hussain", "Iqbal", "Johnson", "Khan", "Mahmood", "Mensah", "Murphy", "Okafor", "Patel", "Rahman", "Roberts", "Scott", "Shah", "Singh", "Smith", "Taylor", "Thompson", "Walker", "Williams", "Yusuf"];
-    const normalScienceClasses = [
-      ["7AS1", "7A/S1", "Science", "Miss L. Bennett", 24],
-      ["7BS2", "7B/S2", "Science", "Mr A. Rahman", 26],
-      ["8CS1", "8C/S1", "Science", "Ms P. Shah", 23],
-      ["8DS3", "8D/S3", "Science", "Mrs N. Williams", 25],
-      ["9EB1", "9E/B1", "Biology", "Dr F. Ahmed", 24],
-      ["9FC1", "9F/C1", "Chemistry", "Mr T. Evans", 22],
-      ["10BB1", "10B/B1", "Biology", "Ms C. Davies", 27],
-      ["11CC1", "11C/C1", "Chemistry", "Mr O. Khan", 21],
-      ["12DS1", "12D/S1", "Science", "Mrs I. Boateng", 20],
-      ["13AC1", "13A/C1", "Chemistry", "Dr M. Singh", 18]
-    ];
+    const firstNames = ["Aisha","Amelia","Anaya","Arjun","Bilal","Callum","Daniel","Eleanor","Elijah","Fatima","Freddie","Grace","Hassan","Imani","Jacob","Jasmine","Kai","Layla","Leila","Lucas","Mariam","Maya","Mohammed","Naomi","Noah","Noor","Omar","Priya","Rayan","Riya","Ryan","Safiya","Samira","Sienna","Theo","Tunde","Yara","Yusuf","Zara","Zoe","Adam","Bella","Caleb","Diana","Ethan","Freya","George","Hana","Ian","Jade"];
+    const lastNames = ["Abdi","Ahmed","Baker","Boateng","Brown","Campbell","Chowdhury","Clarke","Davies","Diallo","Evans","Farooq","Foster","Grant","Hussain","Iqbal","Johnson","Khan","Mahmood","Mensah","Murphy","Okafor","Patel","Rahman","Roberts","Scott","Shah","Singh","Smith","Taylor","Thompson","Walker","Williams","Yusuf","Blake","Chen","Dunn","Eze","Frost","Green","Hall","Ito","James","Kerr","Lee","Moon"];
 
-    function generateClassNames(classId, count) {
-      const offset = [...classId].reduce((total, char) => total + char.charCodeAt(0), 0);
+    function generateNames(seed, count) {
+      const offset = [...seed].reduce((t, c) => t + c.charCodeAt(0), 0);
       const names = [];
-      for (let index = 0; names.length < count; index += 1) {
-        const first = firstNames[(offset + index * 5) % firstNames.length];
-        const last = lastNames[(offset + index * 7) % lastNames.length];
-        const fullName = `${first} ${last}`;
-        if (!names.includes(fullName)) names.push(fullName);
+      for (let i = 0; names.length < count; i++) {
+        const n = `${firstNames[(offset + i * 5) % firstNames.length]} ${lastNames[(offset + i * 7) % lastNames.length]}`;
+        if (!names.includes(n)) names.push(n);
       }
       return names;
     }
 
-    normalScienceClasses.forEach(([id, label, subject, teacher, count]) => {
-      classes.push({
-        id,
-        label,
-        group: "Normal Science classes",
-        subject,
-        teacher,
-        note: `${count} generated names`,
-        students: generateClassNames(id, count)
+    function sortByLastName(names) {
+      return [...names].sort((a, b) => {
+        const la = a.trim().split(/\s+/).pop();
+        const lb = b.trim().split(/\s+/).pop();
+        return la.localeCompare(lb, "en", { sensitivity: "base" }) || a.localeCompare(b, "en", { sensitivity: "base" });
       });
-    });
+    }
 
-    // Your fixed timetable
-    const myTimetable = [
-      {
-        day: "Wednesday",
-        slots: [
-          { classLabel: "12A/B2", start: "15:45", end: "16:30" },
-          { classLabel: "11X/S1", start: "16:50", end: "17:30" }
-        ]
-      },
-      {
-        day: "Friday",
-        slots: [
-          { classLabel: "13E/B1", start: "15:05", end: "15:35" },
-          { classLabel: "11X/S1", start: "15:50", end: "16:20" },
-          { classLabel: "12A/B2", start: "16:40", end: "17:25" }
-        ]
-      }
+    function baseClasses() {
+      const mine = [
+        { id: "13EB1", label: "13E/B1", group: "My classes", subject: "Biology", teacher: "Mr R. Mohammed", mine: true, students: [
+          "Yasmin Ahmed","Daniel Afolayan","Leah Brown","Samira El-Sayed","Marcus Grant","Ayaan Hussain","Priya Iyer","Keira Johnson","Omar Khan","Amara Mensah","Jamal Okafor","Hannah Osei","Maya Patel","Isaac Robinson","Fatima Sheikh","Tariq Williams","Nia Wilson"
+        ]},
+        { id: "12AB2", label: "12A/B2", group: "My classes", subject: "Biology", teacher: "Mr R. Mohammed", mine: true, students: [
+          "Maryam Abdi","Theo Anderson","Imani Boateng","Finley Brooks","Huda Chowdhury","Grace Davies","Zainab Farooq","Ethan Fletcher","Malik Johnson","Amina Khan","Lucas Kowalski","Sofia Martins","Chinedu Nwosu","Mia O'Connor","Rayan Patel","Ella Peters","Muhammad Rahman","Kofi Sarfo","Isabella Singh","Noah Smith","Layla Thompson","Joshua Walker","Fatoumata Yeboah","Elena Zaman"
+        ]},
+        { id: "11XS1", label: "11X/S1", group: "My classes", subject: "Science", teacher: "Mr R. Mohammed", mine: true, students: [
+          "Mohammed Ali","Ruby Anderson","Joshua Bailey","Toby Barnes","Mia Chapman","Yusuf Diallo","Thomas Dixon","Ella Fraser","Adam Griffin","Niamh Hamilton","Sana Iqbal","Charlie Jenkins","Sienna Kelly","Aaliyah Mohamed","Jacob Mitchell","Archie Morris","Henry Nelson","Aisha Oladipo","Phoebe Owens","Dylan Parker","Mei-Ling Pham","Erin Phillips","Aarav Reddy","Theo Roberts","Evie Russell","Maisie Scott","Ryan Spencer","Callum Ward","Elena Wright","Layla Young"
+        ]},
+        { id: "13PC1", label: "13P/C1", group: "My classes", subject: "Chemistry", teacher: "Mr R. Mohammed", mine: true, students: generateNames("13PC1", 15) },
+        { id: "12XB1", label: "12X/B1", group: "My classes", subject: "Biology", teacher: "Mr R. Mohammed", mine: true, students: generateNames("12XB1", 20) }
+      ];
+
+      const tw = [
+        ["10XS1","10X/S1","Science","Ms H. Clarke",24],
+        ["10XS4","10X/S4","Science","Dr A. Carter",28],
+        ["12BC2","12B/C2","Chemistry","Mr J. Mensah",22],
+        ["13AC2","13A/C2","Chemistry","Dr M. Singh",16],
+        ["11YB2","11Y/B2","Biology","Ms C. Davies",26],
+        ["11ZC1","11Z/C1","Chemistry","Mr O. Khan",24],
+        ["12YD1","12Y/D1","Biology","Ms R. Patel",18],
+        ["10YC2","10Y/C2","Chemistry","Dr L. Okonkwo",25]
+      ].map(([id, label, subject, teacher, n]) => ({
+        id, label, group: "TW Science classes", subject, teacher, students: generateNames(id, n)
+      }));
+
+      const normal = [
+        ["7AS1","7A/S1","Science","Miss L. Bennett",24],
+        ["7BS2","7B/S2","Science","Mr A. Rahman",26],
+        ["7CS3","7C/S3","Science","Ms P. Shah",25],
+        ["8CS1","8C/S1","Science","Ms P. Shah",23],
+        ["8DS3","8D/S3","Science","Mrs N. Williams",25],
+        ["8ES2","8E/S2","Science","Mr K. Walsh",27],
+        ["9EB1","9E/B1","Biology","Dr F. Ahmed",24],
+        ["9FC1","9F/C1","Chemistry","Mr T. Evans",22],
+        ["9GS2","9G/S2","Science","Mr K. Walsh",25],
+        ["10BB1","10B/B1","Biology","Ms C. Davies",27],
+        ["11CC1","11C/C1","Chemistry","Mr O. Khan",21],
+        ["12DS1","12D/S1","Science","Mrs I. Boateng",20],
+        ["13AC1","13A/C1","Chemistry","Dr M. Singh",18],
+        ["12EC1","12E/C1","Chemistry","Mr P. Nguyen",19],
+        ["9HB1","9H/B1","Biology","Ms J. Okoro",23],
+        ["10ZD1","10Z/D1","Science","Mr D. Foster",26]
+      ].map(([id, label, subject, teacher, n]) => ({
+        id, label, group: "Normal Science classes", subject, teacher, students: generateNames(id, n)
+      }));
+
+      return [...mine, ...tw, ...normal].map((c) => ({
+        ...c,
+        note: `${c.students.length} students`,
+        students: sortByLastName(c.students)
+      }));
+    }
+
+    const emailRecipients = [
+      "Dr A. Carter — Head of Year 13",
+      "Ms N. Ahmed — Safeguarding Lead",
+      "Mr J. Mensah — Science Teacher",
+      "Mrs S. Patel — Deputy Head",
+      "Ms H. Clarke — Science Teacher",
+      "Dr M. Singh — Chemistry Lead",
+      "Ms C. Davies — Biology Teacher",
+      "Mr O. Khan — Chemistry Teacher",
+      "Miss L. Bennett — KS3 Science",
+      "Mr A. Rahman — Science Teacher",
+      "Ms P. Shah — Science Teacher",
+      "Mrs N. Williams — Head of Year 8",
+      "Dr F. Ahmed — Biology Teacher",
+      "Mr T. Evans — Chemistry Teacher",
+      "Mrs I. Boateng — Science Teacher",
+      "Mr K. Walsh — Science Teacher",
+      "Dr L. Okonkwo — Chemistry Teacher",
+      "Ms R. Patel — Biology Teacher",
+      "Mr P. Nguyen — Chemistry Teacher",
+      "Mr D. Foster — Head of Year 11",
+      "Mrs E. Hughes — SENDCO",
+      "Ms J. Okoro — Pastoral Lead",
+      "Dr B. Chen — STEM Coordinator",
+      "Mr S. Ali — Cover Supervisor",
+      "Mrs F. Rahman — Head of Year 12",
+      "Mr L. Brooks — Examinations Officer"
     ];
 
-    const attendance = {};
-    const testData = {};
-    const behaviourRecords = {};
-    // homeworkRecords[classId] = [{ id, title, due, details }]
-    const homeworkRecords = {};
+    const myTimetable = [
+      { day: "Wednesday", slots: [
+        { classLabel: "12A/B2", start: "15:45", end: "16:30" },
+        { classLabel: "11X/S1", start: "16:50", end: "17:30" }
+      ]},
+      { day: "Friday", slots: [
+        { classLabel: "13E/B1", start: "15:05", end: "15:35" },
+        { classLabel: "11X/S1", start: "15:50", end: "16:20" },
+        { classLabel: "12A/B2", start: "16:40", end: "17:25" }
+      ]}
+    ];
 
-    const testColumns = [
+    /* State */
+    let classes = baseClasses();
+    let attendance = {};      // key: date:classId:name -> "/" | "." | "L"
+    let testData = {};
+    let behaviourRecords = {};
+    let homeworkRecords = {};
+    let testColumns = [
       { id: "test1", label: "Test 1", max: 100 },
       { id: "test2", label: "Test 2", max: 100 },
       { id: "recent", label: "Recent %", max: 100 }
     ];
-
     let activeClassId = classes[0].id;
     let registerDate = new Date().toISOString().slice(0, 10);
     let behaviourTarget = null;
+    let hwFilterMode = "all";
+    let saveTimer = null;
 
-    const tabs = document.getElementById("classTabs");
-    const title = document.getElementById("classTitle");
-    const meta = document.getElementById("classMeta");
-    const studentList = document.getElementById("studentList");
-    const editor = document.getElementById("editor");
-    const nameInput = document.getElementById("nameInput");
-    const registerDateInput = document.getElementById("registerDate");
-    const dataHead = document.getElementById("dataHead");
-    const dataSheet = document.getElementById("dataSheet");
-    const sheetMeta = document.getElementById("sheetMeta");
-    const behaviourMenu = document.getElementById("behaviourMenu");
-    const homeworkCalendar = document.getElementById("homeworkCalendar");
-    const homeworkList = document.getElementById("homeworkList");
-    const timetableList = document.getElementById("timetableList");
-    const homeworkDueInput = document.getElementById("homeworkDueInput");
+    const MARK_MAP = {
+      "/": "present",
+      ".": "absent",
+      "L": "late",
+      "l": "late"
+    };
 
-    const totalCount = document.getElementById("totalCount");
-    const presentCount = document.getElementById("presentCount");
-    const absentCount = document.getElementById("absentCount");
-    const lateCount = document.getElementById("lateCount");
+    const STATUS_TO_MARK = { present: "/", absent: ".", late: "L" };
 
+    /* DOM */
+    const $ = (id) => document.getElementById(id);
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    /* Persistence */
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (data.attendance) attendance = data.attendance;
+        if (data.testData) testData = data.testData;
+        if (data.behaviourRecords) behaviourRecords = data.behaviourRecords;
+        if (data.homeworkRecords) homeworkRecords = data.homeworkRecords;
+        if (data.testColumns) testColumns = data.testColumns;
+        if (data.activeClassId) activeClassId = data.activeClassId;
+        if (data.registerDate) registerDate = data.registerDate;
+        if (data.classStudents) {
+          classes.forEach((c) => {
+            if (data.classStudents[c.id]) {
+              c.students = sortByLastName(data.classStudents[c.id]);
+              c.note = c.students.length ? `${c.students.length} students` : "No students";
+            }
+          });
+        }
+      } catch (e) {
+        console.warn("Could not load saved data", e);
+      }
+    }
+
+    function persist() {
+      const classStudents = {};
+      classes.forEach((c) => { classStudents[c.id] = c.students; });
+      const payload = {
+        attendance,
+        testData,
+        behaviourRecords,
+        homeworkRecords,
+        testColumns,
+        activeClassId,
+        registerDate,
+        classStudents,
+        savedAt: new Date().toISOString()
+      };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+        showToast("Saved");
+      } catch (e) {
+        showToast("Save failed");
+      }
+    }
+
+    function scheduleSave() {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(persist, 250);
+    }
+
+    function showToast(msg) {
+      const t = $("saveToast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 1200);
+    }
+
+    /* Helpers */
     function getActiveClass() {
-      return classes.find((item) => item.id === activeClassId);
+      return classes.find((c) => c.id === activeClassId) || classes[0];
     }
 
-    function getStatus(classId, name) {
-      return attendance[`${registerDate}:${classId}:${name}`] || "";
+    function attKey(classId, name) {
+      return `${registerDate}:${classId}:${name}`;
     }
 
-    function setStatus(classId, name, status) {
-      attendance[`${registerDate}:${classId}:${name}`] = status;
-      render();
+    function getMark(classId, name) {
+      return attendance[attKey(classId, name)] || "";
     }
 
-    function getLastName(name) {
-      const parts = name.trim().split(/\s+/);
-      return parts[parts.length - 1] || name;
+    function setMark(classId, name, mark) {
+      const m = String(mark || "").trim();
+      if (!m) {
+        delete attendance[attKey(classId, name)];
+      } else {
+        const normalized = m === "l" || m === "L" ? "L" : m;
+        if (!MARK_MAP[normalized]) return false;
+        attendance[attKey(classId, name)] = normalized;
+      }
+      scheduleSave();
+      return true;
     }
 
-    function sortByLastName(names) {
-      return [...names].sort((first, second) => {
-        const lastNameMatch = getLastName(first).localeCompare(getLastName(second), "en", { sensitivity: "base" });
-        return lastNameMatch || first.localeCompare(second, "en", { sensitivity: "base" });
+    function markToStatus(mark) {
+      return MARK_MAP[mark] || "";
+    }
+
+    function getSubjectTitle(c) {
+      return c.subject || "Science";
+    }
+
+    function getClassTeacherLine(c) {
+      return c.mine ? "Teacher: Mr R. Mohammed" : `Teacher: ${c.teacher}`;
+    }
+
+    function formatDisplayDate(iso) {
+      if (!iso) return "";
+      return new Date(iso + "T12:00:00").toLocaleDateString("en-GB", {
+        weekday: "short", day: "numeric", month: "short", year: "numeric"
       });
     }
 
-    function ensureTestData(classItem) {
-      classItem.students.forEach((name) => {
-        const key = `${classItem.id}:${name}`;
+    function getHomeworks(classId) {
+      if (!homeworkRecords[classId]) homeworkRecords[classId] = [];
+      return homeworkRecords[classId];
+    }
+
+    function ensureTestData(c) {
+      c.students.forEach((name) => {
+        const key = `${c.id}:${name}`;
         if (!testData[key]) testData[key] = {};
-        testColumns.forEach((column) => {
-          if (testData[key][column.id] === undefined) testData[key][column.id] = 0;
+        testColumns.forEach((col) => {
+          if (testData[key][col.id] === undefined) testData[key][col.id] = 0;
         });
       });
     }
@@ -1154,418 +1606,537 @@
       return behaviourRecords[`${classId}:${name}`] || "";
     }
 
-    function setBehaviour(classId, name, behaviour) {
-      behaviourRecords[`${classId}:${name}`] = behaviour;
-      behaviourMenu.classList.remove("open");
-      render();
-    }
-
-    function getSubjectTitle(classItem) {
-      const code = classItem.label.split("/")[1]?.charAt(0) || "S";
-      const fallback = { B: "Biology", C: "Chemistry", S: "Science" };
-      return classItem.subject || fallback[code] || "Science";
-    }
-
-    function getClassTeacherLine(classItem) {
-      if (classItem.mine) return "Teacher: Mr R. Mohammed";
-      return `Teacher: ${classItem.teacher}`;
-    }
-
-    function closeBehaviourMenu() {
-      behaviourMenu.classList.remove("open");
-      behaviourTarget = null;
-    }
-
-    function formatDisplayDate(iso) {
-      if (!iso) return "";
-      const d = new Date(iso + "T12:00:00");
-      return d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
-    }
-
-    function getHomeworksForClass(classId) {
-      if (!homeworkRecords[classId]) homeworkRecords[classId] = [];
-      return homeworkRecords[classId];
-    }
-
-    function renderDataHead() {
-      dataHead.innerHTML = "";
-      const row = document.createElement("tr");
-      row.innerHTML = `<th>Name</th>`;
-      testColumns.forEach((column) => {
-        row.innerHTML += `
-          <th>
-            <input type="text" value="${column.label}" aria-label="Test column name" data-column="${column.id}" data-column-field="label">
-            <input type="number" min="1" value="${column.max}" aria-label="Maximum mark for ${column.label}" data-column="${column.id}" data-column-field="max">
-          </th>
-        `;
+    /* Views */
+    function showView(name) {
+      document.querySelectorAll(".view").forEach((v) => {
+        v.classList.toggle("active", v.dataset.view === name);
       });
-      dataHead.appendChild(row);
+      document.querySelectorAll(".taskbar [data-nav]").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.nav === name);
+        btn.classList.toggle("primary", btn.dataset.nav === name);
+      });
+      if (name === "homework") renderHomeworkPage();
+      if (name === "timetable") renderTimetablePage();
+      if (name === "register") closeTaskPanels();
     }
 
-    function renderTabs() {
-      tabs.innerHTML = "";
-      let currentGroup = "";
-      classes.forEach((classItem) => {
-        if (classItem.group !== currentGroup) {
-          currentGroup = classItem.group;
-          const divider = document.createElement("div");
-          divider.className = "nav-divider";
-          divider.textContent = currentGroup;
-          tabs.appendChild(divider);
-        }
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "class-tab";
-        button.setAttribute("aria-selected", String(classItem.id === activeClassId));
-        button.innerHTML = `<strong>${classItem.label}</strong><span>${getSubjectTitle(classItem)} - ${classItem.students.length} students</span>`;
-        button.addEventListener("click", () => {
-          activeClassId = classItem.id;
-          editor.classList.remove("open");
-          ["dataPanel", "emailPanel", "behaviourPanel", "homeworkPanel", "timetablePanel"].forEach((id) => {
-            document.getElementById(id).classList.remove("open");
-          });
-          render();
-        });
-        tabs.appendChild(button);
-      });
+    function closeTaskPanels() {
+      ["dataPanel", "emailPanel", "behaviourPanel"].forEach((id) => $(id).classList.remove("open"));
     }
 
-    function renderStats(classItem) {
-      const statuses = classItem.students.map((name) => getStatus(classItem.id, name));
-      totalCount.textContent = classItem.students.length;
-      presentCount.textContent = statuses.filter((s) => s === "present").length;
-      absentCount.textContent = statuses.filter((s) => s === "absent").length;
-      lateCount.textContent = statuses.filter((s) => s === "late").length;
-    }
-
-    function renderStudentList(classItem) {
-      studentList.innerHTML = "";
-      if (classItem.students.length === 0) {
-        const empty = document.createElement("div");
-        empty.className = "empty";
-        empty.textContent = "No names added yet. Open edit names and paste one full name per line.";
-        studentList.appendChild(empty);
-        return;
-      }
-
-      classItem.students.forEach((name, index) => {
-        const row = document.createElement("article");
-        row.className = "student-row";
-        const current = getStatus(classItem.id, name);
-        const behaviour = getBehaviour(classItem.id, name);
-        const nameClass = behaviour === "Detention" ? "student-name detention" : "student-name";
-
-        row.innerHTML = `
-          <span class="student-index">${String(index + 1).padStart(2, "0")}</span>
-          <button class="${nameClass}" type="button" data-student="${name}" aria-label="Behaviour menu for ${name}">${name}${behaviour ? ` - ${behaviour}` : ""}</button>
-          <span class="status-group" aria-label="Attendance for ${name}">
-            <button class="status" type="button" data-status="present" aria-pressed="${current === "present"}">Present</button>
-            <button class="status" type="button" data-status="absent" aria-pressed="${current === "absent"}">Absent</button>
-            <button class="status" type="button" data-status="late" aria-pressed="${current === "late"}">Late</button>
-          </span>
-        `;
-
-        row.querySelectorAll(".status").forEach((button) => {
-          button.addEventListener("click", () => setStatus(classItem.id, name, button.dataset.status));
-        });
-
-        row.querySelector(".student-name").addEventListener("contextmenu", (event) => {
-          event.preventDefault();
-          behaviourTarget = { classId: classItem.id, name };
-          behaviourMenu.style.left = `${Math.min(event.clientX, window.innerWidth - 210)}px`;
-          behaviourMenu.style.top = `${Math.min(event.clientY, window.innerHeight - 190)}px`;
-          behaviourMenu.classList.add("open");
-        });
-
-        studentList.appendChild(row);
-      });
-    }
-
-    function renderDataSheet(classItem) {
-      ensureTestData(classItem);
-      sheetMeta.textContent = `${classItem.label} - editable recent test data`;
-      renderDataHead();
-      dataSheet.innerHTML = "";
-
-      if (classItem.students.length === 0) {
-        const row = document.createElement("tr");
-        row.innerHTML = `<td colspan="${testColumns.length + 1}">No names added yet.</td>`;
-        dataSheet.appendChild(row);
-        return;
-      }
-
-      classItem.students.forEach((name) => {
-        const key = `${classItem.id}:${name}`;
-        const row = document.createElement("tr");
-        row.innerHTML = `<td class="name-cell">${name}</td>`;
-        testColumns.forEach((column) => {
-          row.innerHTML += `<td><input type="number" min="0" max="${column.max}" value="${testData[key][column.id]}" aria-label="${column.label} score for ${name}" data-key="${key}" data-field="${column.id}"></td>`;
-        });
-        dataSheet.appendChild(row);
-      });
-    }
-
-    function renderHomework(classItem) {
-      const list = getHomeworksForClass(classItem.id)
-        .slice()
-        .sort((a, b) => a.due.localeCompare(b.due));
-
-      // Calendar: group by due date (next 14 days + any set due dates)
-      const byDate = {};
-      list.forEach((hw) => {
-        if (!byDate[hw.due]) byDate[hw.due] = [];
-        byDate[hw.due].push(hw);
-      });
-
-      const today = new Date();
-      today.setHours(12, 0, 0, 0);
-      const dayKeys = [];
-      for (let i = 0; i < 14; i++) {
-        const d = new Date(today);
-        d.setDate(today.getDate() + i);
-        dayKeys.push(d.toISOString().slice(0, 10));
-      }
-      // also include any past/future due dates outside the 14-day window
-      Object.keys(byDate).forEach((k) => {
-        if (!dayKeys.includes(k)) dayKeys.push(k);
-      });
-      dayKeys.sort();
-
-      homeworkCalendar.innerHTML = "";
-      if (dayKeys.length === 0) {
-        homeworkCalendar.innerHTML = `<div class="calendar-day empty-day"><strong>No homework set</strong><span>Set a due date above</span></div>`;
-      } else {
-        dayKeys.forEach((dateKey) => {
-          const items = byDate[dateKey] || [];
-          const card = document.createElement("div");
-          card.className = "calendar-day" + (items.length ? "" : " empty-day");
-          const title = formatDisplayDate(dateKey);
-          let body = "";
-          if (items.length) {
-            body = "<ul>" + items.map((h) => `<li>${h.title}</li>`).join("") + "</ul>";
-          } else {
-            body = "<span>No homework due</span>";
-          }
-          card.innerHTML = `<strong>${title}</strong>${body}`;
-          homeworkCalendar.appendChild(card);
-        });
-      }
-
-      // List view
-      homeworkList.innerHTML = "";
-      if (list.length === 0) {
-        homeworkList.innerHTML = `<div class="empty">No homework set for ${classItem.label} yet.</div>`;
-        return;
-      }
-
-      list.forEach((hw) => {
-        const item = document.createElement("div");
-        item.className = "homework-item";
-        item.innerHTML = `
-          <strong>${hw.title}</strong>
-          <span>Due: ${formatDisplayDate(hw.due)}</span>
-          <span>${hw.details || ""}</span>
-          <div class="hw-actions">
-            <button type="button" class="btn danger" data-delete-hw="${hw.id}">Remove</button>
-          </div>
-        `;
-        item.querySelector("[data-delete-hw]").addEventListener("click", () => {
-          homeworkRecords[classItem.id] = getHomeworksForClass(classItem.id).filter((h) => h.id !== hw.id);
-          renderHomework(classItem);
-        });
-        homeworkList.appendChild(item);
-      });
-    }
-
-    function renderTimetable() {
-      timetableList.innerHTML = "";
-      myTimetable.forEach((dayBlock) => {
-        const wrap = document.createElement("div");
-        wrap.className = "timetable-day";
-        wrap.innerHTML = `<div class="timetable-day-header">${dayBlock.day}</div>`;
-        dayBlock.slots.forEach((slot) => {
-          const classItem = classes.find((c) => c.label === slot.classLabel);
-          const subject = classItem ? getSubjectTitle(classItem) : "Science";
-          const students = classItem ? classItem.students.length : "—";
-          const row = document.createElement("div");
-          row.className = "timetable-slot";
-          row.innerHTML = `
-            <div class="time">${slot.start} – ${slot.end}</div>
-            <div>
-              <div class="class-label">${slot.classLabel}</div>
-              <div class="class-meta">${subject} · ${students} students</div>
-            </div>
-          `;
-          wrap.appendChild(row);
-        });
-        timetableList.appendChild(wrap);
-      });
-    }
-
-    function render() {
-      const classItem = getActiveClass();
-      title.textContent = `${classItem.label} - ${getSubjectTitle(classItem)}`;
-      meta.textContent = `${getClassTeacherLine(classItem)} - ${classItem.note} - sorted by last name`;
-      registerDateInput.value = registerDate;
-      renderTabs();
-      renderStats(classItem);
-      renderStudentList(classItem);
-      renderDataSheet(classItem);
-      renderHomework(classItem);
-      renderTimetable();
-    }
-
-    // ---- Event listeners ----
-
-    document.getElementById("editButton").addEventListener("click", () => {
-      const classItem = getActiveClass();
-      nameInput.value = sortByLastName(classItem.students).join("\n");
-      editor.classList.toggle("open");
-      if (editor.classList.contains("open")) nameInput.focus();
-    });
-
-    document.getElementById("cancelEdit").addEventListener("click", () => {
-      editor.classList.remove("open");
-    });
-
-    document.getElementById("saveNames").addEventListener("click", () => {
-      const classItem = getActiveClass();
-      classItem.students = nameInput.value
-        .split("\n")
-        .map((name) => name.trim())
-        .filter(Boolean);
-      classItem.students = sortByLastName(classItem.students);
-      classItem.note = classItem.students.length === 0 ? "Names to add later" : "Custom class list";
-      ensureTestData(classItem);
-      editor.classList.remove("open");
-      render();
-    });
-
-    dataSheet.addEventListener("input", (event) => {
-      const input = event.target;
-      if (!input.matches("input[data-key][data-field]")) return;
-      testData[input.dataset.key][input.dataset.field] = input.value;
-    });
-
-    dataHead.addEventListener("input", (event) => {
-      const input = event.target;
-      if (!input.matches("input[data-column][data-column-field]")) return;
-      const column = testColumns.find((item) => item.id === input.dataset.column);
-      column[input.dataset.columnField] = input.dataset.columnField === "max" ? Number(input.value || 1) : input.value;
-      if (input.dataset.columnField === "max") renderDataSheet(getActiveClass());
-    });
-
-    document.getElementById("addTestColumn").addEventListener("click", () => {
-      const nameEl = document.getElementById("newTestName");
-      const maxEl = document.getElementById("newTestMax");
-      const id = `test${Date.now()}`;
-      testColumns.push({
-        id,
-        label: nameEl.value.trim() || "New test",
-        max: Number(maxEl.value || 100)
-      });
-      classes.forEach(ensureTestData);
-      nameEl.value = "New test";
-      maxEl.value = "100";
-      renderDataSheet(getActiveClass());
-    });
-
-    function toggleTaskPanel(panelId) {
-      const panel = document.getElementById(panelId);
-      ["dataPanel", "emailPanel", "behaviourPanel", "homeworkPanel", "timetablePanel"].forEach((id) => {
-        if (id !== panelId) document.getElementById(id).classList.remove("open");
+    function toggleTaskPanel(id) {
+      showView("register");
+      const panel = $(id);
+      ["dataPanel", "emailPanel", "behaviourPanel"].forEach((o) => {
+        if (o !== id) $(o).classList.remove("open");
       });
       panel.classList.toggle("open");
     }
 
-    document.getElementById("openDataPanel").addEventListener("click", () => toggleTaskPanel("dataPanel"));
-    document.getElementById("openEmailPanel").addEventListener("click", () => toggleTaskPanel("emailPanel"));
-    document.getElementById("openBehaviourPanel").addEventListener("click", () => toggleTaskPanel("behaviourPanel"));
-    document.getElementById("openHomeworkPanel").addEventListener("click", () => {
-      toggleTaskPanel("homeworkPanel");
-      if (!homeworkDueInput.value) {
-        const d = new Date();
-        d.setDate(d.getDate() + 7);
-        homeworkDueInput.value = d.toISOString().slice(0, 10);
+    /* Register UI */
+    function renderTabs() {
+      const tabs = $("classTabs");
+      tabs.innerHTML = "";
+      let group = "";
+      classes.forEach((c) => {
+        if (c.group !== group) {
+          group = c.group;
+          const d = document.createElement("div");
+          d.className = "nav-divider";
+          d.textContent = group;
+          tabs.appendChild(d);
+        }
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "class-tab";
+        btn.setAttribute("aria-selected", String(c.id === activeClassId));
+        btn.innerHTML = `<strong>${escapeHtml(c.label)}</strong><span>${escapeHtml(getSubjectTitle(c))} · ${c.students.length}</span>`;
+        btn.addEventListener("click", () => {
+          activeClassId = c.id;
+          scheduleSave();
+          $("editor").classList.remove("open");
+          closeTaskPanels();
+          renderRegister();
+          if ($("viewHomework").classList.contains("active")) {
+            $("hwClassSelect").value = activeClassId;
+            renderHomeworkPage();
+          }
+        });
+        tabs.appendChild(btn);
+      });
+    }
+
+    function renderStats(c) {
+      const marks = c.students.map((n) => getMark(c.id, n));
+      $("totalCount").textContent = c.students.length;
+      $("presentCount").textContent = marks.filter((m) => m === "/").length;
+      $("absentCount").textContent = marks.filter((m) => m === ".").length;
+      $("lateCount").textContent = marks.filter((m) => m === "L").length;
+    }
+
+    function markClassForInput(mark) {
+      if (mark === "/") return "mark-present";
+      if (mark === ".") return "mark-absent";
+      if (mark === "L") return "mark-late";
+      return "";
+    }
+
+    function renderStudentList(c) {
+      const list = $("studentList");
+      list.innerHTML = "";
+      if (!c.students.length) {
+        list.innerHTML = `<div class="empty">No names yet. Use Edit names.</div>`;
+        return;
+      }
+
+      c.students.forEach((name, i) => {
+        const mark = getMark(c.id, name);
+        const status = markToStatus(mark);
+        const behaviour = getBehaviour(c.id, name);
+        const nameClass = behaviour === "Detention" ? "student-name detention" : "student-name";
+        const row = document.createElement("article");
+        row.className = "student-row";
+        row.innerHTML = `
+          <span class="student-index">${String(i + 1).padStart(2, "0")}</span>
+          <button class="${nameClass}" type="button">${escapeHtml(name)}${behaviour ? ` — ${escapeHtml(behaviour)}` : ""}</button>
+          <input class="mark-input ${markClassForInput(mark)}" type="text" maxlength="1" value="${escapeHtml(mark)}"
+            aria-label="Mark for ${escapeHtml(name)}" data-name="${escapeHtml(name)}" autocomplete="off" spellcheck="false">
+          <span class="status-group">
+            <button class="status" type="button" data-mark="/" aria-pressed="${mark === "/"}">/</button>
+            <button class="status" type="button" data-mark="." aria-pressed="${mark === "."}">.</button>
+            <button class="status" type="button" data-mark="L" aria-pressed="${mark === "L"}">L</button>
+          </span>
+        `;
+
+        const input = row.querySelector(".mark-input");
+        input.addEventListener("input", () => {
+          let v = input.value;
+          if (v.length > 1) v = v.slice(-1);
+          if (v && !MARK_MAP[v] && v !== "l") {
+            input.value = mark;
+            return;
+          }
+          const ok = setMark(c.id, name, v);
+          if (!ok && v) {
+            input.value = mark;
+            return;
+          }
+          const newMark = getMark(c.id, name);
+          input.value = newMark;
+          input.className = `mark-input ${markClassForInput(newMark)}`;
+          row.querySelectorAll(".status").forEach((b) => {
+            b.setAttribute("aria-pressed", String(b.dataset.mark === newMark));
+          });
+          renderStats(c);
+        });
+
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === "ArrowDown") {
+            e.preventDefault();
+            const next = row.nextElementSibling?.querySelector(".mark-input");
+            if (next) next.focus();
+          }
+          if (e.key === "ArrowUp") {
+            e.preventDefault();
+            const prev = row.previousElementSibling?.querySelector(".mark-input");
+            if (prev) prev.focus();
+          }
+        });
+
+        row.querySelectorAll(".status").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const current = getMark(c.id, name);
+            setMark(c.id, name, current === btn.dataset.mark ? "" : btn.dataset.mark);
+            const newMark = getMark(c.id, name);
+            input.value = newMark;
+            input.className = `mark-input ${markClassForInput(newMark)}`;
+            row.querySelectorAll(".status").forEach((b) => {
+              b.setAttribute("aria-pressed", String(b.dataset.mark === newMark));
+            });
+            renderStats(c);
+          });
+        });
+
+        row.querySelector(".student-name").addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+          behaviourTarget = { classId: c.id, name };
+          const menu = $("behaviourMenu");
+          menu.style.left = `${Math.min(e.clientX, innerWidth - 190)}px`;
+          menu.style.top = `${Math.min(e.clientY, innerHeight - 170)}px`;
+          menu.classList.add("open");
+        });
+
+        list.appendChild(row);
+      });
+    }
+
+    function renderDataHead() {
+      const head = $("dataHead");
+      head.innerHTML = "";
+      const row = document.createElement("tr");
+      let html = "<th>Name</th>";
+      testColumns.forEach((col) => {
+        html += `<th>
+          <input type="text" value="${escapeHtml(col.label)}" data-column="${col.id}" data-column-field="label">
+          <input type="number" min="1" value="${col.max}" data-column="${col.id}" data-column-field="max">
+        </th>`;
+      });
+      row.innerHTML = html;
+      head.appendChild(row);
+    }
+
+    function renderDataSheet(c) {
+      ensureTestData(c);
+      $("sheetMeta").textContent = `${c.label} — test data (saved)`;
+      renderDataHead();
+      const body = $("dataSheet");
+      body.innerHTML = "";
+      if (!c.students.length) {
+        body.innerHTML = `<tr><td colspan="${testColumns.length + 1}">No names.</td></tr>`;
+        return;
+      }
+      c.students.forEach((name) => {
+        const key = `${c.id}:${name}`;
+        const row = document.createElement("tr");
+        let html = `<td class="name-cell">${escapeHtml(name)}</td>`;
+        testColumns.forEach((col) => {
+          html += `<td><input type="number" min="0" max="${col.max}" value="${testData[key][col.id]}" data-key="${key}" data-field="${col.id}"></td>`;
+        });
+        row.innerHTML = html;
+        body.appendChild(row);
+      });
+    }
+
+    function renderRegister() {
+      const c = getActiveClass();
+      $("classTitle").textContent = `${c.label} — ${getSubjectTitle(c)}`;
+      $("classMeta").textContent = `${getClassTeacherLine(c)} · ${c.note} · sorted by surname`;
+      $("registerDate").value = registerDate;
+      renderTabs();
+      renderStats(c);
+      renderStudentList(c);
+      renderDataSheet(c);
+    }
+
+    /* Homework */
+    function populateHwClassSelect() {
+      $("hwClassSelect").innerHTML = classes
+        .map((c) => `<option value="${c.id}" ${c.id === activeClassId ? "selected" : ""}>${escapeHtml(c.label)} — ${escapeHtml(getSubjectTitle(c))}</option>`)
+        .join("");
+    }
+
+    function collectHomeworks(filterClassId) {
+      const rows = [];
+      classes.forEach((c) => {
+        if (filterClassId && c.id !== filterClassId) return;
+        getHomeworks(c.id).forEach((hw) => {
+          rows.push({ ...hw, classId: c.id, classLabel: c.label });
+        });
+      });
+      rows.sort((a, b) => a.due.localeCompare(b.due) || a.classLabel.localeCompare(b.classLabel));
+      return rows;
+    }
+
+    function renderHwTimetable() {
+      const filterId = hwFilterMode === "class" ? $("hwClassSelect").value : null;
+      const rows = collectHomeworks(filterId);
+      const body = $("hwTimetableBody");
+      body.innerHTML = "";
+      if (!rows.length) {
+        body.innerHTML = `<tr><td colspan="6" class="empty">No homework set yet.</td></tr>`;
+        return;
+      }
+      let lastDue = "";
+      rows.forEach((hw) => {
+        if (hw.due !== lastDue) {
+          lastDue = hw.due;
+          const g = document.createElement("tr");
+          g.className = "hw-day-group";
+          g.innerHTML = `<td colspan="6">${escapeHtml(formatDisplayDate(hw.due))}</td>`;
+          body.appendChild(g);
+        }
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="due-cell">${escapeHtml(hw.due)}</td>
+          <td class="class-cell">${escapeHtml(hw.classLabel)}</td>
+          <td class="title-cell">${escapeHtml(hw.title)}</td>
+          <td class="time-cell">${hw.minutes ? hw.minutes + " min" : "—"}</td>
+          <td class="details-cell">${hw.detailsHtml || escapeHtml(hw.details || "")}</td>
+          <td><button type="button" class="btn danger" style="min-height:28px;padding:3px 8px;font-size:0.78rem;">Remove</button></td>
+        `;
+        tr.querySelector("button").addEventListener("click", () => {
+          homeworkRecords[hw.classId] = getHomeworks(hw.classId).filter((h) => h.id !== hw.id);
+          scheduleSave();
+          renderHomeworkPage();
+        });
+        body.appendChild(tr);
+      });
+    }
+
+    function renderHwClassList() {
+      const classId = $("hwClassSelect").value || activeClassId;
+      const c = classes.find((x) => x.id === classId) || getActiveClass();
+      $("hwClassListTitle").textContent = `${c.label} homework`;
+      const list = getHomeworks(c.id).slice().sort((a, b) => a.due.localeCompare(b.due));
+      $("hwClassListMeta").textContent = `${getSubjectTitle(c)} · ${list.length} set`;
+      const el = $("hwClassList");
+      el.innerHTML = "";
+      if (!list.length) {
+        el.innerHTML = `<div class="empty">No homework for this class.</div>`;
+        return;
+      }
+      list.forEach((hw) => {
+        const item = document.createElement("div");
+        item.className = "hw-item";
+        item.innerHTML = `
+          <div class="hw-item-title">${escapeHtml(hw.title)}</div>
+          <div class="hw-item-due">Due ${escapeHtml(formatDisplayDate(hw.due))}${hw.minutes ? ` · ~${hw.minutes} min` : ""}</div>
+          <div class="hw-item-details">${hw.detailsHtml || escapeHtml(hw.details || "")}</div>
+          <div style="margin-top:6px"><button type="button" class="btn danger" style="min-height:28px;padding:3px 8px;font-size:0.78rem;">Remove</button></div>
+        `;
+        item.querySelector("button").addEventListener("click", () => {
+          homeworkRecords[c.id] = getHomeworks(c.id).filter((h) => h.id !== hw.id);
+          scheduleSave();
+          renderHomeworkPage();
+        });
+        el.appendChild(item);
+      });
+    }
+
+    function updateHwPreview() {
+      const title = $("homeworkTitleInput").value.trim() || "Untitled";
+      const due = $("homeworkDueInput").value;
+      const mins = $("homeworkTimeInput").value;
+      const html = $("homeworkDetailsEditor").innerHTML;
+      $("hwPreviewTitle").textContent = title;
+      $("hwPreviewMeta").textContent = [
+        due ? `Due ${formatDisplayDate(due)}` : "No due date",
+        mins ? `~${mins} minutes` : null,
+        classes.find((c) => c.id === $("hwClassSelect").value)?.label
+      ].filter(Boolean).join(" · ");
+      $("hwPreviewBody").innerHTML = html || "<em>No details</em>";
+    }
+
+    function renderHomeworkPage() {
+      populateHwClassSelect();
+      renderHwTimetable();
+      renderHwClassList();
+    }
+
+    function renderTimetablePage() {
+      const grid = $("timetableGrid");
+      grid.innerHTML = "";
+      myTimetable.forEach((block) => {
+        const day = document.createElement("div");
+        day.className = "tt-day";
+        day.innerHTML = `<div class="tt-day-header">${escapeHtml(block.day)}</div>`;
+        block.slots.forEach((slot) => {
+          const c = classes.find((x) => x.label === slot.classLabel);
+          const row = document.createElement("div");
+          row.className = "tt-slot";
+          row.innerHTML = `
+            <div class="tt-time">${escapeHtml(slot.start)} <span>to ${escapeHtml(slot.end)}</span></div>
+            <div>
+              <div class="tt-class">${escapeHtml(slot.classLabel)}</div>
+              <div class="tt-meta">${escapeHtml(c ? getSubjectTitle(c) : "Science")} · ${c ? c.students.length : "—"} students</div>
+            </div>
+          `;
+          day.appendChild(row);
+        });
+        grid.appendChild(day);
+      });
+    }
+
+    /* Events */
+    $("registerDate").addEventListener("change", () => {
+      registerDate = $("registerDate").value || new Date().toISOString().slice(0, 10);
+      scheduleSave();
+      renderRegister();
+    });
+
+    $("editButton").addEventListener("click", () => {
+      const c = getActiveClass();
+      $("nameInput").value = c.students.join("\n");
+      $("editor").classList.toggle("open");
+    });
+
+    $("cancelEdit").addEventListener("click", () => $("editor").classList.remove("open"));
+
+    $("saveNames").addEventListener("click", () => {
+      const c = getActiveClass();
+      c.students = sortByLastName(
+        $("nameInput").value.split("\n").map((n) => n.trim()).filter(Boolean)
+      );
+      c.note = `${c.students.length} students`;
+      ensureTestData(c);
+      $("editor").classList.remove("open");
+      scheduleSave();
+      renderRegister();
+    });
+
+    $("markAllPresent").addEventListener("click", () => {
+      const c = getActiveClass();
+      c.students.forEach((n) => { attendance[attKey(c.id, n)] = "/"; });
+      scheduleSave();
+      renderRegister();
+    });
+
+    $("clearRegister").addEventListener("click", () => {
+      const c = getActiveClass();
+      c.students.forEach((n) => { delete attendance[attKey(c.id, n)]; });
+      scheduleSave();
+      renderRegister();
+    });
+
+    $("dataSheet").addEventListener("input", (e) => {
+      const input = e.target;
+      if (!input.matches("input[data-key][data-field]")) return;
+      testData[input.dataset.key][input.dataset.field] = input.value;
+      scheduleSave();
+    });
+
+    $("dataHead").addEventListener("input", (e) => {
+      const input = e.target;
+      if (!input.matches("input[data-column][data-column-field]")) return;
+      const col = testColumns.find((x) => x.id === input.dataset.column);
+      col[input.dataset.columnField] =
+        input.dataset.columnField === "max" ? Number(input.value || 1) : input.value;
+      scheduleSave();
+      if (input.dataset.columnField === "max") renderDataSheet(getActiveClass());
+    });
+
+    $("addTestColumn").addEventListener("click", () => {
+      testColumns.push({
+        id: `test${Date.now()}`,
+        label: $("newTestName").value.trim() || "New test",
+        max: Number($("newTestMax").value || 100)
+      });
+      classes.forEach(ensureTestData);
+      $("newTestName").value = "New test";
+      $("newTestMax").value = "100";
+      scheduleSave();
+      renderDataSheet(getActiveClass());
+    });
+
+    document.querySelectorAll("[data-nav]").forEach((btn) => {
+      btn.addEventListener("click", () => showView(btn.dataset.nav));
+    });
+
+    $("openDataPanel").addEventListener("click", () => toggleTaskPanel("dataPanel"));
+    $("openEmailPanel").addEventListener("click", () => toggleTaskPanel("emailPanel"));
+    $("openBehaviourPanel").addEventListener("click", () => toggleTaskPanel("behaviourPanel"));
+
+    $("behaviourMenu").addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-behaviour]");
+      if (!btn || !behaviourTarget) return;
+      behaviourRecords[`${behaviourTarget.classId}:${behaviourTarget.name}`] = btn.dataset.behaviour;
+      $("behaviourMenu").classList.remove("open");
+      scheduleSave();
+      renderRegister();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!$("behaviourMenu").contains(e.target)) {
+        $("behaviourMenu").classList.remove("open");
+        behaviourTarget = null;
       }
     });
-    document.getElementById("openTimetablePanel").addEventListener("click", () => toggleTaskPanel("timetablePanel"));
 
-    behaviourMenu.addEventListener("click", (event) => {
-      const button = event.target.closest("button[data-behaviour]");
-      if (!button || !behaviourTarget) return;
-      setBehaviour(behaviourTarget.classId, behaviourTarget.name, button.dataset.behaviour);
-    });
+    $("emailTo").innerHTML = emailRecipients.map((r) => `<option>${escapeHtml(r)}</option>`).join("");
 
-    document.addEventListener("click", (event) => {
-      if (!behaviourMenu.contains(event.target)) closeBehaviourMenu();
-    });
-
-    document.getElementById("emailForm").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const status = document.getElementById("mailStatus");
-      const recipient = document.getElementById("emailTo").value.split(" - ")[0];
-      status.textContent = `Email sent to ${recipient} for ${getActiveClass().label}.`;
+    $("emailForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const status = $("mailStatus");
+      status.textContent = `Message recorded for ${$("emailTo").value.split(" — ")[0]} (${getActiveClass().label}).`;
       status.classList.add("show");
     });
 
-    document.getElementById("homeworkForm").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const classItem = getActiveClass();
-      const titleVal = document.getElementById("homeworkTitleInput").value.trim();
-      const dueVal = document.getElementById("homeworkDueInput").value;
-      const detailsVal = document.getElementById("homeworkDetailsInput").value.trim();
-      if (!titleVal || !dueVal) return;
+    document.querySelectorAll(".fmt-toolbar button").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        document.execCommand(btn.dataset.cmd, false, null);
+        $("homeworkDetailsEditor").focus();
+      });
+    });
 
-      const list = getHomeworksForClass(classItem.id);
-      list.push({
+    $("hwPreviewBtn").addEventListener("click", () => {
+      updateHwPreview();
+      $("hwPreview").classList.add("show");
+    });
+
+    ["homeworkTitleInput", "homeworkDueInput", "homeworkTimeInput"].forEach((id) => {
+      $(id).addEventListener("input", () => {
+        if ($("hwPreview").classList.contains("show")) updateHwPreview();
+      });
+    });
+
+    $("homeworkDetailsEditor").addEventListener("input", () => {
+      if ($("hwPreview").classList.contains("show")) updateHwPreview();
+    });
+
+    $("homeworkForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const classId = $("hwClassSelect").value;
+      const title = $("homeworkTitleInput").value.trim();
+      const due = $("homeworkDueInput").value;
+      const minutes = Number($("homeworkTimeInput").value) || null;
+      const detailsHtml = $("homeworkDetailsEditor").innerHTML.trim();
+      const detailsText = $("homeworkDetailsEditor").innerText.trim();
+      if (!title || !due) return;
+
+      getHomeworks(classId).push({
         id: `hw-${Date.now()}`,
-        title: titleVal,
-        due: dueVal,
-        details: detailsVal
+        title,
+        due,
+        minutes,
+        details: detailsText,
+        detailsHtml
       });
-      renderHomework(classItem);
+      scheduleSave();
 
-      // reset form defaults for next entry
-      document.getElementById("homeworkTitleInput").value = "Revision questions";
-      const next = new Date(dueVal + "T12:00:00");
+      $("homeworkTitleInput").value = "Revision questions";
+      const next = new Date(due + "T12:00:00");
       next.setDate(next.getDate() + 7);
-      homeworkDueInput.value = next.toISOString().slice(0, 10);
-      document.getElementById("homeworkDetailsInput").value = "Complete the assigned questions and bring answers to the next lesson.";
+      $("homeworkDueInput").value = next.toISOString().slice(0, 10);
+      $("homeworkTimeInput").value = "30";
+      $("homeworkDetailsEditor").innerHTML = "";
+      $("hwPreview").classList.remove("show");
+      renderHomeworkPage();
     });
 
-    registerDateInput.addEventListener("change", () => {
-      registerDate = registerDateInput.value || new Date().toISOString().slice(0, 10);
-      render();
+    $("hwClassSelect").addEventListener("change", () => {
+      if (hwFilterMode === "class") renderHwTimetable();
+      renderHwClassList();
     });
 
-    document.getElementById("markAllPresent").addEventListener("click", () => {
-      const classItem = getActiveClass();
-      classItem.students.forEach((name) => {
-        attendance[`${registerDate}:${classItem.id}:${name}`] = "present";
-      });
-      render();
+    $("hwTabAll").addEventListener("click", () => {
+      hwFilterMode = "all";
+      $("hwTabAll").setAttribute("aria-selected", "true");
+      $("hwTabClass").setAttribute("aria-selected", "false");
+      renderHwTimetable();
     });
 
-    document.getElementById("clearRegister").addEventListener("click", () => {
-      const classItem = getActiveClass();
-      classItem.students.forEach((name) => {
-        delete attendance[`${registerDate}:${classItem.id}:${name}`];
-      });
-      render();
+    $("hwTabClass").addEventListener("click", () => {
+      hwFilterMode = "class";
+      $("hwTabAll").setAttribute("aria-selected", "false");
+      $("hwTabClass").setAttribute("aria-selected", "true");
+      renderHwTimetable();
     });
 
-    // Init
-    classes.forEach((classItem) => {
-      classItem.students = sortByLastName(classItem.students);
-      ensureTestData(classItem);
-    });
-    homeworkDueInput.value = (() => {
-      const d = new Date();
-      d.setDate(d.getDate() + 7);
-      return d.toISOString().slice(0, 10);
-    })();
-    render();
+    /* Init */
+    loadState();
+    if (!classes.find((c) => c.id === activeClassId)) activeClassId = classes[0].id;
+
+    const weekAhead = new Date();
+    weekAhead.setDate(weekAhead.getDate() + 7);
+    if (!$("homeworkDueInput").value) {
+      $("homeworkDueInput").value = weekAhead.toISOString().slice(0, 10);
+    }
+
+    $("homeworkDetailsEditor").innerHTML = "Complete the assigned questions.<br><br>Bring answers to the next lesson.";
+
+    classes.forEach(ensureTestData);
+    renderRegister();
   </script>
 </body>
 </html>
