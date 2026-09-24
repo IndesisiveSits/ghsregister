@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Westbridge London School · Science Register</title>
+  <title>Westbridge London School · Science MIS</title>
   <style>
     :root {
       color-scheme: light;
@@ -20,9 +20,7 @@
       --shadow: 0 8px 24px rgba(20, 36, 38, 0.08);
       --radius: 10px;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       background: var(--bg);
@@ -30,19 +28,15 @@
       font-family: "Segoe UI", Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
       line-height: 1.45;
     }
-
     button, input, textarea, select { font: inherit; }
-
     .app {
       min-height: 100vh;
       display: grid;
       grid-template-columns: 268px minmax(0, 1fr);
     }
-
     aside {
       background: var(--sidebar);
       color: #f5f8f7;
-      padding: 0;
       display: flex;
       flex-direction: column;
       position: sticky;
@@ -50,1280 +44,606 @@
       height: 100vh;
       overflow: hidden;
     }
-
     .brand-block {
       padding: 20px 16px 16px;
       border-bottom: 1px solid rgba(255,255,255,0.1);
       background: linear-gradient(160deg, #1a3234 0%, #142426 100%);
     }
-
     .brand { display: flex; align-items: center; gap: 12px; }
-
     .school-logo {
-      width: 46px;
-      height: 46px;
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      border-radius: 10px;
-      background: #f5f8f7;
-      color: var(--primary);
+      width: 46px; height: 46px; flex-shrink: 0;
+      display: grid; place-items: center; border-radius: 10px;
+      background: #f5f8f7; color: var(--primary);
       box-shadow: inset 0 0 0 2.5px var(--gold);
     }
-
-    h1 {
-      margin: 0;
-      font-size: 0.98rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .subtitle {
-      margin: 2px 0 0;
-      color: rgba(245, 248, 247, 0.6);
-      font-size: 0.75rem;
-    }
-
+    h1 { margin: 0; font-size: 0.98rem; font-weight: 700; }
+    .subtitle { margin: 2px 0 0; color: rgba(245,248,247,0.6); font-size: 0.75rem; }
     .school-tag {
-      margin-top: 12px;
-      padding: 8px 10px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.06);
-      font-size: 0.72rem;
-      color: rgba(245,248,247,0.7);
-      line-height: 1.35;
+      margin-top: 12px; padding: 8px 10px; border-radius: 8px;
+      background: rgba(255,255,255,0.06); font-size: 0.72rem;
+      color: rgba(245,248,247,0.7); line-height: 1.35;
     }
-
     .class-tabs {
-      display: grid;
-      gap: 4px;
-      padding: 12px 10px;
-      overflow-y: auto;
-      flex: 1;
+      display: grid; gap: 4px; padding: 12px 10px;
+      overflow-y: auto; flex: 1;
     }
-
     .nav-divider {
-      margin: 10px 6px 4px;
-      padding-top: 10px;
+      margin: 10px 6px 4px; padding-top: 10px;
       border-top: 1px solid rgba(255,255,255,0.1);
-      color: rgba(245,248,247,0.45);
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      color: rgba(245,248,247,0.45); font-size: 0.65rem;
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
     }
-
     .class-tab {
-      width: 100%;
-      border: 1px solid transparent;
-      border-radius: 8px;
-      background: transparent;
-      color: inherit;
-      padding: 9px 11px;
-      text-align: left;
-      cursor: pointer;
+      width: 100%; border: 1px solid transparent; border-radius: 8px;
+      background: transparent; color: inherit; padding: 9px 11px;
+      text-align: left; cursor: pointer;
     }
-
     .class-tab:hover { background: rgba(255,255,255,0.06); }
-    .class-tab[aria-selected="true"] {
-      background: #f5f8f7;
-      color: var(--ink);
-    }
-
+    .class-tab[aria-selected="true"] { background: #f5f8f7; color: var(--ink); }
     .class-tab strong, .class-tab span { display: block; }
     .class-tab strong { font-size: 0.88rem; }
-    .class-tab span {
-      margin-top: 1px;
-      opacity: 0.62;
-      font-size: 0.74rem;
-    }
-
+    .class-tab span { margin-top: 1px; opacity: 0.62; font-size: 0.74rem; }
     .sidebar-foot {
-      padding: 12px 14px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.72rem;
-      color: rgba(245,248,247,0.5);
+      padding: 12px 14px; border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.72rem; color: rgba(245,248,247,0.5);
     }
-
-    main {
-      padding: 0;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
+    main { padding: 0; min-width: 0; display: flex; flex-direction: column; }
     .topbar {
-      background: var(--panel);
-      border-bottom: 1px solid var(--line);
-      padding: 10px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      background: var(--panel); border-bottom: 1px solid var(--line);
+      padding: 10px 24px; display: flex; align-items: center;
+      justify-content: space-between; gap: 12px; flex-wrap: wrap;
+      position: sticky; top: 0; z-index: 10;
     }
-
-    .topbar-brand {
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
+    .topbar-brand { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
     .topbar-brand strong { color: var(--primary); }
-
     .taskbar {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-      background: var(--bg);
-      padding: 4px;
-      border-radius: 10px;
+      display: flex; gap: 4px; flex-wrap: wrap;
+      background: var(--bg); padding: 4px; border-radius: 10px;
       border: 1px solid var(--line);
     }
-
     .taskbar .btn {
-      min-height: 34px;
-      padding: 5px 12px;
-      font-size: 0.82rem;
-      border: 0;
-      background: transparent;
-      border-radius: 7px;
-      font-weight: 600;
-      color: var(--muted);
-      position: relative;
+      min-height: 34px; padding: 5px 12px; font-size: 0.82rem;
+      border: 0; background: transparent; border-radius: 7px;
+      font-weight: 600; color: var(--muted); position: relative;
     }
-
-    .taskbar .btn:hover {
-      background: var(--panel);
-      color: var(--ink);
+    .taskbar .btn:hover { background: var(--panel); color: var(--ink); }
+    .taskbar .btn.active, .taskbar .btn.primary {
+      background: var(--primary); color: #fff;
     }
-
-    .taskbar .btn.active,
-    .taskbar .btn.primary {
-      background: var(--primary);
-      color: #fff;
-    }
-
     .badge {
-      display: none;
-      position: absolute;
-      top: 2px;
-      right: 4px;
-      min-width: 16px;
-      height: 16px;
-      padding: 0 4px;
-      border-radius: 8px;
-      background: var(--danger);
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 700;
-      line-height: 16px;
-      text-align: center;
+      display: none; position: absolute; top: 2px; right: 4px;
+      min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px;
+      background: var(--danger); color: #fff; font-size: 0.65rem;
+      font-weight: 700; line-height: 16px; text-align: center;
     }
-
     .badge.show { display: inline-block; }
-
     .content {
-      padding: 20px 24px 36px;
-      display: grid;
-      gap: 14px;
-      align-content: start;
-      flex: 1;
+      padding: 20px 24px 36px; display: grid; gap: 14px;
+      align-content: start; flex: 1;
     }
-
     .view { display: none; }
     .view.active { display: grid; gap: 14px; align-content: start; }
-
     .toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 12px;
-      flex-wrap: wrap;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 12px; flex-wrap: wrap;
     }
-
     .class-title {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 750;
-      letter-spacing: -0.02em;
+      margin: 0; font-size: 1.5rem; font-weight: 750; letter-spacing: -0.02em;
     }
-
-    .meta {
-      margin: 3px 0 0;
-      color: var(--muted);
-      font-size: 0.86rem;
-    }
-
-    .actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: flex-end;
-    }
-
+    .meta { margin: 3px 0 0; color: var(--muted); font-size: 0.86rem; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end; }
     .date-control {
-      display: grid;
-      gap: 3px;
-      color: var(--muted);
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      display: grid; gap: 3px; color: var(--muted); font-size: 0.72rem;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
     }
-
     .date-control input {
-      min-height: 36px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel);
-      padding: 5px 10px;
-      color: var(--ink);
+      min-height: 36px; border: 1px solid var(--line); border-radius: 8px;
+      background: var(--panel); padding: 5px 10px; color: var(--ink);
     }
-
     .btn {
-      min-height: 36px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--panel);
-      color: var(--ink);
-      padding: 5px 12px;
-      cursor: pointer;
-      font-size: 0.88rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      min-height: 36px; border: 1px solid var(--line); border-radius: 8px;
+      background: var(--panel); color: var(--ink); padding: 5px 12px;
+      cursor: pointer; font-size: 0.88rem;
+      display: inline-flex; align-items: center; gap: 6px;
     }
-
     .btn:hover { background: #f7f7f5; }
     .btn.primary {
-      background: var(--primary);
-      border-color: var(--primary);
-      color: #fff;
+      background: var(--primary); border-color: var(--primary); color: #fff;
     }
     .btn.primary:hover { filter: brightness(1.05); }
     .btn.danger { color: var(--danger); }
-
     .mark-legend {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      font-size: 0.8rem;
-      color: var(--muted);
-      padding: 8px 12px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
+      display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.8rem;
+      color: var(--muted); padding: 8px 12px; background: var(--panel);
+      border: 1px solid var(--line); border-radius: 8px;
     }
-
     .mark-legend code {
-      font-weight: 700;
-      color: var(--ink);
-      background: var(--primary-soft);
-      padding: 1px 6px;
-      border-radius: 4px;
-      font-family: ui-monospace, monospace;
+      font-weight: 700; color: var(--ink); background: var(--primary-soft);
+      padding: 1px 6px; border-radius: 4px; font-family: ui-monospace, monospace;
     }
-
     .stats {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(90px, 1fr));
-      gap: 10px;
+      display: grid; grid-template-columns: repeat(4, minmax(90px, 1fr)); gap: 10px;
     }
-
     .stat, .register, .editor, .panel-card, .staff-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: var(--radius); box-shadow: var(--shadow);
     }
-
     .stat { padding: 11px 13px; }
-
     .stat-label {
-      color: var(--muted);
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      color: var(--muted); font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
     }
-
     .stat-value {
-      margin-top: 2px;
-      font-size: 1.45rem;
-      font-weight: 750;
+      margin-top: 2px; font-size: 1.45rem; font-weight: 750;
       font-variant-numeric: tabular-nums;
     }
-
-    .register-header,
-    .student-row {
+    .register-header, .student-row {
       display: grid;
       grid-template-columns: 44px minmax(130px, 1fr) 72px minmax(200px, auto);
-      gap: 10px;
-      align-items: center;
+      gap: 10px; align-items: center;
     }
-
     .register-header {
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      padding: 10px 14px; border-bottom: 1px solid var(--line);
+      color: var(--muted); font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.04em;
     }
-
     .student-list { display: grid; }
-
     .student-row {
-      min-height: 52px;
-      padding: 6px 14px;
-      border-bottom: 1px solid var(--line);
+      min-height: 52px; padding: 6px 14px; border-bottom: 1px solid var(--line);
     }
-
     .student-row:last-child { border-bottom: 0; }
     .student-row:hover { background: #fafaf8; }
     .student-row:focus-within { background: var(--primary-soft); }
-
     .student-index {
-      color: var(--muted);
-      font-variant-numeric: tabular-nums;
-      font-size: 0.85rem;
+      color: var(--muted); font-variant-numeric: tabular-nums; font-size: 0.85rem;
     }
-
     .student-name {
-      font-weight: 600;
-      border: 0;
-      background: transparent;
-      color: inherit;
-      padding: 0;
-      text-align: left;
-      cursor: context-menu;
-      font-size: 0.92rem;
+      font-weight: 600; border: 0; background: transparent; color: inherit;
+      padding: 0; text-align: left; cursor: context-menu; font-size: 0.92rem;
     }
-
     .student-name.detention { color: var(--danger); }
-
     .mark-input {
-      width: 52px;
-      height: 36px;
-      text-align: center;
-      font-size: 1.15rem;
-      font-weight: 700;
-      font-family: ui-monospace, "Cascadia Code", monospace;
-      border: 2px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      color: var(--ink);
-      text-transform: uppercase;
+      width: 52px; height: 36px; text-align: center; font-size: 1.15rem;
+      font-weight: 700; font-family: ui-monospace, monospace;
+      border: 2px solid var(--line); border-radius: 8px; background: #fff;
+      color: var(--ink); text-transform: uppercase;
     }
-
     .mark-input:focus {
-      outline: none;
-      border-color: var(--primary);
+      outline: none; border-color: var(--primary);
       box-shadow: 0 0 0 3px var(--primary-soft);
     }
-
     .mark-input.mark-present {
-      background: #e8f6ef;
-      border-color: #2a9d6e;
-      color: #1a6b48;
+      background: #e8f6ef; border-color: #2a9d6e; color: #1a6b48;
     }
-
     .mark-input.mark-absent {
-      background: #fcebdd;
-      border-color: #d4843a;
-      color: #9a5520;
+      background: #fcebdd; border-color: #d4843a; color: #9a5520;
     }
-
     .mark-input.mark-late {
-      background: #e8eefc;
-      border-color: #4a6fd4;
-      color: #2c4a9a;
+      background: #e8eefc; border-color: #4a6fd4; color: #2c4a9a;
     }
-
     .status-group {
-      display: flex;
-      gap: 5px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end;
     }
-
     .status {
-      min-height: 30px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: #fff;
-      padding: 3px 8px;
-      cursor: pointer;
-      font-size: 0.78rem;
+      min-height: 30px; border: 1px solid var(--line); border-radius: 6px;
+      background: #fff; padding: 3px 8px; cursor: pointer; font-size: 0.78rem;
     }
-
     .status[aria-pressed="true"] {
-      background: var(--primary-soft);
-      border-color: var(--primary);
-      color: var(--primary);
-      font-weight: 650;
+      background: var(--primary-soft); border-color: var(--primary);
+      color: var(--primary); font-weight: 650;
     }
-
-    .empty {
-      padding: 28px 16px;
-      text-align: center;
-      color: var(--muted);
-    }
-
-    .editor {
-      padding: 14px;
-      display: none;
-      gap: 10px;
-    }
-
+    .empty { padding: 28px 16px; text-align: center; color: var(--muted); }
+    .editor { padding: 14px; display: none; gap: 10px; }
     .editor.open { display: grid; }
-
     .editor label {
-      display: grid;
-      gap: 5px;
-      color: var(--muted);
-      font-weight: 650;
-      font-size: 0.85rem;
+      display: grid; gap: 5px; color: var(--muted); font-weight: 650; font-size: 0.85rem;
     }
-
     textarea {
-      width: 100%;
-      min-height: 140px;
-      resize: vertical;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 10px;
-      line-height: 1.5;
+      width: 100%; min-height: 140px; resize: vertical;
+      border: 1px solid var(--line); border-radius: 8px; padding: 10px; line-height: 1.5;
     }
-
-    .editor-actions {
-      display: flex;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
+    .editor-actions { display: flex; gap: 8px; justify-content: flex-end; }
     .panel-card { overflow: hidden; }
     .task-panel { display: none; }
     .task-panel.open { display: block; }
-
-    .panel-heading {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .panel-heading h2 {
-      margin: 0;
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-
-    .panel-heading p {
-      margin: 2px 0 0;
-      color: var(--muted);
-      font-size: 0.82rem;
-    }
-
+    .panel-heading { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+    .panel-heading h2 { margin: 0; font-size: 0.95rem; font-weight: 700; }
+    .panel-heading p { margin: 2px 0 0; color: var(--muted); font-size: 0.82rem; }
     .sheet-wrap { max-height: 380px; overflow: auto; }
-
-    .data-sheet {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.84rem;
-    }
-
+    .data-sheet { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
     .data-sheet th, .data-sheet td {
-      border-bottom: 1px solid var(--line);
-      padding: 6px 8px;
-      text-align: left;
+      border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left;
     }
-
     .data-sheet th {
-      position: sticky;
-      top: 0;
-      background: var(--panel);
-      color: var(--muted);
-      font-size: 0.7rem;
-      font-weight: 700;
+      position: sticky; top: 0; background: var(--panel); color: var(--muted);
+      font-size: 0.7rem; font-weight: 700;
     }
-
     .data-sheet input {
-      width: 56px;
-      min-height: 28px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      padding: 3px 5px;
+      width: 56px; min-height: 28px; border: 1px solid var(--line);
+      border-radius: 6px; padding: 3px 5px;
     }
-
-    .data-sheet th input {
-      width: 88px;
-      margin-top: 3px;
-      display: block;
-    }
-
+    .data-sheet th input { width: 88px; margin-top: 3px; display: block; }
     .data-sheet .name-cell { min-width: 130px; font-weight: 600; }
-
     .sheet-tools {
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: flex-end;
+      padding: 10px 14px; border-bottom: 1px solid var(--line);
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end;
     }
-
     .sheet-tools label {
-      display: grid;
-      gap: 3px;
-      color: var(--muted);
-      font-size: 0.75rem;
-      font-weight: 650;
+      display: grid; gap: 3px; color: var(--muted); font-size: 0.75rem; font-weight: 650;
     }
-
     .sheet-tools input {
-      min-height: 32px;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      padding: 5px 8px;
+      min-height: 32px; border: 1px solid var(--line); border-radius: 7px; padding: 5px 8px;
     }
-
-    .policy-list {
-      margin: 0;
-      padding: 14px 14px 6px 32px;
-      line-height: 1.65;
-    }
-
+    .policy-list { margin: 0; padding: 14px 14px 6px 32px; line-height: 1.65; }
     .behaviour-note {
-      color: var(--muted);
-      font-size: 0.85rem;
-      padding: 0 14px 14px;
+      color: var(--muted); font-size: 0.85rem; padding: 0 14px 14px;
     }
-
     .staff-card {
-      padding: 12px 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      padding: 12px 14px; display: flex; align-items: center; gap: 12px;
     }
-
     .person-icon {
-      width: 40px;
-      height: 40px;
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      border-radius: 8px;
-      background: var(--primary-soft);
-      color: var(--primary);
+      width: 40px; height: 40px; flex-shrink: 0; display: grid; place-items: center;
+      border-radius: 8px; background: var(--primary-soft); color: var(--primary);
     }
-
     .staff-name { font-weight: 700; }
     .staff-role { margin-top: 1px; color: var(--muted); font-size: 0.85rem; }
-
     .save-toast {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--sidebar);
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s;
-      z-index: 50;
+      position: fixed; bottom: 20px; right: 20px; background: var(--sidebar);
+      color: #fff; padding: 10px 16px; border-radius: 8px; font-size: 0.85rem;
+      font-weight: 600; opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 50;
     }
-
     .save-toast.show { opacity: 1; }
-
-    /* Email notification toast */
     .mail-notify {
-      position: fixed;
-      top: 18px;
-      right: 18px;
-      z-index: 60;
-      width: min(360px, calc(100vw - 32px));
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-left: 4px solid var(--primary);
-      border-radius: 10px;
-      box-shadow: 0 12px 40px rgba(20, 36, 38, 0.18);
-      padding: 12px 14px;
-      display: none;
-      gap: 8px;
-      cursor: pointer;
+      position: fixed; top: 18px; right: 18px; z-index: 60;
+      width: min(360px, calc(100vw - 32px)); background: var(--panel);
+      border: 1px solid var(--line); border-left: 4px solid var(--primary);
+      border-radius: 10px; box-shadow: 0 12px 40px rgba(20, 36, 38, 0.18);
+      padding: 12px 14px; display: none; gap: 8px; cursor: pointer;
       animation: slideIn 0.25s ease;
     }
-
     .mail-notify.show { display: grid; }
-
     @keyframes slideIn {
       from { opacity: 0; transform: translateY(-12px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .mail-notify-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--primary);
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--primary);
     }
-
     .mail-notify-from { font-weight: 700; font-size: 0.92rem; }
     .mail-notify-subject { font-size: 0.86rem; color: var(--ink); }
     .mail-notify-preview {
-      font-size: 0.8rem;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 0.8rem; color: var(--muted); white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
     }
-
     .behaviour-menu {
-      position: fixed;
-      z-index: 40;
-      display: none;
-      min-width: 170px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      box-shadow: var(--shadow);
-      padding: 5px;
+      position: fixed; z-index: 40; display: none; min-width: 170px;
+      background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+      box-shadow: var(--shadow); padding: 5px;
     }
-
     .behaviour-menu.open { display: grid; gap: 2px; }
-
     .behaviour-menu button {
-      border: 0;
-      border-radius: 6px;
-      background: transparent;
-      padding: 8px 10px;
-      text-align: left;
-      cursor: pointer;
+      border: 0; border-radius: 6px; background: transparent;
+      padding: 8px 10px; text-align: left; cursor: pointer;
     }
-
     .behaviour-menu button:hover { background: var(--primary-soft); }
-
     .page-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      flex-wrap: wrap;
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 12px; flex-wrap: wrap;
     }
-
     .page-header h2 {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 750;
-      letter-spacing: -0.02em;
+      margin: 0; font-size: 1.5rem; font-weight: 750; letter-spacing: -0.02em;
     }
-
-    .page-header p {
-      margin: 3px 0 0;
-      color: var(--muted);
-      font-size: 0.88rem;
+    .page-header p { margin: 3px 0 0; color: var(--muted); font-size: 0.88rem; }
+    .sync-bar {
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+      padding: 10px 14px; background: var(--primary-soft); border: 1px solid #b8d9d0;
+      border-radius: 10px; font-size: 0.84rem;
     }
-
+    .sync-bar strong { color: var(--primary); }
     .hw-layout {
-      display: grid;
-      grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
-      gap: 14px;
-      align-items: start;
+      display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
+      gap: 14px; align-items: start;
     }
-
     .hw-form-card, .hw-schedule-card, .hw-class-card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
     }
-
-    .hw-form-card {
-      padding: 14px;
-      display: grid;
-      gap: 10px;
+    .hw-form-card { padding: 14px; display: grid; gap: 10px; }
+    .hw-form-card h3, .hw-schedule-card h3, .hw-class-card h3 {
+      margin: 0; font-size: 0.92rem; font-weight: 700;
     }
-
-    .hw-form-card h3,
-    .hw-schedule-card h3,
-    .hw-class-card h3 {
-      margin: 0;
-      font-size: 0.92rem;
-      font-weight: 700;
-    }
-
-    .hw-form-card .hint {
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
+    .hw-form-card .hint { color: var(--muted); font-size: 0.8rem; }
     .hw-form-card label {
-      display: grid;
-      gap: 4px;
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 650;
+      display: grid; gap: 4px; color: var(--muted); font-size: 0.78rem; font-weight: 650;
     }
-
-    .hw-form-card input,
-    .hw-form-card select {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 7px 9px;
+    .hw-form-card input, .hw-form-card select {
+      width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px;
     }
-
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .fmt-toolbar {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-    }
-
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .fmt-toolbar { display: flex; gap: 4px; flex-wrap: wrap; }
     .fmt-toolbar button {
-      min-width: 32px;
-      min-height: 30px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: #fff;
-      cursor: pointer;
-      font-size: 0.85rem;
+      min-width: 32px; min-height: 30px; border: 1px solid var(--line);
+      border-radius: 6px; background: #fff; cursor: pointer; font-size: 0.85rem;
     }
-
     .fmt-toolbar button:hover { background: var(--primary-soft); }
-
     .rich-editor {
-      min-height: 100px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 10px;
-      background: #fff;
-      line-height: 1.5;
-      white-space: pre-wrap;
-      word-break: break-word;
-      outline: none;
+      min-height: 100px; border: 1px solid var(--line); border-radius: 8px;
+      padding: 10px; background: #fff; line-height: 1.5; white-space: pre-wrap;
+      word-break: break-word; outline: none;
     }
-
     .rich-editor:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px var(--primary-soft);
+      border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft);
     }
-
     .rich-editor:empty:before {
-      content: attr(data-placeholder);
-      color: #99a3a8;
+      content: attr(data-placeholder); color: #99a3a8;
     }
-
     .hw-preview {
-      border: 1px dashed var(--line);
-      border-radius: 8px;
-      padding: 12px;
-      background: #fafaf8;
-      display: none;
+      border: 1px dashed var(--line); border-radius: 8px; padding: 12px;
+      background: #fafaf8; display: none;
     }
-
     .hw-preview.show { display: block; }
-
     .hw-preview-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--muted);
-      margin-bottom: 8px;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--muted); margin-bottom: 8px;
     }
-
     .hw-preview-title { font-weight: 700; font-size: 1.05rem; }
-
     .hw-preview-meta {
-      color: var(--primary);
-      font-size: 0.85rem;
-      font-weight: 650;
-      margin: 4px 0 8px;
+      color: var(--primary); font-size: 0.85rem; font-weight: 650; margin: 4px 0 8px;
     }
-
     .hw-preview-body {
-      white-space: pre-wrap;
-      word-break: break-word;
-      line-height: 1.5;
-      font-size: 0.9rem;
+      white-space: pre-wrap; word-break: break-word; line-height: 1.5; font-size: 0.9rem;
     }
-
-    .form-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
+    .form-actions { display: flex; gap: 8px; flex-wrap: wrap; }
     .card-head {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+      padding: 12px 14px; border-bottom: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 8px; flex-wrap: wrap;
     }
-
-    .card-head p {
-      margin: 2px 0 0;
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-
+    .card-head p { margin: 2px 0 0; color: var(--muted); font-size: 0.8rem; }
     .hw-tabs {
-      display: flex;
-      gap: 3px;
-      padding: 3px;
-      background: var(--bg);
-      border-radius: 8px;
+      display: flex; gap: 3px; padding: 3px; background: var(--bg); border-radius: 8px;
     }
-
     .hw-tabs button {
-      border: 0;
-      border-radius: 6px;
-      background: transparent;
-      padding: 5px 10px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-weight: 600;
+      border: 0; border-radius: 6px; background: transparent; padding: 5px 10px;
+      cursor: pointer; font-size: 0.8rem; color: var(--muted); font-weight: 600;
     }
-
     .hw-tabs button[aria-selected="true"] {
-      background: var(--panel);
-      color: var(--primary);
+      background: var(--panel); color: var(--primary);
       box-shadow: 0 1px 2px rgba(0,0,0,0.06);
     }
-
-    .hw-timetable {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-    }
-
+    .hw-timetable { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
     .hw-timetable th, .hw-timetable td {
-      padding: 9px 12px;
-      text-align: left;
-      vertical-align: top;
+      padding: 9px 12px; text-align: left; vertical-align: top;
       border-bottom: 1px solid var(--line);
     }
-
     .hw-timetable th {
-      background: #f7f8f6;
-      color: var(--muted);
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      position: sticky;
-      top: 0;
+      background: #f7f8f6; color: var(--muted); font-size: 0.68rem;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+      position: sticky; top: 0;
     }
-
     .hw-timetable .due-cell {
-      white-space: nowrap;
-      font-weight: 650;
-      font-variant-numeric: tabular-nums;
-      width: 120px;
+      white-space: nowrap; font-weight: 650; font-variant-numeric: tabular-nums; width: 120px;
     }
-
     .hw-timetable .class-cell {
-      white-space: nowrap;
-      width: 90px;
-      font-weight: 600;
-      color: var(--primary);
+      white-space: nowrap; width: 90px; font-weight: 600; color: var(--primary);
     }
-
     .hw-timetable .title-cell { font-weight: 600; }
-
     .hw-timetable .details-cell {
-      color: var(--muted);
-      white-space: pre-wrap;
-      word-break: break-word;
-      max-width: 280px;
-      font-size: 0.82rem;
-      line-height: 1.45;
+      color: var(--muted); white-space: pre-wrap; word-break: break-word;
+      max-width: 280px; font-size: 0.82rem; line-height: 1.45;
     }
-
     .hw-timetable .time-cell {
-      white-space: nowrap;
-      font-size: 0.82rem;
-      color: var(--muted);
-      width: 70px;
+      white-space: nowrap; font-size: 0.82rem; color: var(--muted); width: 70px;
     }
-
     .hw-day-group { background: var(--primary-soft) !important; }
     .hw-day-group td {
-      font-weight: 700;
-      color: var(--primary);
-      font-size: 0.82rem;
-      padding: 7px 12px;
+      font-weight: 700; color: var(--primary); font-size: 0.82rem; padding: 7px 12px;
     }
-
     .hw-list { padding: 4px 0; }
-
     .hw-item {
-      padding: 11px 14px;
-      border-bottom: 1px solid var(--line);
-      display: grid;
-      gap: 3px;
+      padding: 11px 14px; border-bottom: 1px solid var(--line); display: grid; gap: 3px;
     }
-
     .hw-item:last-child { border-bottom: 0; }
     .hw-item-title { font-weight: 700; }
     .hw-item-due { color: var(--primary); font-size: 0.82rem; font-weight: 650; }
     .hw-item-details {
-      color: var(--muted);
-      font-size: 0.86rem;
-      white-space: pre-wrap;
-      word-break: break-word;
-      line-height: 1.5;
+      color: var(--muted); font-size: 0.86rem; white-space: pre-wrap;
+      word-break: break-word; line-height: 1.5;
     }
-
     .tt-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 14px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;
     }
-
     .tt-day {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
     }
-
     .tt-day-header {
-      padding: 11px 14px;
-      background: var(--primary);
-      color: #fff;
-      font-weight: 700;
+      padding: 11px 14px; background: var(--primary); color: #fff; font-weight: 700;
     }
-
+    .tt-day-header span {
+      display: block; font-weight: 500; font-size: 0.78rem; opacity: 0.85; margin-top: 2px;
+    }
     .tt-slot {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 10px;
-      align-items: center;
+      padding: 12px 14px; border-bottom: 1px solid var(--line);
+      display: grid; grid-template-columns: 100px 1fr; gap: 10px; align-items: start;
     }
-
     .tt-slot:last-child { border-bottom: 0; }
     .tt-slot:hover { background: #fafaf8; }
-
+    .tt-slot.free { opacity: 0.55; }
     .tt-time {
-      font-variant-numeric: tabular-nums;
-      font-weight: 700;
-      font-size: 0.9rem;
+      font-variant-numeric: tabular-nums; font-weight: 700; font-size: 0.88rem;
     }
-
     .tt-time span {
-      display: block;
-      font-weight: 500;
-      color: var(--muted);
-      font-size: 0.78rem;
+      display: block; font-weight: 500; color: var(--muted); font-size: 0.76rem;
     }
-
     .tt-class { font-weight: 700; }
-    .tt-meta { color: var(--muted); font-size: 0.82rem; margin-top: 1px; }
-
-    /* Email */
+    .tt-meta { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
+    .tt-room {
+      display: inline-block; margin-top: 4px; font-size: 0.72rem; font-weight: 650;
+      background: var(--primary-soft); color: var(--primary); padding: 2px 7px; border-radius: 4px;
+    }
     .mail-layout {
       display: grid;
-      grid-template-columns: 200px minmax(240px, 300px) minmax(0, 1fr);
-      gap: 12px;
-      align-items: start;
-      min-height: 520px;
+      grid-template-columns: 180px minmax(240px, 320px) minmax(0, 1fr);
+      gap: 12px; align-items: stretch; min-height: 560px;
     }
-
     .mail-nav, .mail-list, .mail-compose, .mail-read {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
     }
-
     .mail-nav {
-      padding: 10px;
-      display: grid;
-      gap: 4px;
-      align-content: start;
+      padding: 10px; display: grid; gap: 4px; align-content: start;
     }
-
     .mail-nav button {
-      width: 100%;
-      border: 0;
-      border-radius: 8px;
-      background: transparent;
-      padding: 10px 12px;
-      text-align: left;
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      width: 100%; border: 0; border-radius: 8px; background: transparent;
+      padding: 10px 12px; text-align: left; cursor: pointer; font-weight: 600;
+      color: var(--muted); display: flex; justify-content: space-between; align-items: center;
     }
-
     .mail-nav button:hover { background: var(--bg); color: var(--ink); }
-
     .mail-nav button[aria-selected="true"] {
-      background: var(--primary-soft);
-      color: var(--primary);
+      background: var(--primary-soft); color: var(--primary);
     }
-
     .mail-nav .count {
-      font-size: 0.75rem;
-      font-weight: 700;
-      background: var(--bg);
-      padding: 2px 7px;
-      border-radius: 10px;
-      color: var(--muted);
+      font-size: 0.75rem; font-weight: 700; background: var(--bg);
+      padding: 2px 7px; border-radius: 10px; color: var(--muted);
     }
-
     .mail-nav button[aria-selected="true"] .count {
-      background: #fff;
-      color: var(--primary);
+      background: #fff; color: var(--primary);
     }
-
     .mail-list-head {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--line);
-      font-weight: 700;
-      font-size: 0.9rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
+      padding: 12px 14px; border-bottom: 1px solid var(--line);
+      font-weight: 700; font-size: 0.9rem;
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
     }
-
-    .mail-items {
-      max-height: 560px;
-      overflow-y: auto;
-    }
-
+    .mail-items { max-height: 600px; overflow-y: auto; }
     .mail-item {
-      width: 100%;
-      border: 0;
-      border-bottom: 1px solid var(--line);
-      background: #fff;
-      padding: 11px 14px;
-      text-align: left;
-      cursor: pointer;
-      display: grid;
-      gap: 3px;
+      width: 100%; border: 0; border-bottom: 1px solid var(--line);
+      background: #fff; padding: 11px 14px; text-align: left; cursor: pointer;
+      display: grid; gap: 3px;
     }
-
     .mail-item:hover { background: #fafaf8; }
-
     .mail-item.active {
-      background: var(--primary-soft);
-      border-left: 3px solid var(--primary);
+      background: var(--primary-soft); border-left: 3px solid var(--primary);
     }
-
     .mail-item.unread .mail-item-from,
     .mail-item.unread .mail-item-subject { font-weight: 750; }
-
     .mail-item-from { font-size: 0.88rem; font-weight: 650; }
-
     .mail-item-tag {
-      display: inline-block;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 1px 6px;
-      border-radius: 4px;
-      margin-left: 6px;
-      vertical-align: middle;
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.04em; padding: 1px 6px;
+      border-radius: 4px; margin-left: 6px; vertical-align: middle;
     }
-
-    .mail-item-tag.student {
-      background: #eef2ff;
-      color: #3b4fb8;
-    }
-
-    .mail-item-tag.staff {
-      background: var(--primary-soft);
-      color: var(--primary);
-    }
-
+    .mail-item-tag.student { background: #eef2ff; color: #3b4fb8; }
+    .mail-item-tag.staff { background: var(--primary-soft); color: var(--primary); }
     .mail-item-subject {
-      font-size: 0.84rem;
-      color: var(--ink);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 0.84rem; color: var(--ink); white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
     }
-
     .mail-item-preview {
-      font-size: 0.78rem;
-      color: var(--muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 0.78rem; color: var(--muted); white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
     }
-
-    .mail-item-time {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
+    .mail-item-time { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
     .mail-read, .mail-compose {
-      padding: 16px;
-      min-height: 420px;
-      display: grid;
-      gap: 12px;
-      align-content: start;
+      padding: 16px; min-height: 420px; display: grid; gap: 12px; align-content: start;
     }
-
-    .mail-read-empty {
-      color: var(--muted);
-      text-align: center;
-      padding: 48px 16px;
-    }
-
+    .mail-read-empty { color: var(--muted); text-align: center; padding: 48px 16px; }
     .mail-read-meta {
-      display: grid;
-      gap: 4px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--line);
+      display: grid; gap: 4px; padding-bottom: 12px; border-bottom: 1px solid var(--line);
     }
-
-    .mail-read-subject {
-      font-size: 1.15rem;
-      font-weight: 750;
-    }
-
-    .mail-read-line {
-      font-size: 0.86rem;
-      color: var(--muted);
-    }
-
+    .mail-read-subject { font-size: 1.15rem; font-weight: 750; }
+    .mail-read-line { font-size: 0.86rem; color: var(--muted); }
     .mail-read-line strong { color: var(--ink); }
-
-    .mail-read-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
+    .mail-read-actions { display: flex; gap: 8px; flex-wrap: wrap; }
     .mail-read-body {
-      white-space: pre-wrap;
-      word-break: break-word;
-      line-height: 1.55;
-      font-size: 0.92rem;
+      white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 0.92rem;
     }
-
-    /* Font variants for message bodies */
     .mail-read-body.font-default { font-family: "Segoe UI", system-ui, sans-serif; }
     .mail-read-body.font-serif { font-family: Georgia, "Times New Roman", serif; font-size: 0.95rem; }
-    .mail-read-body.font-mono { font-family: "Cascadia Code", Consolas, ui-monospace, monospace; font-size: 0.86rem; }
-    .mail-read-body.font-rounded { font-family: "Trebuchet MS", "Segoe UI", sans-serif; font-size: 0.94rem; }
-    .mail-read-body.font-hand {
-      font-family: "Comic Sans MS", "Segoe Print", cursive;
-      font-size: 0.95rem;
-    }
-
+    .mail-read-body.font-mono { font-family: Consolas, ui-monospace, monospace; font-size: 0.86rem; }
+    .mail-read-body.font-rounded { font-family: "Trebuchet MS", "Segoe UI", sans-serif; }
+    .mail-read-body.font-hand { font-family: "Comic Sans MS", "Segoe Print", cursive; }
     .mail-staff-footer {
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      gap: 12px;
+      margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line);
+      display: flex; align-items: center; gap: 12px;
     }
-
     .mail-staff-footer .logo {
-      width: 42px;
-      height: 42px;
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      border-radius: 8px;
-      background: var(--primary-soft);
-      color: var(--primary);
+      width: 42px; height: 42px; flex-shrink: 0; display: grid; place-items: center;
+      border-radius: 8px; background: var(--primary-soft); color: var(--primary);
       box-shadow: inset 0 0 0 2px var(--gold);
     }
-
     .mail-staff-footer .school-name {
-      font-weight: 750;
-      font-size: 0.92rem;
-      color: var(--primary);
+      font-weight: 750; font-size: 0.92rem; color: var(--primary);
     }
-
     .mail-staff-footer .school-sub {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 2px;
+      font-size: 0.78rem; color: var(--muted); margin-top: 2px;
     }
-
     .mail-compose label {
-      display: grid;
-      gap: 4px;
-      color: var(--muted);
-      font-size: 0.8rem;
-      font-weight: 650;
+      display: grid; gap: 4px; color: var(--muted); font-size: 0.8rem; font-weight: 650;
     }
-
-    .mail-compose input,
-    .mail-compose select,
-    .mail-compose textarea {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 8px 10px;
-      color: var(--ink);
-      background: #fff;
+    .mail-compose input, .mail-compose select, .mail-compose textarea {
+      width: 100%; border: 1px solid var(--line); border-radius: 8px;
+      padding: 8px 10px; color: var(--ink); background: #fff;
     }
-
-    .mail-compose textarea { min-height: 160px; }
-
+    .mail-compose textarea { min-height: 180px; }
     .mail-status-line {
-      font-size: 0.85rem;
-      color: var(--primary);
-      font-weight: 650;
-      display: none;
+      font-size: 0.85rem; color: var(--primary); font-weight: 650; display: none;
     }
-
     .mail-status-line.show { display: block; }
-
+    /* Drive */
+    .drive-layout {
+      display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 14px; align-items: start;
+    }
+    .drive-sidebar, .drive-main {
+      background: var(--panel); border: 1px solid var(--line);
+      border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden;
+    }
+    .drive-sidebar { padding: 12px; display: grid; gap: 6px; align-content: start; }
+    .drive-folder-btn {
+      width: 100%; border: 0; border-radius: 8px; background: transparent;
+      padding: 9px 10px; text-align: left; cursor: pointer; font-weight: 600;
+      color: var(--muted); font-size: 0.88rem;
+    }
+    .drive-folder-btn:hover { background: var(--bg); color: var(--ink); }
+    .drive-folder-btn.active {
+      background: var(--primary-soft); color: var(--primary);
+    }
+    .drive-toolbar {
+      padding: 12px 14px; border-bottom: 1px solid var(--line);
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    }
+    .drive-path {
+      font-size: 0.85rem; color: var(--muted); font-weight: 600; margin-right: auto;
+    }
+    .drive-files { padding: 8px; display: grid; gap: 6px; max-height: 520px; overflow-y: auto; }
+    .drive-row {
+      display: grid; grid-template-columns: 40px 1fr auto auto; gap: 10px;
+      align-items: center; padding: 10px 12px; border-radius: 8px; border: 1px solid transparent;
+    }
+    .drive-row:hover { background: #fafaf8; border-color: var(--line); }
+    .drive-icon {
+      width: 36px; height: 36px; border-radius: 8px; display: grid; place-items: center;
+      background: var(--primary-soft); color: var(--primary); font-size: 0.75rem; font-weight: 800;
+    }
+    .drive-name { font-weight: 650; font-size: 0.9rem; }
+    .drive-meta { font-size: 0.75rem; color: var(--muted); }
+    .drive-actions { display: flex; gap: 4px; }
+    .drive-actions .btn { min-height: 30px; padding: 3px 8px; font-size: 0.78rem; }
     @media (max-width: 1100px) {
       .mail-layout { grid-template-columns: 1fr; }
       .mail-nav { grid-template-columns: repeat(3, 1fr); display: grid; }
+      .drive-layout { grid-template-columns: 1fr; }
     }
-
     @media (max-width: 900px) {
       .app { grid-template-columns: 1fr; }
       aside { position: relative; height: auto; max-height: 40vh; }
       .hw-layout { grid-template-columns: 1fr; }
       .register-header { display: none; }
       .student-row { grid-template-columns: 36px minmax(0, 1fr) 56px; }
-      .status-group {
-        grid-column: 1 / -1;
-        justify-content: flex-start;
-      }
+      .status-group { grid-column: 1 / -1; justify-content: flex-start; }
       .stats { grid-template-columns: repeat(2, 1fr); }
     }
-
     @media (max-width: 520px) {
       .field-row { grid-template-columns: 1fr; }
       .tt-slot { grid-template-columns: 1fr; }
@@ -1348,7 +668,7 @@
             <p class="subtitle">Management Information System</p>
           </div>
         </div>
-        <div class="school-tag">A-Level Science · Staff portal<br>Registers and mail are saved on this device</div>
+        <div class="school-tag">A-Level Science · Staff portal<br>Use Export/Import to move data between devices</div>
       </div>
       <nav class="class-tabs" id="classTabs" aria-label="Classes"></nav>
       <div class="sidebar-foot">Westbridge London School · Confidential staff use</div>
@@ -1361,6 +681,7 @@
           <button class="btn active" type="button" data-nav="register">Register</button>
           <button class="btn" type="button" data-nav="homework">Homework</button>
           <button class="btn" type="button" data-nav="timetable">Timetable</button>
+          <button class="btn" type="button" data-nav="drive">Drive</button>
           <button class="btn" type="button" data-nav="email" id="navEmail">
             Email
             <span class="badge" id="mailBadge">0</span>
@@ -1371,6 +692,15 @@
       </div>
 
       <div class="content">
+        <div class="sync-bar" id="syncBar">
+          <strong>Cross-device:</strong>
+          <span>Export a backup on this device, then Import on another browser/PC.</span>
+          <button class="btn primary" type="button" id="exportBackup">Export backup</button>
+          <button class="btn" type="button" id="importBackupBtn">Import backup</button>
+          <input type="file" id="importBackupFile" accept="application/json,.json" hidden>
+        </div>
+
+        <!-- REGISTER -->
         <div class="view active" id="viewRegister" data-view="register">
           <section class="toolbar">
             <div>
@@ -1387,21 +717,18 @@
               <button class="btn danger" type="button" id="clearRegister">Clear day</button>
             </div>
           </section>
-
           <div class="mark-legend">
             <span><code>/</code> Present</span>
             <span><code>.</code> Absent</span>
             <span><code>L</code> Late</span>
             <span>Type in the mark box, or use the buttons. Registers for each date are saved.</span>
           </div>
-
           <section class="stats">
             <div class="stat"><div class="stat-label">Students</div><div class="stat-value" id="totalCount">0</div></div>
             <div class="stat"><div class="stat-label">Present (/)</div><div class="stat-value" id="presentCount">0</div></div>
             <div class="stat"><div class="stat-label">Absent (.)</div><div class="stat-value" id="absentCount">0</div></div>
             <div class="stat"><div class="stat-label">Late (L)</div><div class="stat-value" id="lateCount">0</div></div>
           </section>
-
           <section class="editor" id="editor">
             <label for="nameInput">Names (one per line)
               <textarea id="nameInput" spellcheck="false"></textarea>
@@ -1411,7 +738,6 @@
               <button class="btn primary" type="button" id="saveNames">Save names</button>
             </div>
           </section>
-
           <section class="panel-card task-panel" id="dataPanel">
             <div class="panel-heading">
               <h2>Class data</h2>
@@ -1429,7 +755,6 @@
               </table>
             </div>
           </section>
-
           <section class="panel-card task-panel" id="behaviourPanel">
             <div class="panel-heading">
               <h2>Behaviour policy</h2>
@@ -1443,17 +768,12 @@
             </ol>
             <p class="behaviour-note">Detentions show in red on the register. Records are saved.</p>
           </section>
-
           <section class="register">
             <div class="register-header">
-              <span>No.</span>
-              <span>Name</span>
-              <span>Mark</span>
-              <span>Quick mark</span>
+              <span>No.</span><span>Name</span><span>Mark</span><span>Quick mark</span>
             </div>
             <div class="student-list" id="studentList"></div>
           </section>
-
           <footer class="staff-card">
             <div class="person-icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -1468,6 +788,7 @@
           </footer>
         </div>
 
+        <!-- HOMEWORK -->
         <div class="view" id="viewHomework" data-view="homework">
           <div class="page-header">
             <div>
@@ -1543,24 +864,51 @@
           </div>
         </div>
 
+        <!-- TIMETABLE -->
         <div class="view" id="viewTimetable" data-view="timetable">
           <div class="page-header">
             <div>
               <h2>My timetable</h2>
-              <p>Wednesday &amp; Friday · A-Level Science</p>
+              <p>Full week · A-Level Science · rooms included</p>
             </div>
           </div>
           <div class="tt-grid" id="timetableGrid"></div>
         </div>
 
+        <!-- DRIVE -->
+        <div class="view" id="viewDrive" data-view="drive">
+          <div class="page-header">
+            <div>
+              <h2>Staff Drive</h2>
+              <p>Folders · PDF / PPT / DOC / images · stored in this browser (IndexedDB). Use Export for cross-device metadata.</p>
+            </div>
+          </div>
+          <div class="drive-layout">
+            <div class="drive-sidebar">
+              <button type="button" class="btn primary" id="driveNewFolder" style="width:100%;justify-content:center;">+ New folder</button>
+              <div id="driveFolderList"></div>
+            </div>
+            <div class="drive-main">
+              <div class="drive-toolbar">
+                <span class="drive-path" id="drivePath">My Drive /</span>
+                <label class="btn primary" style="cursor:pointer;">
+                  Upload files
+                  <input type="file" id="driveUpload" multiple accept=".pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.gif,.txt,.csv" hidden>
+                </label>
+              </div>
+              <div class="drive-files" id="driveFiles"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EMAIL -->
         <div class="view" id="viewEmail" data-view="email">
           <div class="page-header">
             <div>
               <h2>Staff email</h2>
-              <p>Inbox · Sent · Compose · student &amp; staff messages</p>
+              <p>Inbox · Sent · Compose · realistic student &amp; staff messages</p>
             </div>
           </div>
-
           <div class="mail-layout">
             <nav class="mail-nav" aria-label="Mailbox folders">
               <button type="button" data-folder="inbox" aria-selected="true">
@@ -1571,14 +919,10 @@
               </button>
               <button type="button" data-folder="compose" aria-selected="false">Compose</button>
             </nav>
-
             <div class="mail-list">
-              <div class="mail-list-head">
-                <span id="mailListHead">Inbox</span>
-              </div>
+              <div class="mail-list-head"><span id="mailListHead">Inbox</span></div>
               <div class="mail-items" id="mailItems"></div>
             </div>
-
             <div class="mail-read" id="mailReadPane">
               <div class="mail-read-empty" id="mailReadEmpty">Select a message to read it here.</div>
               <div id="mailReadContent" style="display:none;">
@@ -1608,7 +952,6 @@
                 </div>
               </div>
             </div>
-
             <form class="mail-compose" id="mailComposePane" style="display:none; grid-column: 2 / -1;">
               <h3 style="margin:0;font-size:1rem;">New message</h3>
               <label>To <select id="emailTo"></select></label>
@@ -1649,8 +992,10 @@ Head of A-Level Science</textarea>
   </div>
 
   <script>
-    const STORAGE_KEY = "wls-science-mis-v4";
+    const STORAGE_KEY = "wls-science-mis-v5";
     const ME = "Mr R. Mohammed — Head of A-Level Science";
+    const DB_NAME = "wls-drive-db";
+    const DB_STORE = "files";
 
     const firstNames = ["Aisha","Amelia","Anaya","Arjun","Bilal","Callum","Daniel","Eleanor","Elijah","Fatima","Freddie","Grace","Hassan","Imani","Jacob","Jasmine","Kai","Layla","Leila","Lucas","Mariam","Maya","Mohammed","Naomi","Noah","Noor","Omar","Priya","Rayan","Riya","Ryan","Safiya","Samira","Sienna","Theo","Tunde","Yara","Yusuf","Zara","Zoe","Adam","Bella","Caleb","Diana","Ethan","Freya","George","Hana","Ian","Jade"];
     const lastNames = ["Abdi","Ahmed","Baker","Boateng","Brown","Campbell","Chowdhury","Clarke","Davies","Diallo","Evans","Farooq","Foster","Grant","Hussain","Iqbal","Johnson","Khan","Mahmood","Mensah","Murphy","Okafor","Patel","Rahman","Roberts","Scott","Shah","Singh","Smith","Taylor","Thompson","Walker","Williams","Yusuf","Blake","Chen","Dunn","Eze","Frost","Green","Hall","Ito","James","Kerr","Lee","Moon"];
@@ -1664,7 +1009,6 @@ Head of A-Level Science</textarea>
       }
       return names;
     }
-
     function sortByLastName(names) {
       return [...names].sort((a, b) => {
         const la = a.trim().split(/\s+/).pop();
@@ -1672,7 +1016,6 @@ Head of A-Level Science</textarea>
         return la.localeCompare(lb, "en", { sensitivity: "base" }) || a.localeCompare(b, "en", { sensitivity: "base" });
       });
     }
-
     function baseClasses() {
       const mine = [
         { id: "13EB1", label: "13E/B1", group: "My classes", subject: "Biology", teacher: "Mr R. Mohammed", mine: true, students: [
@@ -1686,7 +1029,6 @@ Head of A-Level Science</textarea>
         ]},
         { id: "13PC1", label: "13P/C1", group: "My classes", subject: "Chemistry", teacher: "Mr R. Mohammed", mine: true, students: generateNames("13PC1", 15) }
       ];
-
       const tw = [
         ["10XS1","10X/S1","Science","Ms H. Clarke",24],
         ["10XS4","10X/S4","Science","Dr A. Carter",28],
@@ -1699,7 +1041,6 @@ Head of A-Level Science</textarea>
       ].map(([id, label, subject, teacher, n]) => ({
         id, label, group: "TW Science classes", subject, teacher, students: generateNames(id, n)
       }));
-
       const normal = [
         ["7AS1","7A/S1","Science","Miss L. Bennett",24],
         ["7BS2","7B/S2","Science","Mr A. Rahman",26],
@@ -1720,41 +1061,21 @@ Head of A-Level Science</textarea>
       ].map(([id, label, subject, teacher, n]) => ({
         id, label, group: "Normal Science classes", subject, teacher, students: generateNames(id, n)
       }));
-
       return [...mine, ...tw, ...normal].map((c) => ({
-        ...c,
-        note: `${c.students.length} students`,
-        students: sortByLastName(c.students)
+        ...c, note: `${c.students.length} students`, students: sortByLastName(c.students)
       }));
     }
 
     const emailRecipients = [
-      "Dr A. Carter — Head of Year 13",
-      "Ms N. Ahmed — Safeguarding Lead",
-      "Mr J. Mensah — Science Teacher",
-      "Mrs S. Patel — Deputy Head",
-      "Ms H. Clarke — Science Teacher",
-      "Dr M. Singh — Chemistry Lead",
-      "Ms C. Davies — Biology Teacher",
-      "Mr O. Khan — Chemistry Teacher",
-      "Miss L. Bennett — KS3 Science",
-      "Mr A. Rahman — Science Teacher",
-      "Ms P. Shah — Science Teacher",
-      "Mrs N. Williams — Head of Year 8",
-      "Dr F. Ahmed — Biology Teacher",
-      "Mr T. Evans — Chemistry Teacher",
-      "Mrs I. Boateng — Science Teacher",
-      "Mr K. Walsh — Science Teacher",
-      "Dr L. Okonkwo — Chemistry Teacher",
-      "Ms R. Patel — Biology Teacher",
-      "Mr P. Nguyen — Chemistry Teacher",
-      "Mr D. Foster — Head of Year 11",
-      "Mrs E. Hughes — SENDCO",
-      "Ms J. Okoro — Pastoral Lead",
-      "Dr B. Chen — STEM Coordinator",
-      "Mr S. Ali — Cover Supervisor",
-      "Mrs F. Rahman — Head of Year 12",
-      "Mr L. Brooks — Examinations Officer"
+      "Dr A. Carter — Head of Year 13","Ms N. Ahmed — Safeguarding Lead","Mr J. Mensah — Science Teacher",
+      "Mrs S. Patel — Deputy Head","Ms H. Clarke — Science Teacher","Dr M. Singh — Chemistry Lead",
+      "Ms C. Davies — Biology Teacher","Mr O. Khan — Chemistry Teacher","Miss L. Bennett — KS3 Science",
+      "Mr A. Rahman — Science Teacher","Ms P. Shah — Science Teacher","Mrs N. Williams — Head of Year 8",
+      "Dr F. Ahmed — Biology Teacher","Mr T. Evans — Chemistry Teacher","Mrs I. Boateng — Science Teacher",
+      "Mr K. Walsh — Science Teacher","Dr L. Okonkwo — Chemistry Teacher","Ms R. Patel — Biology Teacher",
+      "Mr P. Nguyen — Chemistry Teacher","Mr D. Foster — Head of Year 11","Mrs E. Hughes — SENDCO",
+      "Ms J. Okoro — Pastoral Lead","Dr B. Chen — STEM Coordinator","Mr S. Ali — Cover Supervisor",
+      "Mrs F. Rahman — Head of Year 12","Mr L. Brooks — Examinations Officer"
     ];
 
     const FONT_CLASSES = ["font-default", "font-serif", "font-mono", "font-rounded", "font-hand"];
@@ -1762,67 +1083,123 @@ Head of A-Level Science</textarea>
     const staffReplyTemplates = [
       (name, subject, cls) => ({
         subject: `Re: ${subject}`,
-        body: `Dear Mr Mohammed,\n\nThank you for your message regarding ${cls || "your class"}. I have noted the details and will follow this up.\n\nPlease let me know if anything further is needed.\n\nKind regards,\n${name}`
+        body: `Dear Mr Mohammed,\n\nThank you for your message regarding ${cls || "your class"}. I have noted the attendance and pastoral points and will raise them at the next year-team meeting if needed.\n\nIf any students require a follow-up call home or a behaviour support plan, please flag them by name and I will coordinate with the form tutors.\n\nPlease let me know if anything further is needed this week.\n\nKind regards,\n${name}`
       }),
       (name, subject, cls) => ({
         subject: `Re: ${subject}`,
-        body: `Hi Reza,\n\nThanks for the update. I've seen the notes for ${cls || "the group"} and will keep an eye on this.\n\nBest wishes,\n${name}`
+        body: `Hi Rayhan,\n\nThanks for the update — I've seen the notes for ${cls || "the group"} and will keep an eye on this.\n\nA couple of the names you mentioned have already been on our radar for punctuality, so it is helpful to have the Science register in the same conversation.\n\nHappy to discuss briefly after briefing tomorrow if useful.\n\nBest wishes,\n${name}`
       }),
       (name, subject) => ({
         subject: `Re: ${subject}`,
-        body: `Dear Mr Mohammed,\n\nReceived with thanks. I will review this and get back to you if I need any further information.\n\nRegards,\n${name}`
+        body: `Dear Mr Mohammed,\n\nReceived with thanks. I will review this against our central records and get back to you if I need any further information or if a parental meeting would be appropriate.\n\nRegards,\n${name}`
       }),
       (name, subject, cls) => ({
         subject: `Re: ${subject}`,
-        body: `Hello,\n\nAppreciate you flagging this. Is pastoral support required for any students in ${cls || "the class"}, or is this for information only?\n\nMany thanks,\n${name}`
+        body: `Hello,\n\nAppreciate you flagging this. Is pastoral support required for any students in ${cls || "the class"}, or is this primarily for information only?\n\nIf you would like me to check in with specific students, a short list of names and the concern (attendance / behaviour / wellbeing) would help me prioritise.\n\nMany thanks,\n${name}`
+      })
+    ];
+
+    const staffProactiveTemplates = [
+      (name) => ({
+        subject: "Science team briefing — items for this week",
+        body: `Dear Rayhan,\n\nA quick note ahead of the Science briefing on Wednesday.\n\nCould you bring an update on:\n• Progress of the Year 13 required practicals\n• Any concerns from 12A/B2 registers this fortnight\n• Equipment requests for the new chromatography sets\n\nI will also share the draft assessment calendar for the second half of term.\n\nThanks in advance,\n${name}`
+      }),
+      (name) => ({
+        subject: "Parental query — Year 11 Science",
+        body: `Hi Rayhan,\n\nI have received a parental email about homework load in 11X/S1. The parent is supportive overall but asked whether the recent double homework set was intentional or an overlap with cover work.\n\nWould you mind checking what was issued last week and whether we need a short clarifying reply home?\n\nHappy to draft something once I have your notes.\n\nKind regards,\n${name}`
+      }),
+      (name) => ({
+        subject: "Cover for Friday period 5",
+        body: `Dear Mr Mohammed,\n\nWe still need confirmed cover work for Friday P5 (11X/S1) as the original cover supervisor is unwell.\n\nIf you already have a sheet or Teams assignment ready, please upload it to the shared cover folder or reply here and I will ensure it is printed.\n\nThank you,\n${name}`
+      }),
+      (name) => ({
+        subject: "STEM enrichment — volunteers",
+        body: `Hello Rayhan,\n\nWe are running a small STEM open-evening activity next Thursday and need two Science staff to help with a simple practical demonstration (about 45 minutes).\n\nWould you or a colleague from A-Level be able to support? No preparation is required beyond being present to supervise.\n\nPlease let me know by Tuesday if possible.\n\nBest wishes,\n${name}`
       })
     ];
 
     const studentMailTemplates = [
       (student, cls) => ({
         subject: `Homework for ${cls}`,
-        body: `Hi Sir,\n\nI was away last lesson and wasn't sure what the homework was for ${cls}. Could you please send me the details or put it on the shared drive?\n\nThank you,\n${student}`
+        body: `Hi Sir,\n\nI was away last lesson (family appointment) and I'm not sure what the homework was for ${cls}. I checked Teams but couldn't see a new assignment yet.\n\nCould you please send me the details or point me to the shared drive folder? I'd rather not fall behind before the next assessment.\n\nThank you,\n${student}`
       }),
       (student, cls) => ({
-        subject: `Cover work / missed lesson – ${cls}`,
-        body: `Dear Mr Mohammed,\n\nI had a medical appointment and missed ${cls}. Is there any cover work or catch-up notes I should complete before next lesson?\n\nKind regards,\n${student}`
+        subject: `Missed lesson – ${cls}`,
+        body: `Dear Mr Mohammed,\n\nI had a medical appointment yesterday and missed ${cls}. Is there any cover work or catch-up notes I should complete before next lesson?\n\nI can come at lunch on Wednesday if that is easier for you to go over the main points.\n\nKind regards,\n${student}`
       }),
       (student, cls) => ({
-        subject: `Catch-up help please`,
-        body: `Sir,\n\nI'm finding the last topic in ${cls} quite hard. Could I come for a catch-up at lunch or after school this week?\n\nThanks,\n${student}`
+        subject: `catch up help??`,
+        body: `sir\n\nim finding the last topic in ${cls} really hard and idk if i understood the practical properly. can i come for a catch-up at lunch or after school this week?\n\ni tried the textbook questions but got stuck on the ones about variables.\n\nthanks\n${student}`
       }),
       (student, cls) => ({
-        subject: `Extension on homework?`,
-        body: `Hello Sir,\n\nCould I please have a short extension on the ${cls} homework? I've been unwell and haven't finished it yet.\n\nThank you,\n${student}`
+        subject: `extension on hw?`,
+        body: `hello sir\n\ncould i please have a short extension on the ${cls} homework? ive been unwell since the weekend and havent finished it yet. i can hand it in by thursday if thats ok?\n\nthanks so much\n${student}`
       }),
       (student, cls) => ({
-        subject: `Test revision resources – ${cls}`,
-        body: `Hi Mr Mohammed,\n\nDo you have any extra revision questions or past paper links for the upcoming ${cls} assessment?\n\nCheers,\n${student}`
+        subject: `Test revision – ${cls}`,
+        body: `Hi Mr Mohammed,\n\nDo you have any extra revision questions or past paper links for the upcoming ${cls} assessment? I've finished the booklet but would like more practice on the longer-response questions.\n\nAlso, is the required practical still on the test?\n\nCheers,\n${student}`
       }),
       (student, cls) => ({
-        subject: `Absent yesterday – what did we do?`,
-        body: `Dear Sir,\n\nI was absent from ${cls} yesterday. Could you outline what we covered and any homework set?\n\nBest wishes,\n${student}`
+        subject: `what did we do yesterday`,
+        body: `Dear Sir,\n\nI was absent from ${cls} yesterday. Could you outline what we covered and any homework set? My friend said something about a graph but I want to make sure I have the full notes.\n\nBest wishes,\n${student}`
       }),
       (student, cls) => ({
         subject: `Practical write-up`,
-        body: `Hi Sir,\n\nI lost my ${cls} practical sheet. Is there a digital copy or can I collect another one from the lab?\n\nThanks so much,\n${student}`
+        body: `Hi Sir,\n\nI lost my ${cls} practical sheet on the bus. Is there a digital copy or can I collect another one from the lab before Friday?\n\nSorry about this — I will be more careful with the next one.\n\nThanks so much,\n${student}`
       }),
       (student, cls) => ({
         subject: `Clarification on last lesson`,
-        body: `Mr Mohammed,\n\nIn ${cls} you mentioned something about the required practical. Could you clarify the variables we need to control for the write-up?\n\nThank you,\n${student}`
+        body: `Mr Mohammed,\n\nIn ${cls} you mentioned something about the required practical and controlling variables. Could you clarify which variables we need to control for the write-up, and whether the conclusion needs a percentage error calculation?\n\nI want to get this right before I hand it in.\n\nThank you,\n${student}`
+      }),
+      (student, cls) => ({
+        subject: `teams not working`,
+        body: `sir the teams assignment for ${cls} wont open on my laptop it just loads forever. i tried on my phone too. is there another way to get the questions?\n\nalso is the due date still tomorrow or did it move?\n\nthx\n${student}`
+      }),
+      (student, cls) => ({
+        subject: `Request for feedback on mock`,
+        body: `Dear Mr Mohammed,\n\nWhen you have a moment, could I please have a short conversation about my recent mock in ${cls}? I was disappointed with the mark and would like to understand where I lost most of the marks on the application questions.\n\nI am free at break on Thursday or after school on Friday.\n\nKind regards,\n${student}`
       })
     ];
 
     const myTimetable = [
-      { day: "Wednesday", slots: [
-        { classLabel: "12A/B2", start: "15:25", end: "16:10" },
-        { classLabel: "11X/S1", start: "16:20", end: "16:55" },
-        { classLabel: "13P/C1", start: "17:00", end: "17:30" }
+      { day: "Monday", note: "P3–P5 focus", slots: [
+        { classLabel: "13E/B1", start: "09:05", end: "09:55", room: "Lab 3" },
+        { classLabel: "Free / Prep", start: "10:10", end: "11:00", room: "—", free: true },
+        { classLabel: "12A/B2", start: "11:20", end: "12:10", room: "Lab 2" },
+        { classLabel: "Duty / Meetings", start: "12:15", end: "13:00", room: "Staff room", free: true },
+        { classLabel: "11X/S1", start: "13:40", end: "14:30", room: "Lab 1" },
+        { classLabel: "13P/C1", start: "14:40", end: "15:30", room: "Chem Lab" }
       ]},
-      { day: "Friday", slots: [
-        { classLabel: "13E/B1", start: "15:05", end: "15:35" },
-        { classLabel: "11X/S1", start: "15:50", end: "16:20" },
-        { classLabel: "12A/B2", start: "16:40", end: "17:25" }
+      { day: "Tuesday", note: "Assessment window", slots: [
+        { classLabel: "11X/S1", start: "09:05", end: "09:55", room: "Lab 1" },
+        { classLabel: "13E/B1", start: "10:10", end: "11:00", room: "Lab 3" },
+        { classLabel: "Department meeting", start: "11:20", end: "12:10", room: "S1", free: true },
+        { classLabel: "12A/B2", start: "13:40", end: "14:30", room: "Lab 2" },
+        { classLabel: "Intervention Y13", start: "14:40", end: "15:20", room: "Lab 3", free: true }
+      ]},
+      { day: "Wednesday", note: "After-school clinics", slots: [
+        { classLabel: "13P/C1", start: "09:05", end: "09:55", room: "Chem Lab" },
+        { classLabel: "12A/B2", start: "10:10", end: "11:00", room: "Lab 2" },
+        { classLabel: "11X/S1", start: "11:20", end: "12:10", room: "Lab 1" },
+        { classLabel: "Free / Marking", start: "13:40", end: "14:30", room: "—", free: true },
+        { classLabel: "12A/B2", start: "15:25", end: "16:10", room: "Lab 2" },
+        { classLabel: "11X/S1", start: "16:20", end: "16:55", room: "Lab 1" },
+        { classLabel: "13P/C1", start: "17:00", end: "17:30", room: "Chem Lab" }
+      ]},
+      { day: "Thursday", note: "Practical heavy", slots: [
+        { classLabel: "13E/B1", start: "09:05", end: "10:00", room: "Lab 3" },
+        { classLabel: "13P/C1", start: "10:10", end: "11:05", room: "Chem Lab" },
+        { classLabel: "12A/B2", start: "11:20", end: "12:15", room: "Lab 2" },
+        { classLabel: "Pastoral / HOY liaison", start: "13:40", end: "14:20", room: "Office", free: true },
+        { classLabel: "11X/S1", start: "14:30", end: "15:25", room: "Lab 1" }
+      ]},
+      { day: "Friday", note: "End of week clinics", slots: [
+        { classLabel: "11X/S1", start: "09:05", end: "09:55", room: "Lab 1" },
+        { classLabel: "13E/B1", start: "10:10", end: "11:00", room: "Lab 3" },
+        { classLabel: "Free / Reports", start: "11:20", end: "12:10", room: "—", free: true },
+        { classLabel: "13E/B1", start: "15:05", end: "15:35", room: "Lab 3" },
+        { classLabel: "11X/S1", start: "15:50", end: "16:20", room: "Lab 1" },
+        { classLabel: "12A/B2", start: "16:40", end: "17:25", room: "Lab 2" }
       ]}
     ];
 
@@ -1833,6 +1210,9 @@ Head of A-Level Science</textarea>
     let homeworkRecords = {};
     let mailInbox = [];
     let mailSent = [];
+    let driveFolders = [{ id: "root", name: "My Drive", parent: null }];
+    let driveMeta = []; // { id, name, folderId, size, type, at }
+    let currentFolderId = "root";
     let testColumns = [
       { id: "test1", label: "Test 1", max: 100 },
       { id: "test2", label: "Test 2", max: 100 },
@@ -1846,20 +1226,54 @@ Head of A-Level Science</textarea>
     let selectedMailId = null;
     let saveTimer = null;
     let notifyTimer = null;
+    let idb = null;
 
     const MARK_MAP = { "/": "present", ".": "absent", "L": "late", "l": "late" };
     const $ = (id) => document.getElementById(id);
 
     function escapeHtml(str) {
       return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
     }
+    function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
-    function pick(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, 1);
+        req.onupgradeneeded = () => {
+          const db = req.result;
+          if (!db.objectStoreNames.contains(DB_STORE)) {
+            db.createObjectStore(DB_STORE, { keyPath: "id" });
+          }
+        };
+        req.onsuccess = () => { idb = req.result; resolve(idb); };
+        req.onerror = () => reject(req.error);
+      });
+    }
+    function idbPut(record) {
+      return new Promise((resolve, reject) => {
+        const tx = idb.transaction(DB_STORE, "readwrite");
+        tx.objectStore(DB_STORE).put(record);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
+    }
+    function idbGet(id) {
+      return new Promise((resolve, reject) => {
+        const tx = idb.transaction(DB_STORE, "readonly");
+        const req = tx.objectStore(DB_STORE).get(id);
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+    function idbDelete(id) {
+      return new Promise((resolve, reject) => {
+        const tx = idb.transaction(DB_STORE, "readwrite");
+        tx.objectStore(DB_STORE).delete(id);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+      });
     }
 
     function loadState() {
@@ -1876,6 +1290,8 @@ Head of A-Level Science</textarea>
         if (data.registerDate) registerDate = data.registerDate;
         if (data.mailInbox) mailInbox = data.mailInbox;
         if (data.mailSent) mailSent = data.mailSent;
+        if (data.driveFolders) driveFolders = data.driveFolders;
+        if (data.driveMeta) driveMeta = data.driveMeta;
         if (data.classStudents) {
           classes.forEach((c) => {
             if (data.classStudents[c.id]) {
@@ -1894,17 +1310,15 @@ Head of A-Level Science</textarea>
         localStorage.setItem(STORAGE_KEY, JSON.stringify({
           attendance, testData, behaviourRecords, homeworkRecords, testColumns,
           activeClassId, registerDate, classStudents, mailInbox, mailSent,
-          savedAt: new Date().toISOString()
+          driveFolders, driveMeta, savedAt: new Date().toISOString()
         }));
         showToast("Saved");
       } catch (e) { showToast("Save failed"); }
     }
-
     function scheduleSave() {
       clearTimeout(saveTimer);
       saveTimer = setTimeout(persist, 250);
     }
-
     function showToast(msg) {
       const t = $("saveToast");
       t.textContent = msg;
@@ -1915,15 +1329,8 @@ Head of A-Level Science</textarea>
     function getActiveClass() {
       return classes.find((c) => c.id === activeClassId) || classes[0];
     }
-
-    function attKey(classId, name) {
-      return `${registerDate}:${classId}:${name}`;
-    }
-
-    function getMark(classId, name) {
-      return attendance[attKey(classId, name)] || "";
-    }
-
+    function attKey(classId, name) { return `${registerDate}:${classId}:${name}`; }
+    function getMark(classId, name) { return attendance[attKey(classId, name)] || ""; }
     function setMark(classId, name, mark) {
       const m = String(mark || "").trim();
       if (!m) delete attendance[attKey(classId, name)];
@@ -1935,31 +1342,26 @@ Head of A-Level Science</textarea>
       scheduleSave();
       return true;
     }
-
     function getSubjectTitle(c) { return c.subject || "Science"; }
     function getClassTeacherLine(c) {
       return c.mine ? "Teacher: Mr R. Mohammed" : `Teacher: ${c.teacher}`;
     }
-
     function formatDisplayDate(iso) {
       if (!iso) return "";
       return new Date(iso + "T12:00:00").toLocaleDateString("en-GB", {
         weekday: "short", day: "numeric", month: "short", year: "numeric"
       });
     }
-
     function formatDateTime(ts) {
       return new Date(ts).toLocaleString("en-GB", {
         weekday: "short", day: "numeric", month: "short",
         hour: "2-digit", minute: "2-digit"
       });
     }
-
     function getHomeworks(classId) {
       if (!homeworkRecords[classId]) homeworkRecords[classId] = [];
       return homeworkRecords[classId];
     }
-
     function ensureTestData(c) {
       c.students.forEach((name) => {
         const key = `${c.id}:${name}`;
@@ -1969,7 +1371,6 @@ Head of A-Level Science</textarea>
         });
       });
     }
-
     function getBehaviour(classId, name) {
       return behaviourRecords[`${classId}:${name}`] || "";
     }
@@ -1985,13 +1386,12 @@ Head of A-Level Science</textarea>
       if (name === "homework") renderHomeworkPage();
       if (name === "timetable") renderTimetablePage();
       if (name === "email") renderEmailPage();
+      if (name === "drive") renderDrive();
       if (name === "register") closeTaskPanels();
     }
-
     function closeTaskPanels() {
       ["dataPanel", "behaviourPanel"].forEach((id) => $(id).classList.remove("open"));
     }
-
     function toggleTaskPanel(id) {
       showView("register");
       ["dataPanel", "behaviourPanel"].forEach((o) => {
@@ -2000,11 +1400,8 @@ Head of A-Level Science</textarea>
       $(id).classList.toggle("open");
     }
 
-    /* ——— Mail core ——— */
-    function unreadCount() {
-      return mailInbox.filter((m) => !m.read).length;
-    }
-
+    /* Mail */
+    function unreadCount() { return mailInbox.filter((m) => !m.read).length; }
     function updateMailBadge() {
       const n = unreadCount();
       const badge = $("mailBadge");
@@ -2013,7 +1410,6 @@ Head of A-Level Science</textarea>
       $("inboxCount").textContent = String(mailInbox.length);
       $("sentCount").textContent = String(mailSent.length);
     }
-
     function showMailNotification(msg) {
       const box = $("mailNotify");
       $("mailNotifyFrom").textContent = (msg.from || "").split(" — ")[0];
@@ -2021,8 +1417,7 @@ Head of A-Level Science</textarea>
       $("mailNotifyPreview").textContent = (msg.body || "").replace(/\s+/g, " ").slice(0, 90);
       box.classList.add("show");
       clearTimeout(notifyTimer);
-      notifyTimer = setTimeout(() => box.classList.remove("show"), 6000);
-
+      notifyTimer = setTimeout(() => box.classList.remove("show"), 7000);
       if ("Notification" in window && Notification.permission === "granted") {
         try {
           new Notification("WLS · New email", {
@@ -2032,76 +1427,61 @@ Head of A-Level Science</textarea>
         } catch (_) {}
       }
     }
-
     function deliverInbox(msg, notify = true) {
       mailInbox.unshift(msg);
       scheduleSave();
       updateMailBadge();
       if (notify) showMailNotification(msg);
-      if ($("viewEmail").classList.contains("active") && mailFolder === "inbox") {
-        renderMailList();
-      }
+      if ($("viewEmail").classList.contains("active") && mailFolder === "inbox") renderMailList();
     }
-
     function scheduleStaffReply(toFull, subject, classLabel) {
-      const delay = 4000 + Math.floor(Math.random() * 10000);
+      const delay = 3500 + Math.floor(Math.random() * 12000);
       setTimeout(() => {
         const shortName = toFull.split(" — ")[0];
         const tpl = pick(staffReplyTemplates);
         const reply = tpl(shortName, subject, classLabel);
         deliverInbox({
           id: `in-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-          from: toFull,
-          to: ME,
-          subject: reply.subject,
-          body: reply.body,
-          at: Date.now(),
-          read: false,
-          kind: "staff",
-          font: pick(FONT_CLASSES)
+          from: toFull, to: ME, subject: reply.subject, body: reply.body,
+          at: Date.now(), read: false, kind: "staff", font: pick(FONT_CLASSES)
         });
       }, delay);
     }
-
     function randomStudentEmail() {
       const myClasses = classes.filter((c) => c.mine && c.students.length);
       if (!myClasses.length) return;
       const cls = pick(myClasses);
       const student = pick(cls.students);
-      const tpl = pick(studentMailTemplates);
-      const content = tpl(student, cls.label);
+      const content = pick(studentMailTemplates)(student, cls.label);
       deliverInbox({
         id: `stu-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
         from: `${student} — Student (${cls.label})`,
-        to: ME,
-        subject: content.subject,
-        body: content.body,
-        at: Date.now(),
-        read: false,
-        kind: "student",
+        to: ME, subject: content.subject, body: content.body,
+        at: Date.now(), read: false, kind: "student",
         font: pick(["font-default", "font-rounded", "font-hand", "font-serif"])
       });
     }
-
-    function scheduleNextStudentEmail() {
-      const delay = 25000 + Math.floor(Math.random() * 50000);
+    function randomStaffEmail() {
+      const staff = pick(emailRecipients);
+      const content = pick(staffProactiveTemplates)(staff.split(" — ")[0]);
+      deliverInbox({
+        id: `stf-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+        from: staff, to: ME, subject: content.subject, body: content.body,
+        at: Date.now(), read: false, kind: "staff", font: pick(FONT_CLASSES)
+      });
+    }
+    function scheduleNextIncoming() {
+      const delay = 20000 + Math.floor(Math.random() * 45000);
       setTimeout(() => {
-        if (Math.random() < 0.75) randomStudentEmail();
-        scheduleNextStudentEmail();
+        if (Math.random() < 0.55) randomStudentEmail();
+        else randomStaffEmail();
+        scheduleNextIncoming();
       }, delay);
     }
-
     function sendMail({ to, subject, body }) {
       const msg = {
-        id: `out-${Date.now()}`,
-        from: ME,
-        to,
-        subject,
-        body,
-        at: Date.now(),
-        read: true,
-        kind: "staff",
-        font: "font-default"
+        id: `out-${Date.now()}`, from: ME, to, subject, body,
+        at: Date.now(), read: true, kind: "staff", font: "font-default"
       };
       mailSent.unshift(msg);
       scheduleSave();
@@ -2111,18 +1491,15 @@ Head of A-Level Science</textarea>
       }
       return msg;
     }
-
     function setMailFolder(folder) {
       mailFolder = folder;
       selectedMailId = null;
       document.querySelectorAll(".mail-nav button").forEach((b) => {
         b.setAttribute("aria-selected", String(b.dataset.folder === folder));
       });
-
       const compose = $("mailComposePane");
       const read = $("mailReadPane");
       const list = document.querySelector(".mail-list");
-
       if (folder === "compose") {
         compose.style.display = "grid";
         read.style.display = "none";
@@ -2137,11 +1514,9 @@ Head of A-Level Science</textarea>
         showMailRead(null);
       }
     }
-
     function currentMailList() {
       return mailFolder === "sent" ? mailSent : mailInbox;
     }
-
     function renderMailList() {
       const items = $("mailItems");
       const list = currentMailList();
@@ -2163,7 +1538,7 @@ Head of A-Level Science</textarea>
         btn.innerHTML = `
           <div class="mail-item-from">${escapeHtml(peer.split(" — ")[0])}${tag}</div>
           <div class="mail-item-subject">${escapeHtml(msg.subject)}</div>
-          <div class="mail-item-preview">${escapeHtml((msg.body || "").replace(/\s+/g, " ").slice(0, 80))}</div>
+          <div class="mail-item-preview">${escapeHtml((msg.body || "").replace(/\s+/g, " ").slice(0, 90))}</div>
           <div class="mail-item-time">${escapeHtml(formatDateTime(msg.at))}</div>
         `;
         btn.addEventListener("click", () => {
@@ -2179,7 +1554,6 @@ Head of A-Level Science</textarea>
         items.appendChild(btn);
       });
     }
-
     function showMailRead(msg) {
       if (!msg) {
         $("mailReadEmpty").style.display = "block";
@@ -2192,48 +1566,109 @@ Head of A-Level Science</textarea>
       $("mailReadFrom").textContent = msg.from;
       $("mailReadTo").textContent = msg.to;
       $("mailReadWhen").textContent = formatDateTime(msg.at);
-
       const body = $("mailReadBody");
       body.className = "mail-read-body " + (msg.font || "font-default");
       body.textContent = msg.body;
-
-      const footer = $("mailStaffFooter");
-      const showFooter = msg.kind !== "student";
-      footer.style.display = showFooter ? "flex" : "none";
-
-      $("mailReplyBtn").onclick = () => startReply(msg, false);
-      $("mailReplyAllBtn").onclick = () => startReply(msg, true);
+      $("mailStaffFooter").style.display = msg.kind !== "student" ? "flex" : "none";
+      $("mailReplyBtn").onclick = () => startReply(msg);
+      $("mailReplyAllBtn").onclick = () => startReply(msg);
     }
-
-    function startReply(msg, replyAll) {
+    function startReply(msg) {
       const to = mailFolder === "sent" ? msg.to : msg.from;
       const subject = msg.subject.startsWith("Re:") ? msg.subject : `Re: ${msg.subject}`;
       const quoted = `\n\n———— Original message ————\nFrom: ${msg.from}\nDate: ${formatDateTime(msg.at)}\n\n${msg.body}`;
-
-      // Ensure recipient is in the select (students may not be)
       const select = $("emailTo");
-      let found = [...select.options].some((o) => o.value === to);
-      if (!found) {
+      if (![...select.options].some((o) => o.value === to)) {
         const opt = document.createElement("option");
-        opt.value = to;
-        opt.textContent = to;
+        opt.value = to; opt.textContent = to;
         select.prepend(opt);
       }
       select.value = to;
       $("emailSubject").value = subject;
+      const first = to.split(" — ")[0];
       $("emailMessage").value =
-        `Dear ${(to.split(" — ")[0].split(" ")[0] === "Mr" || to.split(" — ")[0].split(" ")[0] === "Ms" || to.split(" — ")[0].split(" ")[0] === "Dr" || to.split(" — ")[0].split(" ")[0] === "Mrs" || to.split(" — ")[0].split(" ")[0] === "Miss") ? to.split(" — ")[0] : to.split(" — ")[0]},\n\n\nKind regards,\nMr R. Mohammed\nHead of A-Level Science` + quoted;
-
+        `Dear ${first},\n\n\nKind regards,\nMr R. Mohammed\nHead of A-Level Science` + quoted;
       setMailFolder("compose");
     }
-
     function renderEmailPage() {
       updateMailBadge();
-      if (mailFolder === "compose") setMailFolder("compose");
-      else setMailFolder(mailFolder === "sent" ? "sent" : "inbox");
+      setMailFolder(mailFolder === "compose" ? "compose" : (mailFolder === "sent" ? "sent" : "inbox"));
     }
 
-    /* Register UI (same patterns as before) */
+    /* Drive */
+    function formatSize(n) {
+      if (n < 1024) return n + " B";
+      if (n < 1048576) return (n / 1024).toFixed(1) + " KB";
+      return (n / 1048576).toFixed(1) + " MB";
+    }
+    function extLabel(name) {
+      const e = (name.split(".").pop() || "").toUpperCase();
+      return e.slice(0, 4) || "FILE";
+    }
+    function renderDrive() {
+      const list = $("driveFolderList");
+      list.innerHTML = "";
+      driveFolders.forEach((f) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "drive-folder-btn" + (f.id === currentFolderId ? " active" : "");
+        btn.textContent = (f.id === "root" ? "📁 " : "📂 ") + f.name;
+        btn.addEventListener("click", () => {
+          currentFolderId = f.id;
+          renderDrive();
+        });
+        list.appendChild(btn);
+      });
+      const folder = driveFolders.find((f) => f.id === currentFolderId);
+      $("drivePath").textContent = "My Drive" + (folder && folder.id !== "root" ? " / " + folder.name : " /");
+      const files = driveMeta.filter((m) => m.folderId === currentFolderId);
+      const el = $("driveFiles");
+      el.innerHTML = "";
+      if (!files.length) {
+        el.innerHTML = `<div class="empty">No files in this folder. Upload PDF, PPT, DOC, or images.</div>`;
+        return;
+      }
+      files.sort((a, b) => b.at - a.at).forEach((m) => {
+        const row = document.createElement("div");
+        row.className = "drive-row";
+        row.innerHTML = `
+          <div class="drive-icon">${escapeHtml(extLabel(m.name))}</div>
+          <div>
+            <div class="drive-name">${escapeHtml(m.name)}</div>
+            <div class="drive-meta">${escapeHtml(formatSize(m.size))} · ${escapeHtml(formatDateTime(m.at))}</div>
+          </div>
+          <div class="drive-actions">
+            <button type="button" class="btn" data-act="open">Open</button>
+            <button type="button" class="btn" data-act="dl">Download</button>
+            <button type="button" class="btn danger" data-act="del">Delete</button>
+          </div>
+        `;
+        row.querySelector('[data-act="open"]').onclick = async () => {
+          const rec = await idbGet(m.id);
+          if (!rec) { showToast("File data missing on this device"); return; }
+          const url = URL.createObjectURL(rec.blob);
+          window.open(url, "_blank");
+        };
+        row.querySelector('[data-act="dl"]').onclick = async () => {
+          const rec = await idbGet(m.id);
+          if (!rec) { showToast("File data missing on this device"); return; }
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(rec.blob);
+          a.download = m.name;
+          a.click();
+        };
+        row.querySelector('[data-act="del"]').onclick = async () => {
+          if (!confirm("Delete " + m.name + "?")) return;
+          await idbDelete(m.id);
+          driveMeta = driveMeta.filter((x) => x.id !== m.id);
+          scheduleSave();
+          renderDrive();
+        };
+        el.appendChild(row);
+      });
+    }
+
+    /* Register UI */
     function renderTabs() {
       const tabs = $("classTabs");
       tabs.innerHTML = "";
@@ -2265,7 +1700,6 @@ Head of A-Level Science</textarea>
         tabs.appendChild(btn);
       });
     }
-
     function renderStats(c) {
       const marks = c.students.map((n) => getMark(c.id, n));
       $("totalCount").textContent = c.students.length;
@@ -2273,14 +1707,12 @@ Head of A-Level Science</textarea>
       $("absentCount").textContent = marks.filter((m) => m === ".").length;
       $("lateCount").textContent = marks.filter((m) => m === "L").length;
     }
-
     function markClassForInput(mark) {
       if (mark === "/") return "mark-present";
       if (mark === ".") return "mark-absent";
       if (mark === "L") return "mark-late";
       return "";
     }
-
     function renderStudentList(c) {
       const list = $("studentList");
       list.innerHTML = "";
@@ -2348,7 +1780,6 @@ Head of A-Level Science</textarea>
         list.appendChild(row);
       });
     }
-
     function renderDataHead() {
       const head = $("dataHead");
       head.innerHTML = "";
@@ -2363,7 +1794,6 @@ Head of A-Level Science</textarea>
       row.innerHTML = html;
       head.appendChild(row);
     }
-
     function renderDataSheet(c) {
       ensureTestData(c);
       $("sheetMeta").textContent = `${c.label} — test data (saved)`;
@@ -2385,7 +1815,6 @@ Head of A-Level Science</textarea>
         body.appendChild(row);
       });
     }
-
     function renderRegister() {
       const c = getActiveClass();
       $("classTitle").textContent = `${c.label} — ${getSubjectTitle(c)}`;
@@ -2402,7 +1831,6 @@ Head of A-Level Science</textarea>
         .map((c) => `<option value="${c.id}" ${c.id === activeClassId ? "selected" : ""}>${escapeHtml(c.label)} — ${escapeHtml(getSubjectTitle(c))}</option>`)
         .join("");
     }
-
     function collectHomeworks(filterClassId) {
       const rows = [];
       classes.forEach((c) => {
@@ -2412,7 +1840,6 @@ Head of A-Level Science</textarea>
       rows.sort((a, b) => a.due.localeCompare(b.due) || a.classLabel.localeCompare(b.classLabel));
       return rows;
     }
-
     function renderHwTimetable() {
       const filterId = hwFilterMode === "class" ? $("hwClassSelect").value : null;
       const rows = collectHomeworks(filterId);
@@ -2448,7 +1875,6 @@ Head of A-Level Science</textarea>
         body.appendChild(tr);
       });
     }
-
     function renderHwClassList() {
       const classId = $("hwClassSelect").value || activeClassId;
       const c = classes.find((x) => x.id === classId) || getActiveClass();
@@ -2478,7 +1904,6 @@ Head of A-Level Science</textarea>
         el.appendChild(item);
       });
     }
-
     function updateHwPreview() {
       $("hwPreviewTitle").textContent = $("homeworkTitleInput").value.trim() || "Untitled";
       const due = $("homeworkDueInput").value;
@@ -2490,29 +1915,28 @@ Head of A-Level Science</textarea>
       ].filter(Boolean).join(" · ");
       $("hwPreviewBody").innerHTML = $("homeworkDetailsEditor").innerHTML || "<em>No details</em>";
     }
-
     function renderHomeworkPage() {
       populateHwClassSelect();
       renderHwTimetable();
       renderHwClassList();
     }
-
     function renderTimetablePage() {
       const grid = $("timetableGrid");
       grid.innerHTML = "";
       myTimetable.forEach((block) => {
         const day = document.createElement("div");
         day.className = "tt-day";
-        day.innerHTML = `<div class="tt-day-header">${escapeHtml(block.day)}</div>`;
+        day.innerHTML = `<div class="tt-day-header">${escapeHtml(block.day)}<span>${escapeHtml(block.note || "")}</span></div>`;
         block.slots.forEach((slot) => {
           const c = classes.find((x) => x.label === slot.classLabel);
           const row = document.createElement("div");
-          row.className = "tt-slot";
+          row.className = "tt-slot" + (slot.free ? " free" : "");
           row.innerHTML = `
             <div class="tt-time">${escapeHtml(slot.start)} <span>to ${escapeHtml(slot.end)}</span></div>
             <div>
               <div class="tt-class">${escapeHtml(slot.classLabel)}</div>
-              <div class="tt-meta">${escapeHtml(c ? getSubjectTitle(c) : "Science")} · ${c ? c.students.length : "—"} students</div>
+              <div class="tt-meta">${slot.free ? "Non-teaching" : escapeHtml(c ? getSubjectTitle(c) : "Science")}${c && !slot.free ? ` · ${c.students.length} students` : ""}</div>
+              ${slot.room ? `<span class="tt-room">${escapeHtml(slot.room)}</span>` : ""}
             </div>
           `;
           day.appendChild(row);
@@ -2527,7 +1951,6 @@ Head of A-Level Science</textarea>
       scheduleSave();
       renderRegister();
     });
-
     $("editButton").addEventListener("click", () => {
       $("nameInput").value = getActiveClass().students.join("\n");
       $("editor").classList.toggle("open");
@@ -2554,7 +1977,6 @@ Head of A-Level Science</textarea>
       scheduleSave();
       renderRegister();
     });
-
     $("dataSheet").addEventListener("input", (e) => {
       const input = e.target;
       if (!input.matches("input[data-key][data-field]")) return;
@@ -2570,20 +1992,22 @@ Head of A-Level Science</textarea>
       if (input.dataset.columnField === "max") renderDataSheet(getActiveClass());
     });
     $("addTestColumn").addEventListener("click", () => {
-      testColumns.push({ id: `test${Date.now()}`, label: $("newTestName").value.trim() || "New test", max: Number($("newTestMax").value || 100) });
+      testColumns.push({
+        id: `test${Date.now()}`,
+        label: $("newTestName").value.trim() || "New test",
+        max: Number($("newTestMax").value || 100)
+      });
       classes.forEach(ensureTestData);
       $("newTestName").value = "New test";
       $("newTestMax").value = "100";
       scheduleSave();
       renderDataSheet(getActiveClass());
     });
-
     document.querySelectorAll("[data-nav]").forEach((btn) => {
       btn.addEventListener("click", () => showView(btn.dataset.nav));
     });
     $("openDataPanel").addEventListener("click", () => toggleTaskPanel("dataPanel"));
     $("openBehaviourPanel").addEventListener("click", () => toggleTaskPanel("behaviourPanel"));
-
     $("behaviourMenu").addEventListener("click", (e) => {
       const btn = e.target.closest("button[data-behaviour]");
       if (!btn || !behaviourTarget) return;
@@ -2600,12 +2024,10 @@ Head of A-Level Science</textarea>
     });
 
     $("emailTo").innerHTML = emailRecipients.map((r) => `<option>${escapeHtml(r)}</option>`).join("");
-
     document.querySelectorAll(".mail-nav button").forEach((btn) => {
       btn.addEventListener("click", () => setMailFolder(btn.dataset.folder));
     });
     $("mailCancelCompose").addEventListener("click", () => setMailFolder("inbox"));
-
     $("mailComposePane").addEventListener("submit", (e) => {
       e.preventDefault();
       const to = $("emailTo").value;
@@ -2623,9 +2045,8 @@ Head of A-Level Science</textarea>
         selectedMailId = mailSent[0]?.id || null;
         renderMailList();
         if (mailSent[0]) showMailRead(mailSent[0]);
-      }, 500);
+      }, 400);
     });
-
     $("mailNotify").addEventListener("click", () => {
       $("mailNotify").classList.remove("show");
       showView("email");
@@ -2659,8 +2080,7 @@ Head of A-Level Science</textarea>
       const minutes = Number($("homeworkTimeInput").value) || null;
       if (!title || !due) return;
       getHomeworks(classId).push({
-        id: `hw-${Date.now()}`,
-        title, due, minutes,
+        id: `hw-${Date.now()}`, title, due, minutes,
         details: $("homeworkDetailsEditor").innerText.trim(),
         detailsHtml: $("homeworkDetailsEditor").innerHTML.trim()
       });
@@ -2691,28 +2111,110 @@ Head of A-Level Science</textarea>
       renderHwTimetable();
     });
 
+    $("driveNewFolder").addEventListener("click", () => {
+      const name = prompt("Folder name:");
+      if (!name || !name.trim()) return;
+      driveFolders.push({
+        id: "f-" + Date.now(),
+        name: name.trim(),
+        parent: "root"
+      });
+      scheduleSave();
+      renderDrive();
+    });
+    $("driveUpload").addEventListener("change", async (e) => {
+      const files = [...e.target.files];
+      for (const file of files) {
+        const id = "file-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6);
+        await idbPut({ id, blob: file, name: file.name, type: file.type });
+        driveMeta.push({
+          id, name: file.name, folderId: currentFolderId,
+          size: file.size, type: file.type, at: Date.now()
+        });
+      }
+      e.target.value = "";
+      scheduleSave();
+      renderDrive();
+      showToast("Uploaded");
+    });
+
+    $("exportBackup").addEventListener("click", () => {
+      const classStudents = {};
+      classes.forEach((c) => { classStudents[c.id] = c.students; });
+      const payload = {
+        version: 5,
+        exportedAt: new Date().toISOString(),
+        attendance, testData, behaviourRecords, homeworkRecords, testColumns,
+        activeClassId, registerDate, classStudents, mailInbox, mailSent,
+        driveFolders, driveMeta
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `wls-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      showToast("Backup exported");
+    });
+    $("importBackupBtn").addEventListener("click", () => $("importBackupFile").click());
+    $("importBackupFile").addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        const data = JSON.parse(await file.text());
+        if (data.attendance) attendance = data.attendance;
+        if (data.testData) testData = data.testData;
+        if (data.behaviourRecords) behaviourRecords = data.behaviourRecords;
+        if (data.homeworkRecords) homeworkRecords = data.homeworkRecords;
+        if (data.testColumns) testColumns = data.testColumns;
+        if (data.activeClassId) activeClassId = data.activeClassId;
+        if (data.registerDate) registerDate = data.registerDate;
+        if (data.mailInbox) mailInbox = data.mailInbox;
+        if (data.mailSent) mailSent = data.mailSent;
+        if (data.driveFolders) driveFolders = data.driveFolders;
+        if (data.driveMeta) driveMeta = data.driveMeta;
+        if (data.classStudents) {
+          classes.forEach((c) => {
+            if (data.classStudents[c.id]) {
+              c.students = sortByLastName(data.classStudents[c.id]);
+              c.note = `${c.students.length} students`;
+            }
+          });
+        }
+        persist();
+        updateMailBadge();
+        renderRegister();
+        renderDrive();
+        showToast("Backup imported");
+        alert("Import complete. Note: uploaded file contents (PDFs etc.) stay on the device where they were uploaded — re-upload large files on this device if needed.");
+      } catch (err) {
+        alert("Could not import: " + err.message);
+      }
+      e.target.value = "";
+    });
+
     /* Init */
-    loadState();
-    if (!classes.find((c) => c.id === activeClassId)) activeClassId = classes[0].id;
-
-    const weekAhead = new Date();
-    weekAhead.setDate(weekAhead.getDate() + 7);
-    $("homeworkDueInput").value = weekAhead.toISOString().slice(0, 10);
-    $("homeworkDetailsEditor").innerHTML = "Complete the assigned questions.<br><br>Bring answers to the next lesson.";
-
-    classes.forEach(ensureTestData);
-    updateMailBadge();
-    renderRegister();
-
-    if ("Notification" in window && Notification.permission === "default") {
-      Notification.requestPermission().catch(() => {});
-    }
-
-    // First student email after a short delay, then ongoing
-    setTimeout(() => {
-      if (mailInbox.length < 2) randomStudentEmail();
-      scheduleNextStudentEmail();
-    }, 8000);
+    (async () => {
+      await openDB();
+      loadState();
+      if (!classes.find((c) => c.id === activeClassId)) activeClassId = classes[0].id;
+      const weekAhead = new Date();
+      weekAhead.setDate(weekAhead.getDate() + 7);
+      $("homeworkDueInput").value = weekAhead.toISOString().slice(0, 10);
+      $("homeworkDetailsEditor").innerHTML = "Complete the assigned questions.<br><br>Bring answers to the next lesson.";
+      classes.forEach(ensureTestData);
+      updateMailBadge();
+      renderRegister();
+      if ("Notification" in window && Notification.permission === "default") {
+        Notification.requestPermission().catch(() => {});
+      }
+      setTimeout(() => {
+        if (mailInbox.length < 2) {
+          randomStudentEmail();
+          setTimeout(randomStaffEmail, 2500);
+        }
+        scheduleNextIncoming();
+      }, 6000);
+    })();
   </script>
 </body>
 </html>
